@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 
 /**
  * MemberDTO
@@ -15,12 +17,16 @@ import lombok.ToString;
 
 public class MemberDTO {
 
-    private Long id;
-    private String name;
-    private String loginId;
-    private String email;
-    private String phone;
-    private String birthDate;
-    private boolean status;
-
+    private int memberId;
+    private String memberName;
+    private String memberLoginId;
+    private String memberPassword;
+    private String memberEmail;
+    private String memberPhone;
+    private Date memberBirth;
+    private int courseId;
+    private boolean memberStatus;
+    private boolean memberRole;
+    private Date signUpDate;
+    private Date signOutDate;
 }
