@@ -20,6 +20,5 @@ public class MemberCommandService {
 
     public void deleteMember(Long id) {
 
-
     }
 }
