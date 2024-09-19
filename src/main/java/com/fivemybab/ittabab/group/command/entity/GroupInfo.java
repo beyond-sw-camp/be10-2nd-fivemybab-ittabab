@@ -18,4 +18,5 @@ public class GroupInfo {
     private String groupPost;
     private int memberId;
     private int groupCategoryId;
+    private boolean isBlinded;
 }

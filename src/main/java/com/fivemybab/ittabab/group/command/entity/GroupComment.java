@@ -16,4 +16,5 @@ public class GroupComment {
     private Date createDate;
     private Date updateDate;
     private int memberId;
+    private boolean isBlinded;
 }

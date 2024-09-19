@@ -22,5 +22,5 @@ public class PostComment {
     private String commentContent;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
+    private boolean isBlinded;
 }
