@@ -14,11 +14,8 @@ public class MenuCategory {
 
 
     @Id
-    @Column(name = "menu_category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MenuCategoryId;
-
-    @Column(name = "menu_category_name", nullable = false)
     private String MenuCategoryName;
 
 }

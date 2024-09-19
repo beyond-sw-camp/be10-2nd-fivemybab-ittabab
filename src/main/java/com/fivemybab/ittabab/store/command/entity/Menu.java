@@ -13,20 +13,11 @@ import lombok.NoArgsConstructor;
 public class Menu {
 
     @Id
-    @Column(name = "menu_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int menuId;
-
-    @Column(name = "store_id", nullable = false)
     private int storeId;
-
-    @Column(name = "menu_name", nullable = false, columnDefinition = "varchar(300)")
     private String menuName;
-
-    @Column(name = "menu_price", nullable = false)
     private int menuPrice;
-
-    @Column(name = "menu_category_id", nullable = false)
     private int menuCategoryId;
 
 
