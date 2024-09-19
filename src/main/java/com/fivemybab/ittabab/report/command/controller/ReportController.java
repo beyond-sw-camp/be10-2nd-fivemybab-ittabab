@@ -1,2 +1,4 @@
-package com.fivemybab.ittabab.report.command.controller;public class ReportController {
+package com.fivemybab.ittabab.report.command.controller;
+
+public class ReportController {
 }
