@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.schedule.command.dto;
+package com.fivemybab.ittabab.inquiry.command.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class InquiryDTO {
     private LocalDate createDate;
     private String inquiryReply;
     private LocalDate inquiryReplyTime;
-    private int responseMemberId;
+    private Integer responseMemberId;
     private int inquiryMemberId;
 
 }
