@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>모임 상세 정보</title>
+</head>
+<body>
+<h1>모임 상세 정보</h1>
+<div>
+    <p><strong>모임 ID:</strong> <span th:text="${foundGroup.getGroupId()}"></span></p>
+    <p><strong>모집 인원:</strong> <span th:text="${foundGroup.getMemberCounting()}"></span></p>
+    <p><strong>내용:</strong> <span th:text="${foundGroup.getGroupPost()}"></span></p>
+    <p><strong>생성 시간:</strong> <span th:text="${foundGroup.getCreateDate()}"></span></p>
+    <p><strong>종료 시간:</strong> <span th:text="${foundGroup.getEndDate()}"></span></p>
+</div>
+
+<div>
+    <button onclick="location.href='/group/list'">목록으로 돌아가기</button>
+    <button th:onclick="'location.href=\'/group/join/' + ${foundGroup.getGroupId()} + '\''">참가하기</button>
+    <button onclick="location.href='/group/modify'">수정하기</button>
+</div>
+
+<hr>
+
+<h2>댓글</h2>
+<div id="comments-section">
+    <form action="/group/comment" method="post"> <!-- 댓글 전송을 위한 폼 -->
+        <input type="hidden" name="groupId" th:value="${foundGroup.getGroupId()}"/>
+        <textarea name="comment" rows="4" cols="50" placeholder="댓글을 입력하세요..." required></textarea>
+        <br>
+        <button type="submit">댓글 달기</button>
+    </form>
+
+    <h3>댓글 목록</h3>
+    <ul>
+        <li th:each="comment : ${commentList}">
+            <span th:text="${comment.getCommentContent()}"></span> <!-- 댓글 텍스트 -->
+            <br>
+            <small th:text="${comment.getMemberId()}"></small> <!-- 작성자 ID -->
+            <small th:text="${#dates.format(comment.getCreateDate(), 'yyyy-MM-dd HH:mm')}"></small>
+            <button>삭제</button>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
