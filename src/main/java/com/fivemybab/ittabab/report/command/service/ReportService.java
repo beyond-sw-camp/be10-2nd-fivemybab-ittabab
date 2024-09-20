@@ -60,7 +60,7 @@ public class ReportService {
             Report report = reportOpt.get();
             MemberInfo admin = memberRepository.findByMemberId(memberId);
 
-            if (admin.isMemberStatus()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
+            if (admin.isMemberRole()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
                 throw new IllegalArgumentException("본인은 관리자가 아닙니다.");
             }
 
