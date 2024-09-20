@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.member.command.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "member_info")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberInfo {
     @Id
