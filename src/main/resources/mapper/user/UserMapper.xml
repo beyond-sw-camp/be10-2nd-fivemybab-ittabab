@@ -4,25 +4,25 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fivemybab.ittabab.user.query.mapper.UserMapper">
 
-    <!-- 모든 회원 조회 쿼리 -->
-    <select id="findAllUsers" resultType="com.fivemybab.ittabab.user.domain.User">
-        SELECT * FROM user_info
-    </select>
+<!--    &lt;!&ndash; 모든 회원 조회 쿼리 &ndash;&gt;-->
+<!--    <select id="findAllUsers" resultType="com.fivemybab.ittabab.user.command.dto.UserDTO">-->
+<!--        SELECT * FROM user_info-->
+<!--    </select>-->
 
-    <!-- 특정 회원 조회 쿼리 -->
-    <select id="findUserById" parameterType="long" resultType="com.fivemybab.ittabab.user.domain.User">
-        SELECT * FROM user_info WHERE user_id = #{userId}
-    </select>
+<!--    &lt;!&ndash; 특정 회원 조회 쿼리 &ndash;&gt;-->
+<!--    <select id="findUserById" parameterType="long" resultType="com.fivemybab.ittabab.user.command.dto.UserDTO">-->
+<!--        SELECT * FROM user_info WHERE user_id = #{userId}-->
+<!--    </select>-->
 
-    <!-- 회원 추가 쿼리 -->
-    <insert id="insertUser" parameterType="com.fivemybab.ittabab.user.command.entity.UserInfo">
-        INSERT INTO user_info (username, email, phone, sign_up_date, user_role)
-        VALUES (#{username}, #{email}, #{phone}, #{signUpDate}, #{UserDole})
-    </insert>
+<!--    &lt;!&ndash; 회원 추가 쿼리 &ndash;&gt;-->
+<!--    <insert id="insertUser" parameterType="com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo">-->
+<!--        INSERT INTO user_info (username, email, phone, sign_up_date, user_role)-->
+<!--        VALUES (#{username}, #{email}, #{phone}, #{signUpDate}, #{UserDole})-->
+<!--    </insert>-->
 
-    <!-- 회원 삭제 쿼리 -->
-    <delete id="deleteUserById" parameterType="long">
-        DELETE FROM user_info WHERE user_id = #{userId}
-    </delete>
+<!--    &lt;!&ndash; 회원 삭제 쿼리 &ndash;&gt;-->
+<!--    <delete id="deleteUserById" parameterType="long">-->
+<!--        DELETE FROM user_info WHERE user_id = #{userId}-->
+<!--    </delete>-->
 
 </mapper>
