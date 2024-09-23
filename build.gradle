@@ -41,6 +41,8 @@ dependencies {
     // Model Mapper
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation 'org.modelmapper:modelmapper:3.2.1'
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
 }
 
 tasks.named('test') {
