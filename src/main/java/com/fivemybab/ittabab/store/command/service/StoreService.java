@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.store.command.service;
 
 import com.fivemybab.ittabab.store.command.dto.StoreDTO;
-import com.fivemybab.ittabab.store.command.entity.Store;
+import com.fivemybab.ittabab.store.command.domain.aggregate.Store;
 import com.fivemybab.ittabab.store.command.repository.StoreRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -31,15 +31,12 @@ public class StoreService {
     }
 
     /* 가게 번호로 가게 조회 */
-    public StoreDTO findStoreById(int storeId) {
+    public StoreDTO findStoreById(Long storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(IllegalArgumentException::new);
 
         return modelMapper.map(store, StoreDTO.class);
     }
-
-
-
 
     /* 가게 추가 */
     @Transactional
@@ -56,9 +53,8 @@ public class StoreService {
 
     /* 가게 삭제 */
     @Transactional
-    public void deleteStore(Integer storeId) {
+    public void deleteStore(Long storeId) {
         storeRepository.deleteById(storeId);
     }
-
 
 }

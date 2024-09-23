@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class OrderMenuDTO {
 
-    private int orderId;
-    private int reviewId;
-    private int menuId;
+    private Long orderId;
+    private Long reviewId;
+    private Long menuId;
 
 }

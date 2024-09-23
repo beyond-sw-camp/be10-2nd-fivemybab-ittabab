@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.config;
 
-import com.pangtaek.test.mapper.GroupCommentMapper;
-import com.pangtaek.test.mapper.GroupInfoMapper;
+import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
+import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

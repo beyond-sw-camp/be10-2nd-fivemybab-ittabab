@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.schedule.command.service;
 
 import com.fivemybab.ittabab.schedule.command.dto.ScheduleDTO;
-import com.fivemybab.ittabab.schedule.command.entity.ScheduleInfo;
+import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
 import com.fivemybab.ittabab.schedule.command.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -45,7 +45,7 @@ public class ScheduleService {
 
     /* 일정 삭제 */
     @Transactional
-    public void deleteSchedule(Integer scheduleId) {
+    public void deleteSchedule(Long scheduleId) {
         scheduleRepository.deleteById(scheduleId);
     }
 }

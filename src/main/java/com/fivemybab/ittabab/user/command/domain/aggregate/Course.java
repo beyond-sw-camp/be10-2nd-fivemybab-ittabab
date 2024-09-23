@@ -1,0 +1,23 @@
+package com.fivemybab.ittabab.user.command.domain.aggregate;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "course")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long courseId;
+    private Long bootId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String className;
+    private int seasonNum;
+
+}

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface InquiryRepository extends JpaRepository<InquiryInfo, Integer> {
-    List<InquiryInfo> findByInquiryMemberId(int memberId, Sort sort);
+public interface InquiryRepository extends JpaRepository<InquiryInfo, Long> {
+    List<InquiryInfo> findByInquiryUserId(Long userId, Sort sort);
 }

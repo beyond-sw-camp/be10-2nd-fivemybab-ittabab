@@ -1,35 +1,36 @@
 package com.fivemybab.ittabab.report.command.service;
 
-
-import com.fivemybab.ittabab.member.command.entity.MemberInfo;
+import com.fivemybab.ittabab.report.command.domain.aggregate.Target;
 import com.fivemybab.ittabab.report.command.dto.CreateReportDTO;
 import com.fivemybab.ittabab.report.command.dto.ReportDTO;
-import com.fivemybab.ittabab.report.command.entity.Report;
-import com.fivemybab.ittabab.report.command.entity.ReportObject;
-import com.fivemybab.ittabab.report.command.repository.MemberRepository;
+import com.fivemybab.ittabab.report.command.domain.aggregate.Report;
 import com.fivemybab.ittabab.report.command.repository.ReportRepository;
+import com.fivemybab.ittabab.report.command.repository.UserRepository;
+import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
 
     private final ReportRepository reportRepository;
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    public ReportService(ReportRepository reportRepository, MemberRepository memberRepository) {
+    public ReportService(ReportRepository reportRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.reportRepository = reportRepository;
-        this.memberRepository = memberRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     // 신고 생성
-    public ReportDTO createReport(CreateReportDTO createReportDTO, int memberId) {
-        MemberInfo member = memberRepository.findByMemberId(memberId);  // 작성자 조회
-        if (member == null) {
+    public ReportDTO createReport(CreateReportDTO createReportDTO, Long userId) {
+        UserInfo user = userRepository.findByUserId(userId);  // 작성자 조회
+        if (user == null) {
             throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
         }
 
@@ -37,30 +38,30 @@ public class ReportService {
         Report report = Report.builder()
                 .reportTitle(createReportDTO.getReportTitle())
                 .reportContent(createReportDTO.getReportContent())
-                .reportObject(ReportObject.valueOf(createReportDTO.getReportObject()))
-                .objectId(createReportDTO.getObjectId())
-                .memberId(memberId)
+                .target(Target.valueOf(createReportDTO.getReportTarget()))
+                .targetId(createReportDTO.getTargetId())
+                .userId(userId)
                 .isResolved(false)
                 .build();
 
         reportRepository.save(report);
-        return mapToDto(report);
+        return modelMapper.map(report, ReportDTO.class);
     }
 
     // 모든 신고 조회 (관리자)
     public List<ReportDTO> getAllReports() {
-        List<Report> reports = reportRepository.findAll();
-        return reports.stream().map(this::mapToDto).collect(Collectors.toList());
+        List<ReportDTO> reports = reportRepository.findAll().stream().map(report -> modelMapper.map(report, ReportDTO.class)).toList();
+        return reports;
     }
 
     // 신고 처리 (관리자)
-    public ReportDTO resolveReport(int reportId, int memberId) {
+    public ReportDTO resolveReport(Long reportId, Long userId) {
         Optional<Report> reportOpt = reportRepository.findById(reportId);
         if (reportOpt.isPresent()) {
             Report report = reportOpt.get();
-            MemberInfo admin = memberRepository.findByMemberId(memberId);
+            UserInfo admin = userRepository.findByUserId(userId);
 
-            if (admin.isMemberRole()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
+            if (admin.isUserRole()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
                 throw new IllegalArgumentException("본인은 관리자가 아닙니다.");
             }
 
@@ -69,23 +70,10 @@ public class ReportService {
 
             reportRepository.save(report);  // 변경 사항 저장
 
-            return mapToDto(report);
+            return modelMapper.map(report, ReportDTO.class);
         } else {
             throw new IllegalArgumentException("신고를 찾을 수 없습니다.");
         }
     }
 
-    // Report 엔티티를 DTO로 변환
-    private ReportDTO mapToDto(Report report) {
-        ReportDTO dto = new ReportDTO();
-        dto.setReportId(report.getReportId());
-        dto.setReportTitle(report.getReportTitle());
-        dto.setReportContent(report.getReportContent());
-        dto.setReportObject(report.getReportObject().name());
-        dto.setObjectId(report.getObjectId());
-        dto.setMemberId(report.getMemberId());
-        dto.setCreateDate(report.getCreateDate());
-        dto.setIsResolved(report.getIsResolved());
-        return dto;
-    }
 }
