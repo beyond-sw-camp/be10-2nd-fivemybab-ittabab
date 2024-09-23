@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Group List</title>
+</head>
+<body>
+<h1>Group List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>종류</th>
+        <th>모집 인원</th>
+        <th>내용</th>
+        <th>생성 시간</th>
+        <th>종료 시간</th>
+        <th>자세히 보기</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="group : ${groupList}">
+        <td>
+            <span th:switch="${group.getGroupCategoryId()}">
+                <span th:case="1">아침</span>
+                <span th:case="2">점심</span>
+                <span th:case="3">저녁</span>
+                <span th:case="4">음주</span>
+                <span th:case="5">오락</span>
+                <span th:case="*">정의되지 않음</span> <!-- 예외 처리 -->
+            </span>
+        </td>
+        <td th:text="${group.getMemberCounting()}"></td>
+        <td th:text="${group.getGroupPost()}"></td>
+        <td th:text="${#dates.format(group.getCreateDate(), 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${#dates.format(group.getEndDate(), 'yyyy-MM-dd HH:mm')}"></td>
+
+        <td>
+            <button th:onclick="'location.href=\'/group/detail/' + ${group.getGroupId()} + '\''">자세히 보기</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,8 +1,6 @@
 package com.fivemybab.ittabab.group.command.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -10,6 +8,7 @@ import java.util.Date;
 @Table(name = "group_comment_id")
 public class GroupComment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int groupCommentId;
     private int groupId;
     private String commentContent;
