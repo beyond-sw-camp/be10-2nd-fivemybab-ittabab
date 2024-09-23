@@ -9,10 +9,10 @@ import lombok.ToString;
 @ToString
 public class MenuDTO {
 
-    private int menuId;
-    private int storeId;
+    private Long menuId;
+    private Long storeId;
     private String menuName;
     private int menuPrice;
-    private int menuCategoryCode;
+    private Long menuCategoryId;
 
 }

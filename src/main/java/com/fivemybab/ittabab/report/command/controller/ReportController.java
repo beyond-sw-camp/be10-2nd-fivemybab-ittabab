@@ -22,8 +22,8 @@ public class ReportController {
 
     // 신고 생성
     @PostMapping
-    public ReportDTO createReport(@RequestBody CreateReportDTO createReportDto, @RequestParam int memberId) {
-        return reportService.createReport(createReportDto, memberId);
+    public ReportDTO createReport(@RequestBody CreateReportDTO createReportDto, @RequestParam Long userId) {
+        return reportService.createReport(createReportDto, userId);
     }
 
     // 모든 신고 조회
@@ -34,7 +34,7 @@ public class ReportController {
 
     // 신고 처리 (관리자만 가능)
     @PutMapping("/{reportId}/resolve")
-    public ReportDTO resolveReport(@PathVariable int reportId, @RequestParam int adminId) {
+    public ReportDTO resolveReport(@PathVariable Long reportId, @RequestParam Long adminId) {
         return reportService.resolveReport(reportId, adminId);
     }
 }

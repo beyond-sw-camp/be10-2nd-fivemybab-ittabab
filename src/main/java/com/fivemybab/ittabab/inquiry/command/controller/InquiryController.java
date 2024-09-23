@@ -27,9 +27,9 @@ public class InquiryController {
     }
 
     /* 문의 조회 (사용자)*/
-    @GetMapping("/list/member/{memberId}")
-    public String findInquiryListByMemberId(@PathVariable int memberId, Model model) {
-        List<InquiryDTO> inquiryList = inquiryService.findInquiryListByMemberId(memberId);
+    @GetMapping("/list/user/{userId}")
+    public String findInquiryListByUserId(@PathVariable Long userId, Model model) {
+        List<InquiryDTO> inquiryList = inquiryService.findInquiryListByUserId(userId);
         model.addAttribute("inquiryList", inquiryList);
         return "inquiry/list";
     }
@@ -48,16 +48,16 @@ public class InquiryController {
 
     /* 문의 답변 (관리자) */
     @GetMapping("/answer/{inquiryId}")
-    public String registInquiryAnswerForm(@PathVariable int inquiryId, Model model) {
+    public String registInquiryAnswerForm(@PathVariable Long inquiryId, Model model) {
         model.addAttribute("inquiryId", inquiryId);
         return "inquiry/answer";
     }
 
     @PostMapping("/answer/{inquiryId}")
     public String registInquiryAnswer(@ModelAttribute InquiryDTO inquiryDTO,
-                                      @RequestParam Integer responseMemberId) {
+                                      @RequestParam Long responseUserId) {
         System.out.println("Reply Content: " + inquiryDTO.getInquiryReply());
-        inquiryService.registInquiryAnswer(inquiryDTO.getInquiryId(), inquiryDTO.getInquiryReply(), responseMemberId);
+        inquiryService.registInquiryAnswer(inquiryDTO.getInquiryId(), inquiryDTO.getInquiryReply(), responseUserId);
         return "redirect:/inquiry/list";
     }
 }

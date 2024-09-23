@@ -8,7 +8,7 @@
 <h1>모임 상세 정보</h1>
 <div>
     <p><strong>모임 ID:</strong> <span th:text="${foundGroup.getGroupId()}"></span></p>
-    <p><strong>모집 인원:</strong> <span th:text="${foundGroup.getMemberCounting()}"></span></p>
+    <p><strong>모집 인원:</strong> <span th:text="${foundGroup.getUserCounting()}"></span></p>
     <p><strong>내용:</strong> <span th:text="${foundGroup.getGroupPost()}"></span></p>
     <p><strong>생성 시간:</strong> <span th:text="${foundGroup.getCreateDate()}"></span></p>
     <p><strong>종료 시간:</strong> <span th:text="${foundGroup.getEndDate()}"></span></p>
@@ -36,7 +36,7 @@
         <li th:each="comment : ${commentList}">
             <span th:text="${comment.getCommentContent()}"></span> <!-- 댓글 텍스트 -->
             <br>
-            <small th:text="${comment.getMemberId()}"></small> <!-- 작성자 ID -->
+            <small th:text="${comment.getUserId()}"></small> <!-- 작성자 ID -->
             <small th:text="${#dates.format(comment.getCreateDate(), 'yyyy-MM-dd HH:mm')}"></small>
             <button>삭제</button>
         </li>

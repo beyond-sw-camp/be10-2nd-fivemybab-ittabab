@@ -29,7 +29,7 @@
                 <span th:case="*">정의되지 않음</span> <!-- 예외 처리 -->
             </span>
         </td>
-        <td th:text="${group.getMemberCounting()}"></td>
+        <td th:text="${group.getUserCounting()}"></td>
         <td th:text="${group.getGroupPost()}"></td>
         <td th:text="${#dates.format(group.getCreateDate(), 'yyyy-MM-dd HH:mm')}"></td>
         <td th:text="${#dates.format(group.getEndDate(), 'yyyy-MM-dd HH:mm')}"></td>

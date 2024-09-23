@@ -52,7 +52,7 @@ public class ScheduleController {
     public void scheduleDeletePage() {}
 
     @PostMapping("/delete")
-    public String deleteSchedule(@RequestParam Integer scheduleId){
+    public String deleteSchedule(@RequestParam Long scheduleId){
         scheduleService.deleteSchedule(scheduleId);
         return "redirect:/schedule/list";
     }

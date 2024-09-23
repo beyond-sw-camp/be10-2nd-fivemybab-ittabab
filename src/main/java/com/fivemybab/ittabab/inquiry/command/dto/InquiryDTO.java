@@ -5,18 +5,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
 public class InquiryDTO {
 
-    private int inquiryId;
+    private Long inquiryId;
     private String inquiryContent;
-    private LocalDate createDate;
+    private LocalDateTime createDate;
     private String inquiryReply;
-    private LocalDate inquiryReplyTime;
-    private Integer responseMemberId;
-    private int inquiryMemberId;
+    private LocalDateTime inquiryReplyTime;
+    private Long responseUserId;
+    private Long inquiryUserId;
 
 }

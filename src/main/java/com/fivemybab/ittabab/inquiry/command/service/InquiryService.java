@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -31,8 +32,8 @@ public class InquiryService {
     }
 
     /* 사용자 문의 목록 */
-    public List<InquiryDTO> findInquiryListByMemberId(int memberId) {
-        List<InquiryInfo> inquiryList = inquiryRepository.findByInquiryMemberId(memberId, Sort.by("inquiryId").descending());
+    public List<InquiryDTO> findInquiryListByUserId(Long userId) {
+        List<InquiryInfo> inquiryList = inquiryRepository.findByInquiryUserId(userId, Sort.by("inquiryId").descending());
         return inquiryList.stream()
                 .map(inquiryInfo -> modelMapper.map(inquiryInfo, InquiryDTO.class))
                 .toList();
@@ -43,22 +44,22 @@ public class InquiryService {
     public void registInquiryQuestion(InquiryDTO inquiryDTO) {
         InquiryInfo inquiryInfo = modelMapper.map(inquiryDTO, InquiryInfo.class);
 
-        inquiryInfo.setResponseMemberId(null);  // 명시적으로 null 설정
+        inquiryInfo.setResponseUserId(null);  // 명시적으로 null 설정
         inquiryRepository.save(inquiryInfo);
     }
 
     /* 문의 답변 등록 (관리자) */
     @Transactional
-    public void registInquiryAnswer(int inquiryId, String inquiryReply, Integer responseMemberId) {
+    public void registInquiryAnswer(Long inquiryId, String inquiryReply, Long responseUserId) {
         InquiryInfo inquiryInfo = inquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 문의 : " + inquiryId));
 
         inquiryInfo.setInquiryReply(inquiryReply);
-        inquiryInfo.setInquiryReplyTime(LocalDate.now());
+        inquiryInfo.setInquiryReplyTime(LocalDateTime.now());
 
-        // responseMemberId가 null이 아닌 경우만 설정
-        if (responseMemberId != null) {
-            inquiryInfo.setResponseMemberId(responseMemberId);
+        // responseUserId가 null이 아닌 경우만 설정
+        if (responseUserId != null) {
+            inquiryInfo.setResponseUserId(responseUserId);
         }
 
         inquiryRepository.save(inquiryInfo);

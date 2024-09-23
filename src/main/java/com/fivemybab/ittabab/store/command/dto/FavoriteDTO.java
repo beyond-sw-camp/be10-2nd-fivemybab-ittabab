@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class FavoriteDTO {
 
-    private int favoriteId;
-    private int memberId;
-    private int storeId;
+    private Long favoriteId;
+    private Long userId;
+    private Long storeId;
 
 }

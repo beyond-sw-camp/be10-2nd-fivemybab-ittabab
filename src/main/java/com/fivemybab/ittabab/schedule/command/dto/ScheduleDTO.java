@@ -5,14 +5,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 public class ScheduleDTO {
-    private int scheduleId;
+
+    private Long scheduleId;
     private LocalDate scheduleDate;
+    private String scheduleTitle;
     private String scheduleContent;
-    private int memberId;
+    private Long userId;
+
 }

@@ -1,14 +1,12 @@
 package com.fivemybab.ittabab.inquiry.command.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "inquiry")
@@ -18,20 +16,20 @@ public class InquiryInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int inquiryId;
+    private Long inquiryId;
     private String inquiryContent;
-    private LocalDate createDate;
+    private LocalDateTime createDate;
     @Setter
     private String inquiryReply;
     @Setter
-    private LocalDate inquiryReplyTime;
+    private LocalDateTime inquiryReplyTime;
     @Setter
-    private Integer responseMemberId;
-    private int inquiryMemberId;
+    private Long responseUserId;
+    private Long inquiryUserId;
 
     @PrePersist
     protected void onCreate() {
-        this.createDate = LocalDate.now();
+        this.createDate = LocalDateTime.now();
     }
 
 }
