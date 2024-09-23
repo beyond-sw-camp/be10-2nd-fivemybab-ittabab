@@ -5,8 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-src/main/resources/application.yml
-API-KEY.properties
+src/main/resources/config.properties
 
 ### STS ###
 .apt_generated
