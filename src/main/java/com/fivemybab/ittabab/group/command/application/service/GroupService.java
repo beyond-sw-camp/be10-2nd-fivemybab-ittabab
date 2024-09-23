@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDTO;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
 import com.fivemybab.ittabab.group.command.application.repository.GroupInfoRepository;
+import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GroupService {
 
     private final SqlSessionTemplate session;
     private final GroupInfoRepository groupInfoRepository;
-
-    @Autowired
-    public GroupService(SqlSessionTemplate session, GroupInfoRepository repository) {
-        this.session = session;
-        this.groupInfoRepository = repository;
-    }
 
     public List<GroupInfoDTO> findGroupByGroupStatus() {
         return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus();
