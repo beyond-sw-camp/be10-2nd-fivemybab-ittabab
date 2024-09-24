@@ -26,4 +26,8 @@ public class ScheduleInfo {
     public void modifyScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
+
+    public void modifyScheduleTitle(String scheduleTitle) {
+        this.scheduleTitle = scheduleTitle;
+    }
 }
