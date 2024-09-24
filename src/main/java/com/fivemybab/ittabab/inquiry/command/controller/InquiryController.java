@@ -2,10 +2,13 @@ package com.fivemybab.ittabab.inquiry.command.controller;
 
 import com.fivemybab.ittabab.inquiry.command.dto.InquiryDTO;
 import com.fivemybab.ittabab.inquiry.command.service.InquiryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -17,47 +20,39 @@ public class InquiryController {
     public InquiryController(InquiryService inquiryService) {
         this.inquiryService = inquiryService;
     }
-
-    /* 문의 전체 조회 (관리자) */
     @GetMapping("/list")
-    public String findInquiryList(Model model){
+    public ResponseEntity<List<InquiryDTO>> findInquiryList() {
         List<InquiryDTO> inquiryList = inquiryService.findInquiryList();
-        model.addAttribute("inquiryList", inquiryList);
-        return "inquiry/list";
+        return new ResponseEntity<>(inquiryList, HttpStatus.OK);
     }
 
     /* 문의 조회 (사용자)*/
     @GetMapping("/list/user/{userId}")
-    public String findInquiryListByUserId(@PathVariable Long userId, Model model) {
-        List<InquiryDTO> inquiryList = inquiryService.findInquiryListByUserId(userId);
-        model.addAttribute("inquiryList", inquiryList);
-        return "inquiry/list";
+    public ResponseEntity<List<InquiryDTO>> findInquiryListByUserId(@PathVariable Long userId) {
+        List<InquiryDTO> inquiryId = inquiryService.findInquiryListByUserId(userId);
+        return new ResponseEntity<>(inquiryId,HttpStatus.OK);
     }
 
     /* 문의 등록 (사용자) */
-    @GetMapping("/question")
-    public String registInquiryQuestionForm() {
-        return "inquiry/question";
+    @PostMapping("/question")
+    public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryDTO inquiryDTO) {
+        inquiryDTO.setCreateDate(LocalDateTime.now());
+        inquiryService.registInquiryQuestion(inquiryDTO);
+        return new ResponseEntity<>("문의 등록(사용자) 완료", HttpStatus.CREATED);
     }
 
-    @PostMapping("/question")
-    public String registInquiryQeustion(@ModelAttribute InquiryDTO inquiryDTO) {
-        inquiryService.registInquiryQuestion(inquiryDTO);
-        return "redirect:/inquiry/list";
-    }
 
     /* 문의 답변 (관리자) */
-    @GetMapping("/answer/{inquiryId}")
-    public String registInquiryAnswerForm(@PathVariable Long inquiryId, Model model) {
-        model.addAttribute("inquiryId", inquiryId);
-        return "inquiry/answer";
-    }
-
     @PostMapping("/answer/{inquiryId}")
-    public String registInquiryAnswer(@ModelAttribute InquiryDTO inquiryDTO,
-                                      @RequestParam Long responseUserId) {
-        System.out.println("Reply Content: " + inquiryDTO.getInquiryReply());
-        inquiryService.registInquiryAnswer(inquiryDTO.getInquiryId(), inquiryDTO.getInquiryReply(), responseUserId);
-        return "redirect:/inquiry/list";
+    public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
+                                                       @RequestBody InquiryDTO inquiryDTO) {
+        if (inquiryDTO.getResponseUserId() == null || inquiryDTO.getInquiryReply() == null) {
+            return new ResponseEntity<>("responseUserId 또는 inquiryReply가 누락되었습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        // 서비스 호출로 답변을 등록
+        inquiryService.registInquiryAnswer(inquiryId, inquiryDTO.getInquiryReply(), inquiryDTO.getResponseUserId());
+
+        return new ResponseEntity<>("문의 답변 등록(관리자) 완료", HttpStatus.CREATED);
     }
 }
