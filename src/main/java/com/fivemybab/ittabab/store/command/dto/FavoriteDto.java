@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FavoriteDTO {
+public class FavoriteDto {
 
     private Long favoriteId;
     private Long userId;

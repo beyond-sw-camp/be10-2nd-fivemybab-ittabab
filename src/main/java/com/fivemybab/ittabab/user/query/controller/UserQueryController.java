@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.user.query.controller;
 
-import com.fivemybab.ittabab.user.query.dto.UserDTO;
+import com.fivemybab.ittabab.user.query.dto.UserDto;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +24,14 @@ public class UserQueryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        UserDTO userDTO = userQueryService.findById(id);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto userDto = userQueryService.findById(id);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> users = userQueryService.findAll();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = userQueryService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

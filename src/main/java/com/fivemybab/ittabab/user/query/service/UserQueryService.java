@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.user.query.service;
 
-import com.fivemybab.ittabab.user.query.dto.UserDTO;
+import com.fivemybab.ittabab.user.query.dto.UserDto;
 import com.fivemybab.ittabab.user.query.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,11 @@ public class UserQueryService {
         this.userMapper = userMapper;
     }
 
-    public UserDTO findById(Long id) {
+    public UserDto findById(Long id) {
         return userMapper.findById(id);
     }
 
-    public List<UserDTO> findAll() {
+    public List<UserDto> findAll() {
         return userMapper.findAll();
     }
 

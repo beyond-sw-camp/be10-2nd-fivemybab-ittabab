@@ -1,11 +1,11 @@
 package com.fivemybab.ittabab.group.command.application.mapper;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDTO;
+import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface GroupCommentMapper {
-    List<GroupCommentDTO> findGroupCommentsByGroupId(Long groupId);
+    List<GroupCommentDto> findGroupCommentsByGroupId(Long groupId);
 }

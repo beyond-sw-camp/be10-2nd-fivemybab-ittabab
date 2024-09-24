@@ -9,7 +9,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @ToString
-public class StoreDTO {
+public class StoreDto {
 
     private Long storeId;
     private String storeName;

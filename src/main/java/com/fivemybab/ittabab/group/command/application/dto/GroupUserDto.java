@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GroupUserDTO {
+public class GroupUserDto {
 
     private Long groupUserId;
     private Long userId;

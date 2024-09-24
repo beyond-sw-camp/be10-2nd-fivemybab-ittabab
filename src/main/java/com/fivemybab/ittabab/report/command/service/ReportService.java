@@ -1,8 +1,8 @@
 package com.fivemybab.ittabab.report.command.service;
 
 import com.fivemybab.ittabab.report.command.domain.aggregate.Target;
-import com.fivemybab.ittabab.report.command.dto.CreateReportDTO;
-import com.fivemybab.ittabab.report.command.dto.ReportDTO;
+import com.fivemybab.ittabab.report.command.dto.CreateReportDto;
+import com.fivemybab.ittabab.report.command.dto.ReportDto;
 import com.fivemybab.ittabab.report.command.domain.aggregate.Report;
 import com.fivemybab.ittabab.report.command.repository.ReportRepository;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
@@ -28,7 +28,7 @@ public class ReportService {
     }
 
     // 신고 생성
-    public CreateReportDTO createReport(CreateReportDTO createReportDTO, Long userId) {
+    public CreateReportDto createReport(CreateReportDto createReportDto, Long userId) {
         UserInfo user = userRepository.findByUserId(userId);  // 작성자 조회
         if (user == null) {
             throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
@@ -36,26 +36,26 @@ public class ReportService {
 
         // 신고 객체 생성
         Report report = Report.builder()
-                .reportTitle(createReportDTO.getReportTitle())
-                .reportContent(createReportDTO.getReportContent())
-                .target(Target.valueOf(createReportDTO.getReportTarget()))
-                .targetId(createReportDTO.getTargetId())
+                .reportTitle(createReportDto.getReportTitle())
+                .reportContent(createReportDto.getReportContent())
+                .target(Target.valueOf(createReportDto.getReportTarget()))
+                .targetId(createReportDto.getTargetId())
                 .userId(userId)
                 .isResolved(false)
                 .build();
 
         reportRepository.save(report);
-        return modelMapper.map(report, CreateReportDTO.class);
+        return modelMapper.map(report, CreateReportDto.class);
     }
 
     // 모든 신고 조회 (관리자)
-    public List<ReportDTO> getAllReports() {
-        List<ReportDTO> reports = reportRepository.findAll().stream().map(report -> modelMapper.map(report, ReportDTO.class)).toList();
+    public List<ReportDto> getAllReports() {
+        List<ReportDto> reports = reportRepository.findAll().stream().map(report -> modelMapper.map(report, ReportDto.class)).toList();
         return reports;
     }
 
     // 신고 처리 (관리자)
-    public ReportDTO resolveReport(Long reportId, Long userId) {
+    public ReportDto resolveReport(Long reportId, Long userId) {
         Optional<Report> reportOpt = reportRepository.findById(reportId);
         if (reportOpt.isPresent()) {
             Report report = reportOpt.get();
@@ -70,7 +70,7 @@ public class ReportService {
 
             reportRepository.save(report);  // 변경 사항 저장
 
-            return modelMapper.map(report, ReportDTO.class);
+            return modelMapper.map(report, ReportDto.class);
         } else {
             throw new IllegalArgumentException("신고를 찾을 수 없습니다.");
         }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 
-public class UserDTO {
+public class UserDto {
 
     private Long userId;
     private String username;

@@ -1,10 +1,9 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDTO;
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDTO;
+import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
+import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ public class GroupController {
     /* 전체 모임 조회 */
     @GetMapping("/list")
     public String group(Model model) {
-        List<GroupInfoDTO> groupList = groupService.findGroupByGroupStatus();
+        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus();
 
         if (!groupList.isEmpty() && groupList.size() > 0) {
             model.addAttribute("groupList", groupList);
@@ -36,8 +35,8 @@ public class GroupController {
     /* 모임 상세 조회 */
     @GetMapping("/detail/{groupId}")
     public String groupDetail(@PathVariable Long groupId, Model model) {
-        GroupInfoDTO foundGroup = groupService.findGroupByGroupId(groupId);
-        List<GroupCommentDTO> commentList = groupService.findGroupCommentsByGroupId(groupId);
+        GroupInfoDto foundGroup = groupService.findGroupByGroupId(groupId);
+        List<GroupCommentDto> commentList = groupService.findGroupCommentsByGroupId(groupId);
         model.addAttribute("foundGroup", foundGroup);
         model.addAttribute("commentList", commentList);
         return "group/detail";

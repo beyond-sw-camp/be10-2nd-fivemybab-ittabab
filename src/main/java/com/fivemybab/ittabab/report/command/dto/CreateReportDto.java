@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CreateReportDTO {
+public class CreateReportDto {
 
     private String reportTitle;
     private String reportContent;

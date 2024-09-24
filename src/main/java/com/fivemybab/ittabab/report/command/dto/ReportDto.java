@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class ReportDTO {
+public class ReportDto {
     private Long reportId;  // 신고 ID
     private String reportTitle;  // 신고 제목
     private String reportContent;  // 신고 내용
