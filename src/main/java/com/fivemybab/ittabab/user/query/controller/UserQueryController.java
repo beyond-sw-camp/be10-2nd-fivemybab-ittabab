@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.user.query.controller;
 
-import com.fivemybab.ittabab.user.command.application.dto.UserDTO;
+import com.fivemybab.ittabab.user.query.dto.UserDTO;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-/**
- * UserQueryController
- * 이 클래스는 회원 정보 조회
- * MyBatis
- */
 @Controller
 @RequestMapping("/api/user")
 public class UserQueryController {
