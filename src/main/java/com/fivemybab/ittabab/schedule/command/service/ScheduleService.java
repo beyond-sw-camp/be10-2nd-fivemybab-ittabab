@@ -39,6 +39,7 @@ public class ScheduleService {
     @Transactional
     public void modifySchedule(ScheduleDTO scheduleDTO) {
         ScheduleInfo foundSchedule = scheduleRepository.findById(scheduleDTO.getScheduleId()).orElseThrow(IllegalArgumentException::new);
+        foundSchedule.modifyScheduleTitle(scheduleDTO.getScheduleTitle());
         foundSchedule.modifyScheduleContent(scheduleDTO.getScheduleContent());
         foundSchedule.modifyScheduleDate(scheduleDTO.getScheduleDate());
     }

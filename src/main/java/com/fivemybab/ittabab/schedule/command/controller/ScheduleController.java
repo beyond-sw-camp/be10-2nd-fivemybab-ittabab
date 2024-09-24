@@ -2,13 +2,17 @@ package com.fivemybab.ittabab.schedule.command.controller;
 
 import com.fivemybab.ittabab.schedule.command.dto.ScheduleDTO;
 import com.fivemybab.ittabab.schedule.command.service.ScheduleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
 
@@ -20,40 +24,32 @@ public class ScheduleController {
 
     /* 전체 일정 조회 */
     @GetMapping("/list")
-    public String scheduleList(Model model) {
+    public ResponseEntity<List<ScheduleDTO>> scheduleList() {
         List<ScheduleDTO> scheduleList = scheduleService.findScheduleList();
-        model.addAttribute("scheduleList", scheduleList);
 
-        return "schedule/list";
+        return new ResponseEntity<>(scheduleList, HttpStatus.OK);
     }
+
     /* 일정 입력 */
-    @GetMapping("/regist")
-    public void scheduleRegistPage() {}
-
     @PostMapping("/regist")
-    public String registSchedule(@ModelAttribute ScheduleDTO scheduleDTO){
-
+    public ResponseEntity<String> registSchedule(@RequestBody ScheduleDTO scheduleDTO){
+        scheduleDTO.setScheduleDate(LocalDate.now());
         scheduleService.registSchedule(scheduleDTO);
-        return "redirect:/schedule/list";
+        return new ResponseEntity<>("등록 완료", HttpStatus.OK);
     }
 
     /* 일정 수정 */
-    @GetMapping("/modify")
-    public void scheduleModifyPage() {}
-
-    @PostMapping("/modify")
-    public String modifySchedule(@ModelAttribute ScheduleDTO scheduleDTO){
+    @PutMapping("/modify")
+    public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDTO scheduleDTO){
         scheduleService.modifySchedule(scheduleDTO);
-        return "redirect:/schedule/list";
+        return new ResponseEntity<>("수정 완료"+scheduleDTO.toString(), HttpStatus.OK);
     }
 
     /* 일정 삭제 */
-    @GetMapping("/delete")
-    public void scheduleDeletePage() {}
-
-    @PostMapping("/delete")
-    public String deleteSchedule(@RequestParam Long scheduleId){
+    @DeleteMapping("/delete/{scheduleId}")
+    public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
-        return "redirect:/schedule/list";
+        return ResponseEntity.noContent().build();
     }
+
 }
