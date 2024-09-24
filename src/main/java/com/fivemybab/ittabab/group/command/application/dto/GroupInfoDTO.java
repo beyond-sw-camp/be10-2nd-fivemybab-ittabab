@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @Getter
@@ -24,5 +23,4 @@ public class GroupInfoDTO {
     private LocalDateTime endDate;
     private String groupPost;
     private boolean isBlinded;
-
 }
