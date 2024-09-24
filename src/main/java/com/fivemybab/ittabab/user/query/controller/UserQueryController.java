@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.user.query.controller;
 
-import com.fivemybab.ittabab.user.command.dto.UserDTO;
+import com.fivemybab.ittabab.user.command.application.dto.UserDTO;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

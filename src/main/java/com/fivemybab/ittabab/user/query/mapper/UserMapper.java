@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.user.query.mapper;
 
-import com.fivemybab.ittabab.user.command.dto.UserDTO;
+import com.fivemybab.ittabab.user.command.application.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

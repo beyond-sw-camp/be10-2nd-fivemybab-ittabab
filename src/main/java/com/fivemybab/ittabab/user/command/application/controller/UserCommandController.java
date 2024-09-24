@@ -1,7 +1,7 @@
-package com.fivemybab.ittabab.user.command.controller;
+package com.fivemybab.ittabab.user.command.application.controller;
 
-import com.fivemybab.ittabab.user.command.dto.UserDTO;
-import com.fivemybab.ittabab.user.command.service.UserCommandService;
+import com.fivemybab.ittabab.user.command.application.dto.UserDTO;
+import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

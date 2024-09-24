@@ -1,6 +1,6 @@
-package com.fivemybab.ittabab.user.command.service;
+package com.fivemybab.ittabab.user.command.application.service;
 
-import com.fivemybab.ittabab.user.command.dto.UserDTO;
+import com.fivemybab.ittabab.user.command.application.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 /**
