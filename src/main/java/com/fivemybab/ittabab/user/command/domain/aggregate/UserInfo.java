@@ -2,12 +2,10 @@ package com.fivemybab.ittabab.user.command.domain.aggregate;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "user_info")
@@ -25,9 +23,14 @@ public class UserInfo {
     private String phone;
     private LocalDate birth;
     private Long courseId;
-    private boolean userStatus;
-    private boolean userRole;
-    private LocalDate signUpDate;
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus = UserStatus.ACTIVE;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole = UserRole.USER;
+    private LocalDate signUpDate = LocalDate.now();
     private LocalDate signOutDate;
 
+    public void encryptPassword(String encodedPwd) {
+        this.pwd = encodedPwd;
+    }
 }

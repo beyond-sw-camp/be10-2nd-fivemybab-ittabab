@@ -5,8 +5,8 @@ import com.fivemybab.ittabab.report.command.dto.CreateReportDTO;
 import com.fivemybab.ittabab.report.command.dto.ReportDTO;
 import com.fivemybab.ittabab.report.command.domain.aggregate.Report;
 import com.fivemybab.ittabab.report.command.repository.ReportRepository;
-import com.fivemybab.ittabab.report.command.repository.UserRepository;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
+import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -61,9 +61,9 @@ public class ReportService {
             Report report = reportOpt.get();
             UserInfo admin = userRepository.findByUserId(userId);
 
-            if (admin.isUserRole()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
-                throw new IllegalArgumentException("본인은 관리자가 아닙니다.");
-            }
+//            if (admin.isUserRole()) {  // 관리자 여부 확인, 임의로 false를 관리자로 함
+//                throw new IllegalArgumentException("본인은 관리자가 아닙니다.");
+//            }
 
             // 신고 처리
             report.resolve(LocalDateTime.now());
