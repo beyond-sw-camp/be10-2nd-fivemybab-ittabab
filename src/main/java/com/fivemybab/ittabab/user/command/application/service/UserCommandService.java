@@ -47,19 +47,4 @@ public class UserCommandService implements UserDetailsService {
 
         return new User(loginUser.getLoginId(), loginUser.getPwd(), grantedAuthorities);
     }
-
-
-
-//    public UserDTO updateUser(Long id, UserDTO userDTO) {
-//        return null;
-//    }
-//
-//    public UserDTO createUser(UserDTO userDTO) {
-//
-//        return null;
-//    }
-//
-//    public void deleteUser(Long id) {
-//
-//    }
 }
