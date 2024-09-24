@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class ReviewDTO {
+public class ReviewDto {
 
     private Long reviewId;
     private Long storeId;

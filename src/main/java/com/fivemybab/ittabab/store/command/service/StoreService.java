@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.store.command.service;
 
-import com.fivemybab.ittabab.store.command.dto.StoreDTO;
+import com.fivemybab.ittabab.store.command.dto.StoreDto;
 import com.fivemybab.ittabab.store.command.domain.aggregate.Store;
 import com.fivemybab.ittabab.store.command.repository.StoreRepository;
 import jakarta.transaction.Transactional;
@@ -23,30 +23,30 @@ public class StoreService {
 
     /* 가게 조회 */
     /* 조회 부분은 Mybatis 사용 */
-    public List<StoreDTO> findStoreList() {
+    public List<StoreDto> findStoreList() {
         List<Store> storeList = storeRepository.findAll(Sort.by("storeId").descending());
         return storeList.stream()
-                .map(storeInfo -> modelMapper.map(storeInfo, StoreDTO.class))
+                .map(storeInfo -> modelMapper.map(storeInfo, StoreDto.class))
                 .toList();
     }
 
     /* 가게 번호로 가게 조회 */
-    public StoreDTO findStoreById(Long storeId) {
+    public StoreDto findStoreById(Long storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        return modelMapper.map(store, StoreDTO.class);
+        return modelMapper.map(store, StoreDto.class);
     }
 
     /* 가게 추가 */
     @Transactional
-    public void registSchedule(StoreDTO storeDTO) {
-        storeRepository.save(modelMapper.map(storeDTO, Store.class));
+    public void registSchedule(StoreDto storeDto) {
+        storeRepository.save(modelMapper.map(storeDto, Store.class));
     }
 
     /* 가게 정보 수정 */
     @Transactional
-    public void modifyStore(StoreDTO storeDTO) {
+    public void modifyStore(StoreDto storeDto) {
 
 
     }

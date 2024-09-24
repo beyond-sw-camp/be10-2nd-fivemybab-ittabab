@@ -4,13 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
-public class InquiryDTO {
+public class InquiryDto {
 
     private Long inquiryId;
     private String inquiryContent;

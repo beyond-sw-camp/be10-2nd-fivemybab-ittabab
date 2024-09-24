@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.schedule.command.service;
 
-import com.fivemybab.ittabab.schedule.command.dto.ScheduleDTO;
+import com.fivemybab.ittabab.schedule.command.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
 import com.fivemybab.ittabab.schedule.command.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
@@ -22,26 +22,26 @@ public class ScheduleService {
     }
 
     /* 전체 조회 */
-    public List<ScheduleDTO> findScheduleList() {
+    public List<ScheduleDto> findScheduleList() {
         List<ScheduleInfo> scheduleList = scheduleRepository.findAll(Sort.by("scheduleId").descending());
         return scheduleList.stream()
-                .map(scheduleInfo -> modelMapper.map(scheduleInfo, ScheduleDTO.class))
+                .map(scheduleInfo -> modelMapper.map(scheduleInfo, ScheduleDto.class))
                 .toList();
     }
 
     /* 일정 추가 */
     @Transactional
-    public void registSchedule(ScheduleDTO scheduleDTO) {
-        scheduleRepository.save(modelMapper.map(scheduleDTO, ScheduleInfo.class));
+    public void registSchedule(ScheduleDto scheduleDto) {
+        scheduleRepository.save(modelMapper.map(scheduleDto, ScheduleInfo.class));
     }
 
     /* 일정 수정 */
     @Transactional
-    public void modifySchedule(ScheduleDTO scheduleDTO) {
-        ScheduleInfo foundSchedule = scheduleRepository.findById(scheduleDTO.getScheduleId()).orElseThrow(IllegalArgumentException::new);
-        foundSchedule.modifyScheduleTitle(scheduleDTO.getScheduleTitle());
-        foundSchedule.modifyScheduleContent(scheduleDTO.getScheduleContent());
-        foundSchedule.modifyScheduleDate(scheduleDTO.getScheduleDate());
+    public void modifySchedule(ScheduleDto scheduleDto) {
+        ScheduleInfo foundSchedule = scheduleRepository.findById(scheduleDto.getScheduleId()).orElseThrow(IllegalArgumentException::new);
+        foundSchedule.modifyScheduleTitle(scheduleDto.getScheduleTitle());
+        foundSchedule.modifyScheduleContent(scheduleDto.getScheduleContent());
+        foundSchedule.modifyScheduleDate(scheduleDto.getScheduleDate());
     }
 
     /* 일정 삭제 */

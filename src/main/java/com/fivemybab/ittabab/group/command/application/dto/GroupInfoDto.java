@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class GroupInfoDTO {
+public class GroupInfoDto {
 
     private Long groupId;
     private Long groupCategoryId;

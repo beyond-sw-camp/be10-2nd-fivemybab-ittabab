@@ -1,13 +1,12 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDTO;
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDTO;
+import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
+import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
 import com.fivemybab.ittabab.group.command.application.repository.GroupInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +18,11 @@ public class GroupService {
     private final SqlSessionTemplate session;
     private final GroupInfoRepository groupInfoRepository;
 
-    public List<GroupInfoDTO> findGroupByGroupStatus() {
+    public List<GroupInfoDto> findGroupByGroupStatus() {
         return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus();
     }
 
-    public GroupInfoDTO findGroupByGroupId(Long groupId) {
+    public GroupInfoDto findGroupByGroupId(Long groupId) {
         return session.getMapper(GroupInfoMapper.class).findGroupByGroupId(groupId);
     }
 
@@ -31,8 +30,8 @@ public class GroupService {
 
     }
 
-    public List<GroupCommentDTO> findGroupCommentsByGroupId(Long groupId) {
-        List<GroupCommentDTO> commentList = session.getMapper(GroupCommentMapper.class).findGroupCommentsByGroupId(groupId);
+    public List<GroupCommentDto> findGroupCommentsByGroupId(Long groupId) {
+        List<GroupCommentDto> commentList = session.getMapper(GroupCommentMapper.class).findGroupCommentsByGroupId(groupId);
 
         return commentList;
     }

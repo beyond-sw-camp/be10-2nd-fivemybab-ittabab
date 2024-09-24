@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class ScheduleDTO {
+public class ScheduleDto {
 
     private Long scheduleId;
     private LocalDate scheduleDate;

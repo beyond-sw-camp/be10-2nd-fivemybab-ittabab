@@ -6,13 +6,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class GroupCommentDTO {
+public class GroupCommentDto {
 
     private Long groupCommentId;
     private Long groupId;

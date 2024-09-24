@@ -5,7 +5,7 @@
 <mapper namespace="com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper">
     <select
             id="findGroupByGroupStatus"
-            resultType="com.fivemybab.ittabab.group.command.application.dto.GroupInfoDTO">
+            resultType="com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto">
         SELECT *
         FROM group_info
         WHERE group_status = 1
@@ -13,7 +13,7 @@
     </select>
 
     <select id="findGroupByGroupId"
-            resultType="com.fivemybab.ittabab.group.command.application.dto.GroupInfoDTO">
+            resultType="com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto">
         SELECT *
         FROM group_info
         WHERE group_id = #{groupId}

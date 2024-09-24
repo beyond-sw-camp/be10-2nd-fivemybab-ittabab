@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.inquiry.command.service;
 
-import com.fivemybab.ittabab.inquiry.command.dto.InquiryDTO;
+import com.fivemybab.ittabab.inquiry.command.dto.InquiryDto;
 import com.fivemybab.ittabab.inquiry.command.entity.InquiryInfo;
 import com.fivemybab.ittabab.inquiry.command.repository.InquiryRepository;
 import jakarta.transaction.Transactional;
@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,25 +23,25 @@ public class InquiryService {
     }
 
     /* 문의 목록 */
-    public List<InquiryDTO> findInquiryList() {
+    public List<InquiryDto> findInquiryList() {
         List<InquiryInfo> inquiryList = inquiryRepository.findAll(Sort.by("inquiryId").descending());
         return inquiryList.stream()
-                .map(inquiryInfo -> modelMapper.map(inquiryInfo, InquiryDTO.class))
+                .map(inquiryInfo -> modelMapper.map(inquiryInfo, InquiryDto.class))
                 .toList();
     }
 
     /* 사용자 문의 목록 */
-    public List<InquiryDTO> findInquiryListByUserId(Long userId) {
+    public List<InquiryDto> findInquiryListByUserId(Long userId) {
         List<InquiryInfo> inquiryList = inquiryRepository.findByInquiryUserId(userId, Sort.by("inquiryId").descending());
         return inquiryList.stream()
-                .map(inquiryInfo -> modelMapper.map(inquiryInfo, InquiryDTO.class))
+                .map(inquiryInfo -> modelMapper.map(inquiryInfo, InquiryDto.class))
                 .toList();
     }
 
     /* 문의 등록 (사용자) */
     @Transactional
-    public void registInquiryQuestion(InquiryDTO inquiryDTO) {
-        InquiryInfo inquiryInfo = modelMapper.map(inquiryDTO, InquiryInfo.class);
+    public void registInquiryQuestion(InquiryDto inquiryDto) {
+        InquiryInfo inquiryInfo = modelMapper.map(inquiryDto, InquiryInfo.class);
 
         inquiryInfo.setResponseUserId(null);  // 명시적으로 null 설정
         inquiryRepository.save(inquiryInfo);

@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.store.command.controller;
 
-import com.fivemybab.ittabab.store.command.dto.StoreDTO;
+import com.fivemybab.ittabab.store.command.dto.StoreDto;
 import com.fivemybab.ittabab.store.command.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class StoreController {
     /* 전체 가게 목록 조회 */
     @GetMapping("/list")
     public String storeList(Model model) {
-        List<StoreDTO> storeList = storeService.findStoreList();
+        List<StoreDto> storeList = storeService.findStoreList();
         model.addAttribute("storeList", storeList);
 
         return "store/list";
