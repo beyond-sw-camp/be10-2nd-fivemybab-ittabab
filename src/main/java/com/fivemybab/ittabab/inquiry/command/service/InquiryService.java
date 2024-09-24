@@ -52,17 +52,17 @@ public class InquiryService {
     @Transactional
     public void registInquiryAnswer(Long inquiryId, String inquiryReply, Long responseUserId) {
         InquiryInfo inquiryInfo = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 문의 : " + inquiryId));
+                .orElseThrow(() -> new IllegalArgumentException("없는 문의: " + inquiryId));
 
+        // 답변 등록
         inquiryInfo.setInquiryReply(inquiryReply);
         inquiryInfo.setInquiryReplyTime(LocalDateTime.now());
 
-        // responseUserId가 null이 아닌 경우만 설정
-        if (responseUserId != null) {
-            inquiryInfo.setResponseUserId(responseUserId);
-        }
+        // 응답 유저 ID 설정
+        inquiryInfo.setResponseUserId(responseUserId);
 
         inquiryRepository.save(inquiryInfo);
     }
+
 
 }
