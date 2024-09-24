@@ -21,9 +21,6 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
       ddl-auto: update
 
-
-
-
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
 
@@ -32,4 +29,8 @@ springdoc:
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
-    path: /   # swagger 화면으로 리다이렉션
+    path: /swagger-ui   # swagger 화면으로 리다이렉션
+
+token:
+  secret: ${secret.key}
+  expiration_time : ${expiration.time}
