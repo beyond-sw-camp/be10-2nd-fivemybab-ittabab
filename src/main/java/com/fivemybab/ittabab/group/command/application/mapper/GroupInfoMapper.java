@@ -10,7 +10,7 @@ import java.util.List;
 public interface GroupInfoMapper {
 
     /* 전체 모임 조회*/
-    List<GroupInfoDto> findGroupByGroupStatus();
+    List<GroupInfoDto> findGroupByGroupStatus(Long courseId);
 
     /* 특정 모임 조회 */
     GroupInfoDto findGroupByGroupId(Long groupId);

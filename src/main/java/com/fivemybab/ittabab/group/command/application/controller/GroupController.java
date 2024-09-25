@@ -1,12 +1,9 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +21,9 @@ public class GroupController {
     }
 
     /* 전체 모임 조회 */
-    @GetMapping("/list")
-    public String group(Model model) {
-        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus();
+    @GetMapping("/list/{courseId}")
+    public String group(@PathVariable Long courseId, Model model) {
+        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus(courseId);
 
         if (!groupList.isEmpty() && groupList.size() > 0) {
             model.addAttribute("groupList", groupList);

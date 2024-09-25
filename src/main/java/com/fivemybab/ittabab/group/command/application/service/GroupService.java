@@ -18,8 +18,8 @@ public class GroupService {
     private final SqlSessionTemplate session;
     private final GroupInfoRepository groupInfoRepository;
 
-    public List<GroupInfoDto> findGroupByGroupStatus() {
-        return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus();
+    public List<GroupInfoDto> findGroupByGroupStatus(Long courseId) {
+        return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus(courseId);
     }
 
     public GroupInfoDto findGroupByGroupId(Long groupId) {
