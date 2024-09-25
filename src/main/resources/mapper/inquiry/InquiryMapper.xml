@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.inquiry.query.mapper.InquiryMapper">
+
+    <resultMap id="InquiryResultMap" type="com.fivemybab.ittabab.inquiry.query.dto.InquiryDto">
+        <result property="inquiryId" column="inquiry_id"/>
+        <result property="inquiryContent" column="inquiry_content"/>
+        <result property="createDate" column="create_date"/>
+        <result property="inquiryReply" column="inquiry_reply"/>
+        <result property="inquiryReplyTime" column="inquiry_reply_time"/>
+        <result property="responseUserId" column="response_user_id"/>
+        <result property="inquiryUserId" column="inquiry_user_id"/>
+    </resultMap>
+
+    <select id="adminInquiryList" resultMap="InquiryResultMap">
+        SELECT * FROM inquiry
+    </select>
+
+    <select id="userInquiryList" resultMap="InquiryResultMap">
+        SELECT *
+        FROM inquiry
+        where inquiry_user_id = #{inquiryId}
+    </select>
+</mapper>

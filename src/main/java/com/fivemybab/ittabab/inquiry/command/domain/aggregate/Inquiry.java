@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.inquiry.command.entity;
+package com.fivemybab.ittabab.inquiry.command.domain.aggregate;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "inquiry")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class InquiryInfo {
+public class Inquiry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
