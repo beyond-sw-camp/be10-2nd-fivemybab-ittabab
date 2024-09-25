@@ -14,7 +14,7 @@ public class CreateBoardDTO {
     //게시판 글 테이블에 있는 게시글 제목, 내용, 블라인드 여부
     private String postTitle;
     private String postContent;
-    private String isBlinded;
+    private Boolean isBlinded;
     private LocalDateTime createDate;
 
 }

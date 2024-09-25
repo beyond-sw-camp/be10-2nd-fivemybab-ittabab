@@ -2,9 +2,11 @@ package com.fivemybab.ittabab.board.command.domain.repository;
 
 
 import com.fivemybab.ittabab.board.command.domain.aggregate.Post;
+import com.fivemybab.ittabab.board.command.domain.aggregate.PostComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostCommentRepository extends JpaRepository<Post, Long> {
+
 }

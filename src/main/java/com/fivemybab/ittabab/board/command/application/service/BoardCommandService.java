@@ -3,10 +3,10 @@ package com.fivemybab.ittabab.board.command.application.service;
 import com.fivemybab.ittabab.board.command.application.dto.CreateBoardDTO;
 import com.fivemybab.ittabab.board.command.application.dto.UpdatedBoardDTO;
 import com.fivemybab.ittabab.board.command.domain.aggregate.Post;
+import com.fivemybab.ittabab.board.command.domain.repository.PostCommentRepository;
 import com.fivemybab.ittabab.board.command.domain.repository.PostRepository;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +42,7 @@ public class BoardCommandService {
                 .isBlinded(false) //true? false?
                 .createDate(LocalDateTime.now())
                 .build();
-        postRepository.save(post);
+
         return modelMapper.map(post, CreateBoardDTO.class);
     }
 
@@ -55,10 +55,10 @@ public class BoardCommandService {
                 .orElseThrow(()-> new IllegalArgumentException("게시글을 못찾았습니다."));
         // 변경 사항 반영 조건이 3가지가 됨 해당되면 모두가 선택됨
         /*
-        * 1.제목만 바꾸는 경우
-        * 2. 내용만 바꾸는 경우
-        * 3. 공개 비공개 전환 하는경우 <- 이 부분은 이제 무조건 비공개면 지워도 됨
-        * */
+         * 1.제목만 바꾸는 경우
+         * 2. 내용만 바꾸는 경우
+         * 3. 공개 비공개 전환 하는경우 <- 이 부분은 이제 무조건 비공개면 지워도 됨
+         * */
         if (updatedBoardDTO.getPostTitle() != null) {
             post.setPostTitle(updatedBoardDTO.getPostTitle());
         }
@@ -66,30 +66,17 @@ public class BoardCommandService {
             post.setPostContent(updatedBoardDTO.getPostContent());
         }
         if (updatedBoardDTO.getIsBlinded() != null) {
-            post.setBlinded(Boolean.parseBoolean(updatedBoardDTO.getIsBlinded()));
+            post.setBlinded(updatedBoardDTO.getIsBlinded());
         }
-        postRepository.save(post);
     }
 
     //delete
     @Transactional
     public void deleteBoard(Long postId){
+
         postRepository.deleteById(postId);
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

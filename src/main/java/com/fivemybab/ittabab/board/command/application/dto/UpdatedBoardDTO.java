@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public class UpdatedBoardDTO {
     private String postTitle;
     private String postContent;
-    private String isBlinded;
+    private Boolean isBlinded;
     private LocalDateTime createDate;
 }
