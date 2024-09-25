@@ -1,0 +1,9 @@
+### 로그인
+POST localhost:8080/login
+Content-Type: application/json
+
+{
+  "loginId" : "user01",
+  "pwd" : "pass01"
+}
+

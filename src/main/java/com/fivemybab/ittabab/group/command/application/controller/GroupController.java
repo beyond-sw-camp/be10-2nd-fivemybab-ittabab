@@ -5,7 +5,9 @@ import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/group")
+@Slf4j
 public class GroupController {
 
     private final GroupService groupService;
@@ -25,8 +28,10 @@ public class GroupController {
 
     /* 전체 모임 조회 */
     @GetMapping("/list")
-    public String group(Model model) {
+    public String group(Model model, Authentication authentication) {
         List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus();
+
+        log.info("authentication: {}", authentication.getName());
 
         if (!groupList.isEmpty() && groupList.size() > 0) {
             model.addAttribute("groupList", groupList);
