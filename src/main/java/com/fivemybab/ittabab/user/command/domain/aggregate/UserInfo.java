@@ -30,7 +30,15 @@ public class UserInfo {
     private LocalDate signUpDate = LocalDate.now();
     private LocalDate signOutDate;
 
-    public void encryptPassword(String encodedPwd) {
+    public void encryptPwd(String encodedPwd) {
         this.pwd = encodedPwd;
+    }
+
+    public void modifyPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public void modifyPhone(String phone) {
+        this.phone = phone;
     }
 }
