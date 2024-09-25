@@ -29,15 +29,25 @@ public class GroupController {
     /* 전체 모임 조회 */
     @GetMapping("/list")
     public String group(Model model, Authentication authentication) {
+        // 인증된 사용자가 아닌 경우 에러 페이지로 이동 -> 에러 페이지 구현해야 함.
+        if (authentication == null || !authentication.isAuthenticated()) {
+            // 적절한 오류 메시지를 모델에 추가하고 에러 페이지로 리다이렉트
+            model.addAttribute("errorMessage", "로그인 후에 접근할 수 있습니다.");
+            return "error"; // 에러 페이지로 리다이렉트
+        }
+
+        // 인증된 사용자의 이름을 가져옴
         log.info("authentication.getName: {}", authentication.getName());
+
         List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus(authentication.getName());
 
-        if (!groupList.isEmpty() && groupList.size() > 0) {
+        if (!groupList.isEmpty()) {
             model.addAttribute("groupList", groupList);
         }
 
-        return "group/list";
+        return "group/list"; // 그룹 목록 페이지 반환
     }
+
 
     /* 모임 상세 조회 */
     @GetMapping("/detail/{groupId}")
