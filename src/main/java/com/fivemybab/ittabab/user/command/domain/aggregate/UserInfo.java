@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "user_info")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE user_info SET user_status = 'WITHDRAWN' WHERE user_id=?")
 public class UserInfo {
 
     @Id
