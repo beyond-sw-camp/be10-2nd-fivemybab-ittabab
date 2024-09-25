@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz ->
                         authz.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                                 .anyRequest().authenticated()
                 )
