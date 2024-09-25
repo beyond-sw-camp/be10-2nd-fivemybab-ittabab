@@ -1,9 +1,12 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
+import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
+import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,21 +46,20 @@ public class GroupController {
     }
 
     /* 모임 참여 */
-    @GetMapping("/join")
+    @GetMapping("/detail/join")
     public void registGroupUser(@PathVariable Long groupId, @RequestParam Long userId) {
         // 현재 로그인된 계정을 정보를 가져와야 되는데 얘기해 봐야 될 거 같음.
+    }
+
+    /* 그룹 채팅 참여 */
+    @GetMapping("/chatroom/{groupId}")
+    public String joinChatting(@PathVariable Long groupId, Model model) {
+        // 참가자들에게 알람보내는 기능 추가 해야됨
+
+        return "group/chatroom";
     }
 
     @GetMapping("/modify")
     public void modifyGroupInfoPage() {
     }
-
-//    @PostMapping("/group/comment")
-//    public String addComment(@RequestParam Long groupId, @RequestParam String comment) {
-//        // 댓글 추가 로직
-//        GroupCommentDTO newComment = .create(groupId, comment);
-////        service.registComment(groupId)
-//        return "redirect:/group/detail/" + groupId; // 댓글 추가 후 상세 페이지로 리다이렉트
-//    }
-
 }
