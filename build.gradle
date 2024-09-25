@@ -30,6 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // websocket 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -38,10 +40,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // Model Mapper
-    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    // Model Mapper 의존성
     implementation 'org.modelmapper:modelmapper:3.2.1'
 
+    // Swagger 의존성
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -51,7 +53,6 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
 }
 
 tasks.named('test') {
