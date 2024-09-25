@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.group.command.application.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fivemybab.ittabab.group.command.application.dto.ChatMessageDTO;
+import com.fivemybab.ittabab.group.command.application.dto.ChatMessageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -48,11 +48,11 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         log.info("payload {}", payload);
 
-        // 페이로드 -> chatMessageDTO로 변환
-        ChatMessageDTO chatMessageDTO = mapper.readValue(payload, ChatMessageDTO.class);
-        log.info("session {}", chatMessageDTO.toString());
+        // 페이로드 -> chatMessageDto로 변환
+        ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
+        log.info("session {}", chatMessageDto.toString());
 
-        Long chatRoomId = chatMessageDTO.getChatRoomId();
+        Long chatRoomId = chatMessageDto.getChatRoomId();
         // 메모리 상에 채팅방에 대한 세션 없으면 만들어줌
         if (!chatRoomSessionMap.containsKey(chatRoomId)) {
             chatRoomSessionMap.put(chatRoomId, new HashSet<>());
@@ -62,14 +62,14 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         // message 에 담긴 타입을 확인한다.
         // 이때 message 에서 getType 으로 가져온 내용이
         // ChatDTO 의 열거형인 MessageType 안에 있는 ENTER 과 동일한 값이라면
-        if (chatMessageDTO.getMessageType().equals(ChatMessageDTO.MessageType.ENTER)) {
+        if (chatMessageDto.getMessageType().equals(ChatMessageDto.MessageType.ENTER)) {
             // sessions 에 넘어온 session 을 담고,
             chatRoomSession.add(session);
         }
         if (chatRoomSession.size() >= 3) {
             removeClosedSession(chatRoomSession);
         }
-        sendMessageToChatRoom(chatMessageDTO, chatRoomSession);
+        sendMessageToChatRoom(chatMessageDto, chatRoomSession);
 
     }
 
@@ -86,7 +86,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         chatRoomSession.removeIf(sess -> !sessions.contains(sess));
     }
 
-    private void sendMessageToChatRoom(ChatMessageDTO chatMessageDto, Set<WebSocketSession> chatRoomSession) {
+    private void sendMessageToChatRoom(ChatMessageDto chatMessageDto, Set<WebSocketSession> chatRoomSession) {
         chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatMessageDto));//2
     }
 
