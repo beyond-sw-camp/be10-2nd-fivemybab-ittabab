@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.user.query.dto;
+package com.fivemybab.ittabab.user.command.application.dto;
 
 import lombok.Getter;
 import lombok.Setter;
