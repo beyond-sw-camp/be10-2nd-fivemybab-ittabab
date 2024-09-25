@@ -27,7 +27,7 @@ public class BoardCommandController {
 
     //게시판 작성(create)
     @PostMapping("/create")
-    public ResponseEntity<CreateBoardDTO> createBoard(@RequestBody @Valid CreateBoardDTO createBoardDTO, @RequestParam Long userId) {
+    public ResponseEntity<CreateBoardDTO> createBoard(@RequestBody CreateBoardDTO createBoardDTO, @RequestParam Long userId) {
         createBoardDTO.setCreateDate(LocalDateTime.now());
         CreateBoardDTO createdBoard = boardCommandService.createBoard(createBoardDTO, userId);
         return new ResponseEntity<>(createdBoard, HttpStatus.CREATED);

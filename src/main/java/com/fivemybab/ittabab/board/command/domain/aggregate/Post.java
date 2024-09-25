@@ -23,12 +23,12 @@ public class Post {
     private boolean isBlinded; // 블라인드 여부
 
   @Builder
-    public Post(String postTitle, String postContent, boolean isBlinded, LocalDateTime createDate){
+    public Post(String postTitle, String postContent, boolean isBlinded, LocalDateTime createDate,Long userId){
       this.postTitle = postTitle;
       this.postContent = postContent;
       this.isBlinded = isBlinded;
       this.createDate = createDate;
-
+      this.userId = userId;
   }
 
 }

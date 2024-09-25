@@ -7,6 +7,8 @@ import com.fivemybab.ittabab.board.command.domain.repository.PostCommentReposito
 import com.fivemybab.ittabab.board.command.domain.repository.PostRepository;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,22 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @Service
-
+@RequiredArgsConstructor
+@Slf4j
 public class BoardCommandService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final PostCommentRepository postCommentRepository;
     private final ModelMapper modelMapper;
 
-    public BoardCommandService(PostRepository postRepository, UserRepository userRepository,ModelMapper modelMapper){
-        this.postRepository = postRepository;
-        this.userRepository = userRepository;
-        this. modelMapper = modelMapper;
-    }
 
 
     @Transactional // create 서비스 구문
     public CreateBoardDTO createBoard(CreateBoardDTO createBoardDTO, Long userId) {
+        log.info("createBoardDTO : {}, userId : {}", createBoardDTO,userId);
         UserInfo user = userRepository.findByUserId(userId);  // 작성자 조회
         if (user == null) {
             throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
@@ -41,9 +41,10 @@ public class BoardCommandService {
                 .postContent(createBoardDTO.getPostContent())
                 .isBlinded(false) //true? false?
                 .createDate(LocalDateTime.now())
+                .userId(userId)
                 .build();
-
-        return modelMapper.map(post, CreateBoardDTO.class);
+        postRepository.save(post);
+        return createBoardDTO;
     }
 
     // 모든 게시판 조회는 마이바티스로 구현
@@ -73,10 +74,8 @@ public class BoardCommandService {
     //delete
     @Transactional
     public void deleteBoard(Long postId){
-
+        postCommentRepository.deleteCommentByPostId(postId);
         postRepository.deleteById(postId);
 
     }
-
-
 }
