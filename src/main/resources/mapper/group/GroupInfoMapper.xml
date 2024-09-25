@@ -17,11 +17,9 @@
         grp.group_post,
         grp.is_blinded
         FROM group_info AS grp
-        JOIN user_info AS usr
-        ON usr.user_id = grp.user_id
-        WHERE usr.course_id = #{courseId}
+        JOIN user_info AS usr ON usr.user_id = grp.user_id
+        WHERE usr.login_id = #{loginId}
         ORDER BY grp.group_id DESC
-
     </select>
 
     <select id="findGroupByGroupId"

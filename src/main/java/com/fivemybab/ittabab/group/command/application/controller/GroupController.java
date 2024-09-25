@@ -29,9 +29,8 @@ public class GroupController {
     /* 전체 모임 조회 */
     @GetMapping("/list")
     public String group(Model model, Authentication authentication) {
-        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus();
-
-        log.info("authentication: {}", authentication.getName());
+        log.info("authentication.getName: {}", authentication.getName());
+        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus(authentication.getName());
 
         if (!groupList.isEmpty() && groupList.size() > 0) {
             model.addAttribute("groupList", groupList);

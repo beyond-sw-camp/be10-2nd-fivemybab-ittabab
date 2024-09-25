@@ -2,7 +2,6 @@ package com.fivemybab.ittabab.group.command.application.service;
 
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,17 @@ class GroupServiceTest {
     @Autowired
     private GroupService service;
 
-    @Test
-    public void findGroupByGroupStatus() {
+    @ParameterizedTest
+    @ValueSource(strings = {"test01"})
+    public void findGroupByGroupStatus(String userId) {
         Assertions.assertDoesNotThrow(
                 () -> {
-                    List<GroupInfoDto> list = service.findGroupByGroupStatus();
-                    list.forEach(System.out::println);
+                    List<GroupInfoDto> list = service.findGroupByGroupStatus(userId);
+                    if (list.isEmpty() || list.size() < 1) {
+                        System.out.println("????");
+                    } else {
+                        list.forEach(System.out::println);
+                    }
                 }
         );
     }
