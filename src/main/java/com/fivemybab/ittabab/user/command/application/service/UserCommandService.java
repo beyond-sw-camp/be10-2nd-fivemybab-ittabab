@@ -47,6 +47,13 @@ public class UserCommandService implements UserDetailsService {
 
     }
 
+
+    public void deleteUser(Long userNo) {
+
+        userRepository.deleteById(userNo);
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 

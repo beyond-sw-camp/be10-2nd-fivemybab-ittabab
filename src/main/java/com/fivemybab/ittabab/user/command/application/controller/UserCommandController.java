@@ -32,4 +32,14 @@ public class UserCommandController {
         return ResponseEntity.ok().body("회원 정보 수정 완료");
     }
 
+    /* 회원 정보 삭제 */
+    @DeleteMapping("/mypage/{userNo}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userNo) {
+
+        userCommandService.deleteUser(userNo);
+
+        return ResponseEntity.ok().body("회원 삭제 완료");
+    }
+
+
 }
