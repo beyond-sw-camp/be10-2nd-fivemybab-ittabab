@@ -1,31 +1,24 @@
 package com.fivemybab.ittabab.user.command.application.controller;
 
-import com.fivemybab.ittabab.bootcamp.command.dto.BootCampDTO;
-import com.fivemybab.ittabab.user.command.application.service.BootCampService;
+import com.fivemybab.ittabab.user.query.dto.BootCampDto;
+import com.fivemybab.ittabab.user.command.application.service.BootCampCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/bootcamp")
 @RequiredArgsConstructor
 public class BootCampCommandController {
 
-    private final BootCampService bootcampService;
-
-    @GetMapping("/list")
-    public List<BootCampDTO> getAllBootcamps() {
-        return bootcampService.findAll();
-    }
+    private final BootCampCommandService bootcampService;
 
     @PostMapping("/regist")
-    public BootCampDTO createBootcamp(@RequestBody BootCampDTO bootcamp) {
+    public BootCampDto createBootcamp(@RequestBody BootCampDto bootcamp) {
         return bootcampService.save(bootcamp);
     }
 
     @PutMapping("/modify/{id}")
-    public BootCampDTO updateBootcamp(@PathVariable Long id, @RequestBody BootCampDTO bootcamp) {
+    public BootCampDto updateBootcamp(@PathVariable Long id, @RequestBody BootCampDto bootcamp) {
         return bootcampService.update(id, bootcamp);
     }
 

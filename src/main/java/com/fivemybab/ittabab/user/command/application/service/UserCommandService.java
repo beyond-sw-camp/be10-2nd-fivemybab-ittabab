@@ -2,7 +2,6 @@ package com.fivemybab.ittabab.user.command.application.service;
 
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
