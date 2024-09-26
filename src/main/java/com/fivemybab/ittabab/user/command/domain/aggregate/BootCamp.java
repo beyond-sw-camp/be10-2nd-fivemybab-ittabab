@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.bootcamp.command.entity;
+package com.fivemybab.ittabab.user.command.domain.aggregate;
 
 import jakarta.persistence.*;
 import lombok.*;
