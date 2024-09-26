@@ -83,9 +83,45 @@ public class GroupController {
     }
 
     /* 모임 참여 */
-    @GetMapping("/detail/join")
-    public void registGroupUser(@PathVariable Long groupId, @RequestParam Long userId) {
-        // 현재 로그인된 계정을 정보를 가져와야 되는데 얘기해 봐야 될 거 같음.
+    @GetMapping("/detail/{groupId}/join")
+    public ResponseEntity<String> registGroupUser(
+            @PathVariable Long groupId,
+            Authentication loginUserLoginId
+    ) {
+        /* 처리과정
+         * 1. 모임이 존재하는 확인
+         * 2. 이미 가입되어 있는지 확인
+         * 3. 가입하면 모집 인원 이하가 되는지 확인 */
+
+        // 1
+        GroupInfoDto foundGroupInfo = groupService.findGroupByGroupId(groupId);
+
+        if (foundGroupInfo == null) {
+            // 모임이 존재하지 않는 경우
+            return new ResponseEntity<>("그런 모임은 없습니다.", HttpStatus.OK);
+        } else {
+            // 모임이 존재하는 경우
+
+            // 모임에 가입한 인원들
+            List<Long> groupUserList = groupService.findGroupUserByGroupId(groupId);
+
+            // 2
+            for (Long userId : groupUserList) {
+                if (userId == groupService.loginIdToUserId(loginUserLoginId.getName())) {
+                    return new ResponseEntity<>("이미 가입하셨습니다.", HttpStatus.OK);
+                }
+            }
+
+            // 3
+            if (groupUserList.size() + 1 <= foundGroupInfo.getUserCounting()) {
+                // insert
+                groupService.registGroupUser(groupService.loginIdToUserId(loginUserLoginId.getName()), foundGroupInfo.getGroupId());
+            } else {
+                return null;
+            }
+        }
+
+        return null;
     }
 
     /* 모임 채팅 참여 */
