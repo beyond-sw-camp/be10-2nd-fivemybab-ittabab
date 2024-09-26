@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
