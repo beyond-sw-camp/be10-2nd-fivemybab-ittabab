@@ -5,8 +5,12 @@ import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
 import com.fivemybab.ittabab.group.command.application.repository.GroupInfoRepository;
+import com.fivemybab.ittabab.group.command.domain.entity.GroupInfo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +20,8 @@ import java.util.List;
 public class GroupService {
 
     private final SqlSessionTemplate session;
-    private final GroupInfoRepository groupInfoRepository;
+    private final GroupInfoRepository repository;
+    private final ModelMapper modelMapper;
 
     public List<GroupInfoDto> findGroupByGroupStatus(String loginId) {
         return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus(loginId);
@@ -36,4 +41,13 @@ public class GroupService {
         return commentList;
     }
 
+    /* 모임 등록 */
+    @Transactional
+    public void registGroup(GroupInfoDto newGroupInfo) {
+        repository.save(modelMapper.map(newGroupInfo, GroupInfo.class));
+    }
+
+    public Long loginIdToUserId(String loginUserLoginId) {
+        return session.getMapper(GroupInfoMapper.class).findUserIdByLoginId(loginUserLoginId);
+    }
 }

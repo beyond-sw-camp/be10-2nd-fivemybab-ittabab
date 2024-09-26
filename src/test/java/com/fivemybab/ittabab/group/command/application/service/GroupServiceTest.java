@@ -2,10 +2,12 @@ package com.fivemybab.ittabab.group.command.application.service;
 
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -36,5 +38,16 @@ class GroupServiceTest {
     public void findGroupByGroupId(Long groupId) {
         GroupInfoDto foundGroup = service.findGroupByGroupId(groupId);
         Assertions.assertNotNull(foundGroup);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"test01", "test999"})
+    public void transferLoginIdtoUserId(String loginId) {
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    Long res = service.loginIdToUserId(loginId);
+                    System.out.println("res = " + res);
+                }
+        );
     }
 }
