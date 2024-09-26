@@ -2,18 +2,16 @@ package com.fivemybab.ittabab.report.command.application.service;
 
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportResponse;
 import com.fivemybab.ittabab.report.command.domain.aggregate.Target;
-import com.fivemybab.ittabab.report.command.application.dto.CreateReportResponse;
+import com.fivemybab.ittabab.report.command.application.dto.CreateReportRequest;
 
 import com.fivemybab.ittabab.report.command.domain.aggregate.Report;
 import com.fivemybab.ittabab.report.command.domain.repository.ReportRepository;
-import com.fivemybab.ittabab.report.query.dto.ReportDto;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class ReportService {
@@ -29,7 +27,7 @@ public class ReportService {
     }
 
     // 신고 생성
-    public CreateReportResponse createReport(CreateReportResponse createReportResponse, Long userId) {
+    public CreateReportRequest createReport(CreateReportRequest createReportRequest, Long userId) {
         UserInfo user = userRepository.findByUserId(userId);  // 작성자 조회
         if (user == null) {
             throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
@@ -37,16 +35,16 @@ public class ReportService {
 
         // 신고 객체 생성
         Report report = Report.builder()
-                .reportTitle(createReportResponse.getReportTitle())
-                .reportContent(createReportResponse.getReportContent())
-                .target(Target.valueOf(createReportResponse.getReportTarget()))
-                .targetId(createReportResponse.getTargetId())
+                .reportTitle(createReportRequest.getReportTitle())
+                .reportContent(createReportRequest.getReportContent())
+                .target(Target.valueOf(createReportRequest.getReportTarget()))
+                .targetId(createReportRequest.getTargetId())
                 .userId(userId)
                 .isResolved(false)
                 .build();
 
         reportRepository.save(report);
-        return modelMapper.map(report, CreateReportResponse.class);
+        return modelMapper.map(report, CreateReportRequest.class);
     }
 
     // 모든 신고 조회 (관리자)
