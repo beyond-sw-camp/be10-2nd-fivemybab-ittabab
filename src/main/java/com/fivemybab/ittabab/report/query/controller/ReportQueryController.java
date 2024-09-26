@@ -25,7 +25,7 @@ public class ReportQueryController {
     }
 
     // 모든 신고 조회
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<ReportDto>> getAllReports(Authentication authentication) throws NotFoundException {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

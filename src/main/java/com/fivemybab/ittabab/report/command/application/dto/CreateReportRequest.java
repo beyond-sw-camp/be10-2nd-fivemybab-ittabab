@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CreateReportResponse {
+public class CreateReportRequest {
 
     private String reportTitle;
     private String reportContent;

@@ -2,10 +2,9 @@ package com.fivemybab.ittabab.report.command.application.controller;
 
 
 
-import com.fivemybab.ittabab.report.command.application.dto.CreateReportResponse;
+import com.fivemybab.ittabab.report.command.application.dto.CreateReportRequest;
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportRequest;
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportResponse;
-import com.fivemybab.ittabab.report.query.dto.ReportDto;
 import com.fivemybab.ittabab.report.command.application.service.ReportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +23,11 @@ public class ReportController {
     }
 
     // 신고 생성
-    @PostMapping("/create")
-    public ResponseEntity<CreateReportResponse> createReport(@RequestBody CreateReportResponse createReportResponse, @RequestParam Long userId) {
-        createReportResponse.setCreateDate(LocalDateTime.now());
-        reportService.createReport(createReportResponse, userId);
-        return new ResponseEntity<>(createReportResponse,HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<CreateReportRequest> createReport(@RequestBody CreateReportRequest createReportRequest, @RequestParam Long userId) {
+        createReportRequest.setCreateDate(LocalDateTime.now());
+        reportService.createReport(createReportRequest, userId);
+        return new ResponseEntity<>(createReportRequest,HttpStatus.CREATED);
     }
 
 //    // 모든 신고 조회
@@ -39,7 +38,7 @@ public class ReportController {
 //    }
 
     // 신고 처리 (관리자만 가능)
-    @PostMapping("/resolve/{reportId}")
+    @PostMapping("/{reportId}")
     public ResponseEntity<ResolveReportResponse> resolveReport(@PathVariable Long reportId,@RequestBody ResolveReportRequest request) {
         return ResponseEntity.ok(reportService.resolveReport(reportId, request.getUserId()));
     }
