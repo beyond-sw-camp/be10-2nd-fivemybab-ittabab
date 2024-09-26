@@ -1,8 +1,7 @@
-package com.fivemybab.ittabab.bootcamp.command.repository;
+package com.fivemybab.ittabab.user.command.domain.repository;
 
-import com.fivemybab.ittabab.bootcamp.command.entity.BootCamp;
+import com.fivemybab.ittabab.user.command.domain.aggregate.BootCamp;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 public interface BootCampRepository extends JpaRepository<BootCamp, Long> {
 }

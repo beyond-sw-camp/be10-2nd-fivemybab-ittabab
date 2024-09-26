@@ -1,7 +1,7 @@
-package com.fivemybab.ittabab.bootcamp.command.controller;
+package com.fivemybab.ittabab.user.command.application.controller;
 
 import com.fivemybab.ittabab.bootcamp.command.dto.BootCampDTO;
-import com.fivemybab.ittabab.bootcamp.command.service.BootCampService;
+import com.fivemybab.ittabab.user.command.application.service.BootCampService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bootcamp")
 @RequiredArgsConstructor
-public class BootCampController {
+public class BootCampCommandController {
 
     private final BootCampService bootcampService;
 

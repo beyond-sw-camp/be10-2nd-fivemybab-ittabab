@@ -1,8 +1,8 @@
-package com.fivemybab.ittabab.bootcamp.command.service;
+package com.fivemybab.ittabab.user.command.application.service;
 
-import com.fivemybab.ittabab.bootcamp.command.entity.BootCamp; // 클래스 이름 확인
+import com.fivemybab.ittabab.user.command.domain.aggregate.BootCamp; // 클래스 이름 확인
 import com.fivemybab.ittabab.bootcamp.command.dto.BootCampDTO;
-import com.fivemybab.ittabab.bootcamp.command.repository.BootCampRepository;
+import com.fivemybab.ittabab.user.command.domain.repository.BootCampRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException; // 수정된 예외 처리
@@ -25,7 +25,7 @@ public class BootCampService {
     }
 
     public BootCampDTO save(BootCampDTO bootcampDTO) {
-        BootCamp bootcamp = BootCamp.of(bootcampDTO.getbootName(), bootcampDTO.getbootLocation());
+        BootCamp bootcamp = BootCamp.of(bootcampDTO.getBootName(), bootcampDTO.getBootLocation());
         return new BootCampDTO(bootcampRepository.save(bootcamp).getBootId(),
                 bootcamp.getBootName(),
                 bootcamp.getBootLocation());
@@ -34,8 +34,8 @@ public class BootCampService {
     public BootCampDTO update(Long id, BootCampDTO bootcampDTO) {
         BootCamp bootcamp = bootcampRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Bootcamp not found"));
-        bootcamp.setBootName(bootcampDTO.getbootName());
-        bootcamp.setBootLocation(bootcampDTO.getbootLocation());
+        bootcamp.setBootName(bootcampDTO.getBootName());
+        bootcamp.setBootLocation(bootcampDTO.getBootLocation());
         return new BootCampDTO(bootcampRepository.save(bootcamp).getBootId(), bootcamp.getBootName(), bootcamp.getBootLocation());
     }
 
