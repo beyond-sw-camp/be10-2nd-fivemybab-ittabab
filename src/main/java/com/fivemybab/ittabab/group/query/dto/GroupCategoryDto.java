@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.group.command.application.dto;
+package com.fivemybab.ittabab.group.query.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.group.command.application.mapper;
+package com.fivemybab.ittabab.group.query.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

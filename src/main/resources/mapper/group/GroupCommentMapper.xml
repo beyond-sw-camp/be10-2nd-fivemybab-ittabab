@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper">
+<mapper namespace="com.fivemybab.ittabab.group.query.mapper.GroupCommentMapper">
     <select id="findGroupCommentsByGroupId"
-            resultType="com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto">
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupCommentDto">
         SELECT *
         FROM group_comment
         WHERE group_id = #{groupId}

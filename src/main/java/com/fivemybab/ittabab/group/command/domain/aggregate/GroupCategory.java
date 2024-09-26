@@ -3,7 +3,7 @@ package com.fivemybab.ittabab.group.command.domain.aggregate;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "group_category_id")
+@Table(name = "group_category")
 public class GroupCategory {
 
     @Id
