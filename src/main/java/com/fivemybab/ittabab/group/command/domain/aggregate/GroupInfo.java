@@ -1,9 +1,8 @@
-package com.fivemybab.ittabab.group.command.domain.entity;
+package com.fivemybab.ittabab.group.command.domain.aggregate;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "group_info")
