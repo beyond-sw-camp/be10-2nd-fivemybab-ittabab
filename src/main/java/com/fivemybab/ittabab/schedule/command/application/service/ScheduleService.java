@@ -1,8 +1,8 @@
-package com.fivemybab.ittabab.schedule.command.service;
+package com.fivemybab.ittabab.schedule.command.application.service;
 
-import com.fivemybab.ittabab.schedule.command.dto.ScheduleDto;
+import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
-import com.fivemybab.ittabab.schedule.command.repository.ScheduleRepository;
+import com.fivemybab.ittabab.schedule.command.domain.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
@@ -21,13 +21,6 @@ public class ScheduleService {
         this.modelMapper = modelMapper;
     }
 
-    /* 전체 조회 */
-    public List<ScheduleDto> findScheduleList() {
-        List<ScheduleInfo> scheduleList = scheduleRepository.findAll(Sort.by("scheduleId").descending());
-        return scheduleList.stream()
-                .map(scheduleInfo -> modelMapper.map(scheduleInfo, ScheduleDto.class))
-                .toList();
-    }
 
     /* 일정 추가 */
     @Transactional
