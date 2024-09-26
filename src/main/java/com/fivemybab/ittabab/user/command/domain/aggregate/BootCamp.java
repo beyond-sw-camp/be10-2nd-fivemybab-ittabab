@@ -16,18 +16,12 @@ public class BootCamp {
     private String bootName;
     private String bootLocation;
 
-    @Builder
-    public BootCamp(Long bootId, String bootName, String bootLocation) {
-        this.bootId = bootId;
+    public void modifyName(String bootName) {
         this.bootName = bootName;
+    }
+
+    public void modifyLocation(String bootLocation) {
         this.bootLocation = bootLocation;
     }
 
-    // 'of' 메서드 수정
-    public static BootCamp of(String bootName, String bootLocation) {
-        return BootCamp.builder()
-                .bootName(bootName)
-                .bootLocation(bootLocation)
-                .build();
-    }
 }

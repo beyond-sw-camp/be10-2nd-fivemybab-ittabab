@@ -2,7 +2,6 @@ package com.fivemybab.ittabab.user.command.application.service;
 
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,6 @@ public class UserCommandService implements UserDetailsService {
         UserInfo user = modelMapper.map(newUser, UserInfo.class);
         user.encryptPwd(passwordEncoder.encode(newUser.getPwd()));
         userRepository.save(user);
-
     }
 
     @Transactional
@@ -44,14 +42,12 @@ public class UserCommandService implements UserDetailsService {
         UserInfo foundUser = userRepository.findByUserId(userNo);
         foundUser.modifyPwd(passwordEncoder.encode(updateUserRequest.getPwd()));
         foundUser.modifyPhone(updateUserRequest.getPhone());
-
     }
 
-
+    @Transactional
     public void deleteUser(Long userNo) {
 
         userRepository.deleteById(userNo);
-
     }
 
     @Override

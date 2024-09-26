@@ -1,15 +1,13 @@
-package com.fivemybab.ittabab.bootcamp.command.dto;
+package com.fivemybab.ittabab.user.query.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class BootCampDTO {
+public class BootCampDto {
 
     private Long bootId;
     private String bootName;
