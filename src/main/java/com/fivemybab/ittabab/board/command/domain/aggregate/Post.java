@@ -20,7 +20,7 @@ public class Post {
     private String postContent; // 게시글 내용
     private LocalDateTime createDate; // 작성 일시
     private LocalDateTime updateDate; // 수정 일시
-    private boolean isBlinded; // 블라인드 여부
+    private boolean isBlinded = false; // 블라인드 여부
 
   @Builder
     public Post(String postTitle, String postContent, boolean isBlinded, LocalDateTime createDate,Long userId){

@@ -66,9 +66,7 @@ public class BoardCommandService {
         if (updatedBoardDTO.getPostContent() != null) {
             post.setPostContent(updatedBoardDTO.getPostContent());
         }
-        if (updatedBoardDTO.getIsBlinded() != null) {
-            post.setBlinded(updatedBoardDTO.getIsBlinded());
-        }
+
     }
 
     //delete

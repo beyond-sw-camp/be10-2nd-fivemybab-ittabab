@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
 @RequestMapping("/board")
 public class BoardCommandController {
 
-    private static final Logger log = LoggerFactory.getLogger(BoardCommandController.class);
+    //private static final Logger log = LoggerFactory.getLogger(BoardCommandController.class);
     private final BoardCommandService boardCommandService;
 
-    //public BoardCommandController(BoardCommandService boardCommandService) {this.boardCommandService = boardCommandService;}
+
 
     //게시판 작성(create)
     @PostMapping("/create")
@@ -45,7 +45,7 @@ public class BoardCommandController {
     public ResponseEntity<Void> updateBoard(
             @PathVariable Long postId,
             @RequestBody @Valid UpdatedBoardDTO updatedBoardDTO) {
-        //log.info("updatedBoardDTO : {}",updatedBoardDTO);
+
         boardCommandService.updateBoard(postId, updatedBoardDTO);
         return ResponseEntity.ok().build();
     }
