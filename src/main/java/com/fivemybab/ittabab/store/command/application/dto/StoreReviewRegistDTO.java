@@ -1,4 +1,5 @@
-package com.fivemybab.ittabab.store.command.dto;
+package com.fivemybab.ittabab.store.command.application.dto;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,15 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class ReviewDto {
+public class StoreReviewRegistDTO {
 
-    private Long reviewId;
     private Long storeId;
     private Long userId;
     private String reviewContent;
     private int rating;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
     private boolean isBlinded;
+
+
 
 }
