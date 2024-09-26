@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.group.command.domain.entity;
+package com.fivemybab.ittabab.group.command.domain.aggregate;
 
 import jakarta.persistence.*;
 

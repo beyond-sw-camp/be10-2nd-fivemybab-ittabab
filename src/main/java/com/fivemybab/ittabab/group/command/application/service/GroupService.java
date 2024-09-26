@@ -2,13 +2,14 @@ package com.fivemybab.ittabab.group.command.application.service;
 
 import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.command.application.dto.GroupUserDto;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
 import com.fivemybab.ittabab.group.command.application.mapper.GroupUserMapper;
 import com.fivemybab.ittabab.group.command.application.repository.GroupInfoRepository;
 import com.fivemybab.ittabab.group.command.application.repository.GroupUserRepository;
-import com.fivemybab.ittabab.group.command.domain.entity.GroupInfo;
-import com.fivemybab.ittabab.group.command.domain.entity.GroupUser;
+import com.fivemybab.ittabab.group.command.domain.aggregate.GroupInfo;
+import com.fivemybab.ittabab.group.command.domain.aggregate.GroupUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -65,6 +66,8 @@ public class GroupService {
 
     /* 모임에 신규 사용자 가입 메소드 */
     public void registGroupUser(Long userId, Long groupId) {
-        groupUserRepository.save(modelMapper.map(userId, GroupUser.class));
+        GroupUserDto newGroupUser = new GroupUserDto(null, userId, groupId);
+
+        groupUserRepository.save(modelMapper.map(newGroupUser, GroupUser.class));
     }
 }
