@@ -45,6 +45,7 @@ public class GroupController {
             newGroupInfo.setUserId(userId);
             newGroupInfo.setCreateDate(LocalDateTime.now());
             groupService.registGroup(newGroupInfo);
+
             return new ResponseEntity<>("등록 완료", HttpStatus.OK);
         }
     }

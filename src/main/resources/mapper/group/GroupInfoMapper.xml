@@ -28,4 +28,11 @@
         FROM group_info
         WHERE group_id = #{groupId}
     </select>
+
+    <select id="findUserIdByLoginId"
+            resultType="long">
+        SELECT user_id
+        FROM user_info
+        WHERE login_id = #{loginUserLoginId}
+    </select>
 </mapper>
