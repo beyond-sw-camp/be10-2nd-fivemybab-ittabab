@@ -1,4 +1,7 @@
 package com.fivemybab.ittabab.board.query.mapper;
 
-public class BoardQueryMapper {
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface BoardQueryMapper {
 }
