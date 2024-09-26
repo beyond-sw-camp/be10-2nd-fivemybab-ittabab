@@ -1,9 +1,8 @@
-package com.fivemybab.ittabab.group.command.application.mapper;
+package com.fivemybab.ittabab.group.query.mapper;
 
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 

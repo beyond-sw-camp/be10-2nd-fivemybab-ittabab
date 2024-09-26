@@ -1,8 +1,7 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
+import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,38 +47,6 @@ public class GroupController {
 
             return new ResponseEntity<>("등록 완료", HttpStatus.OK);
         }
-    }
-
-    /* 전체 모임 조회 */
-    @GetMapping("/list")
-    public String group(Model model, Authentication loginUserLoginId) {
-        // 인증된 사용자가 아닌 경우 에러 페이지로 이동 -> 에러 페이지 구현해야 함.
-        if (loginUserLoginId == null || !loginUserLoginId.isAuthenticated()) {
-            // 적절한 오류 메시지를 모델에 추가하고 에러 페이지로 리다이렉트
-            model.addAttribute("errorMessage", "로그인 후에 접근할 수 있습니다.");
-            return "error"; // 에러 페이지로 리다이렉트
-        }
-
-        // 인증된 사용자의 이름을 가져옴
-        log.info("loginUserLoginId.getName: {}", loginUserLoginId.getName());
-
-        List<GroupInfoDto> groupList = groupService.findGroupByGroupStatus(loginUserLoginId.getName());
-
-        if (!groupList.isEmpty()) {
-            model.addAttribute("groupList", groupList);
-        }
-
-        return "group/list"; // 그룹 목록 페이지 반환
-    }
-
-    /* 모임 상세 조회 */
-    @GetMapping("/detail/{groupId}")
-    public String groupDetail(@PathVariable Long groupId, Model model) {
-        GroupInfoDto foundGroup = groupService.findGroupByGroupId(groupId);
-        List<GroupCommentDto> commentList = groupService.findGroupCommentsByGroupId(groupId);
-        model.addAttribute("foundGroup", foundGroup);
-        model.addAttribute("commentList", commentList);
-        return "group/detail";
     }
 
     /* 모임 참여 */
@@ -133,7 +100,7 @@ public class GroupController {
     }
 
     /* 모임 삭제 */
-    @DeleteMapping("/delete/{groupId}")
+    @DeleteMapping("/{groupId}")
     public ResponseEntity<String> deleteGroup(
             @PathVariable Long groupId,
             Authentication loginUserLoginId

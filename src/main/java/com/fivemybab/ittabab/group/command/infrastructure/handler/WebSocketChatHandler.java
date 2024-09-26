@@ -1,7 +1,7 @@
-package com.fivemybab.ittabab.group.command.application.handler;
+package com.fivemybab.ittabab.group.command.infrastructure.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fivemybab.ittabab.group.command.application.dto.ChatMessageDto;
+import com.fivemybab.ittabab.group.query.dto.ChatMessageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
