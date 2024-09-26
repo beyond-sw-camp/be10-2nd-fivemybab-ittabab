@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.report.command.dto;
+package com.fivemybab.ittabab.report.command.application.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CreateReportDto {
+public class CreateReportResponse {
 
     private String reportTitle;
     private String reportContent;

@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.report.command.dto;
+package com.fivemybab.ittabab.report.query.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 public class ReportDto {
     private Long reportId;  // 신고 ID
     private String reportTitle;  // 신고 제목
