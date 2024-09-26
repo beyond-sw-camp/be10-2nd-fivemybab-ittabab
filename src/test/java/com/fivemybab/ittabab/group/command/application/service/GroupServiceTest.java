@@ -7,7 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -50,4 +49,17 @@ class GroupServiceTest {
                 }
         );
     }
+
+    @Test
+    public void test() {
+        // 1번 모임에는 3명이 가입되어있다.
+        List<Long> arr = service.findGroupUserByGroupId(2L);
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    System.out.println(arr);
+                    System.out.println(arr.size());
+                }
+        );
+    }
+
 }
