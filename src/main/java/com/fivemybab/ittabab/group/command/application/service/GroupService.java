@@ -12,7 +12,6 @@ import com.fivemybab.ittabab.group.command.domain.entity.GroupUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +20,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupService {
 
-    private final SqlSessionTemplate session;
+    private final GroupInfoMapper groupInfoMapper;
+    private final GroupUserMapper groupUserMapper;
+    private final GroupCommentMapper groupCommentMapper;
     private final GroupInfoRepository groupInfoRepository;
     private final GroupUserRepository groupUserRepository;
     private final ModelMapper modelMapper;
 
     public List<GroupInfoDto> findGroupByGroupStatus(String loginId) {
-        return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus(loginId);
+        return groupInfoMapper.findGroupByGroupStatus(loginId);
     }
 
     public GroupInfoDto findGroupByGroupId(Long groupId) {
-        return session.getMapper(GroupInfoMapper.class).findGroupByGroupId(groupId);
+        return groupInfoMapper.findGroupByGroupId(groupId);
     }
 
     public List<GroupCommentDto> findGroupCommentsByGroupId(Long groupId) {
-        List<GroupCommentDto> commentList = session.getMapper(GroupCommentMapper.class).findGroupCommentsByGroupId(groupId);
+        List<GroupCommentDto> commentList = groupCommentMapper.findGroupCommentsByGroupId(groupId);
 
         return commentList;
     }
@@ -48,7 +49,7 @@ public class GroupService {
 
     /* 로그인 ID -> 유저 ID */
     public Long loginIdToUserId(String loginUserLoginId) {
-        return session.getMapper(GroupInfoMapper.class).findUserIdByLoginId(loginUserLoginId);
+        return groupInfoMapper.findUserIdByLoginId(loginUserLoginId);
     }
 
     /* 모임 삭제 */
@@ -59,7 +60,7 @@ public class GroupService {
 
     /* 모임에 가입된 사용자 아이디 가져오는 메소드 */
     public List<Long> findGroupUserByGroupId(Long groupId) {
-        return session.getMapper(GroupUserMapper.class).findUserByGroupId(groupId);
+        return groupUserMapper.findUserByGroupId(groupId);
     }
 
     /* 모임에 신규 사용자 가입 메소드 */
