@@ -88,7 +88,7 @@ public class GroupController {
         // 현재 로그인된 계정을 정보를 가져와야 되는데 얘기해 봐야 될 거 같음.
     }
 
-    /* 그룹 채팅 참여 */
+    /* 모임 채팅 참여 */
     @GetMapping("/chatroom/{groupId}")
     public String joinChatting(@PathVariable Long groupId, Model model) {
         // 참가자들에게 알람보내는 기능 추가 해야됨
@@ -96,7 +96,28 @@ public class GroupController {
         return "group/chatroom";
     }
 
-    @GetMapping("/modify")
-    public void modifyGroupInfoPage() {
+    /* 모임 삭제 */
+    @DeleteMapping("/delete/{groupId}")
+    public ResponseEntity<String> deleteGroup(
+            @PathVariable Long groupId,
+            Authentication loginUserLoginId
+    ) {
+        if (checkCreator(loginUserLoginId, groupId)) {
+            groupService.deleteGroupInfo(groupId);
+
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return new ResponseEntity<>("작성자가 아닙니다.", HttpStatus.OK);
+        }
+    }
+
+    /* 모임 모집자 확인 */
+    public boolean checkCreator(
+            Authentication loginUserLoginId,
+            Long groupId
+    ) {
+        Long creatorId = groupService.findGroupByGroupId(groupId).getUserId();
+
+        return creatorId == groupService.loginIdToUserId(loginUserLoginId.getName());
     }
 }

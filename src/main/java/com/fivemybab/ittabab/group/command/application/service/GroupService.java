@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +46,14 @@ public class GroupService {
         repository.save(modelMapper.map(newGroupInfo, GroupInfo.class));
     }
 
+    /* 로그인 ID -> 유저 ID */
     public Long loginIdToUserId(String loginUserLoginId) {
         return session.getMapper(GroupInfoMapper.class).findUserIdByLoginId(loginUserLoginId);
+    }
+
+    /* 모임 삭제 */
+    @Transactional
+    public void deleteGroupInfo(Long groupId) {
+        repository.deleteById(groupId);
     }
 }
