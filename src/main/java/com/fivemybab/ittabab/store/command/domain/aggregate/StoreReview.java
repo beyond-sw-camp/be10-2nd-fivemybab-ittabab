@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "review")
 @Getter
 @NoArgsConstructor
-public class Review {
+public class StoreReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,19 @@ public class Review {
     private Long storeId;
     private Long userId;
     private String reviewContent;
-    private int rating;
+    private Integer rating;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private boolean isBlinded;
+
+    public void modifyStoreReviewContent(String newReviewContent) {
+        this.reviewContent = newReviewContent;
+    }
+
+    public void modifyStoreReviewRating(int newReviewRating) {
+        this.rating = newReviewRating;
+    }
+
+
 
 }

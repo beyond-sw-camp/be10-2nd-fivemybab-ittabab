@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.store.command.dto;
+package com.fivemybab.ittabab.store.command.application.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,12 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MenuDto {
+public class MenuDTO {
 
     private Long menuId;
     private Long storeId;
     private String menuName;
     private int menuPrice;
-    private Long menuCategoryId;
+    private int menuCategoryCode;
 
 }
