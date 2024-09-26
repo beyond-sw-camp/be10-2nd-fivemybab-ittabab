@@ -1,35 +1,41 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
+import com.fivemybab.ittabab.user.command.application.dto.CreateBootCampRequest;
+import com.fivemybab.ittabab.user.command.application.dto.UpdateBootCampRequest;
 import com.fivemybab.ittabab.user.command.domain.aggregate.BootCamp; // 클래스 이름 확인
-import com.fivemybab.ittabab.user.query.dto.BootCampDto;
 import com.fivemybab.ittabab.user.command.domain.repository.BootCampRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException; // 수정된 예외 처리
-import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class BootCampCommandService {
 
+    private final ModelMapper modelMapper;
     private final BootCampRepository bootcampRepository;
 
-    public BootCampDto save(BootCampDto bootcampDTO) {
-        BootCamp bootcamp = BootCamp.of(bootcampDTO.getBootName(), bootcampDTO.getBootLocation());
-        return new BootCampDto(bootcampRepository.save(bootcamp).getBootId(),
-                bootcamp.getBootName(),
-                bootcamp.getBootLocation());
+    @Transactional
+    public void createBootCamp(CreateBootCampRequest createBootCampRequest) {
+
+        BootCamp bootCamp = modelMapper.map(createBootCampRequest, BootCamp.class);
+        bootcampRepository.save(bootCamp);
     }
 
-    public BootCampDto update(Long id, BootCampDto bootcampDTO) {
-        BootCamp bootcamp = bootcampRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Bootcamp not found"));
-        bootcamp.setBootName(bootcampDTO.getBootName());
-        bootcamp.setBootLocation(bootcampDTO.getBootLocation());
-        return new BootCampDto(bootcampRepository.save(bootcamp).getBootId(), bootcamp.getBootName(), bootcamp.getBootLocation());
+    @Transactional
+    public void modifyBootCamp(Long id, UpdateBootCampRequest updateBootCampRequest) {
+
+        BootCamp foundBootCamp = bootcampRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("해당 id에 맞는 훈련 기관이 없습니다. code : " + id));
+        foundBootCamp.modifyName(updateBootCampRequest.getBootName());
+        foundBootCamp.modifyLocation(updateBootCampRequest.getBootLocation());
     }
 
-    public void delete(Long id) {
+    @Transactional
+    public void deleteBootCamp(Long id) {
+
         bootcampRepository.deleteById(id);
     }
 }

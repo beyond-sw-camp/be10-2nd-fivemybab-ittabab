@@ -34,7 +34,6 @@ public class UserCommandService implements UserDetailsService {
         UserInfo user = modelMapper.map(newUser, UserInfo.class);
         user.encryptPwd(passwordEncoder.encode(newUser.getPwd()));
         userRepository.save(user);
-
     }
 
     @Transactional
@@ -43,14 +42,12 @@ public class UserCommandService implements UserDetailsService {
         UserInfo foundUser = userRepository.findByUserId(userNo);
         foundUser.modifyPwd(passwordEncoder.encode(updateUserRequest.getPwd()));
         foundUser.modifyPhone(updateUserRequest.getPhone());
-
     }
 
-
+    @Transactional
     public void deleteUser(Long userNo) {
 
         userRepository.deleteById(userNo);
-
     }
 
     @Override
