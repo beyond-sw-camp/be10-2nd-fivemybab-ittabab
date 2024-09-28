@@ -7,6 +7,15 @@ import java.util.List;
 
 @Mapper
 public interface BoardQueryMapper {
-    List<BoardQueryDto> findAllPosts(); // 모든 게시물 조회
-    BoardQueryDto findPostById(Long postId); // 게시물 ID로 조회
+    // 최신순으로 게시물 목록 조회
+    List<BoardQueryDto> selectPostsByTime();
+
+    // 좋아요가 가장 많은 게시물 목록 조회
+    List<BoardQueryDto> selectPostsByLikesDesc();
+
+    // 좋아요가 가장 적은 게시물 목록 조회
+    List<BoardQueryDto> selectPostsByLikesAsc();
+
+    // 댓글 많은 순으로 게시물 목록 조회
+    List<BoardQueryDto> selectPostsByComments();
 }

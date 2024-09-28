@@ -5,7 +5,6 @@ import com.fivemybab.ittabab.board.query.mapper.BoardQueryMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.javassist.NotFoundException;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +16,11 @@ import java.util.List;
 public class BoardQueryService {
 
     private final BoardQueryMapper boardQueryMapper;
-    private final ModelMapper modelMapper;
 
-    /* 모든 게시물 조회 */
+    /* 게시물 목록 조회 (최신순) */
     @Transactional(readOnly = true)
-    public List<BoardQueryDto> findAllPosts() throws NotFoundException {
-        List<BoardQueryDto> posts = boardQueryMapper.findAllPosts();
+    public List<BoardQueryDto> findPostsByTime() throws NotFoundException {
+        List<BoardQueryDto> posts = boardQueryMapper.selectPostsByTime();
 
         if (posts.isEmpty()) {
             throw new NotFoundException("게시물이 없습니다.");
@@ -31,18 +29,39 @@ public class BoardQueryService {
         return posts;
     }
 
-    /* 게시물 ID로 조회 */
+    /* 게시물 목록 조회 (좋아요 내림차순) */
     @Transactional(readOnly = true)
-    public BoardQueryDto findPostById(Long postId) throws NotFoundException {
-        BoardQueryDto post = boardQueryMapper.findPostById(postId);
+    public List<BoardQueryDto> findPostsByLikesDesc() throws NotFoundException {
+        List<BoardQueryDto> posts = boardQueryMapper.selectPostsByLikesDesc();
 
-        if (post == null) {
-            log.warn("게시물 ID {}에 대한 게시물이 없습니다.", postId);
-            throw new NotFoundException("게시물 ID " + postId + "에 대한 게시물이 없습니다.");
-        } else {
-            log.info("조회된 게시물: {}", post);
+        if (posts.isEmpty()) {
+            throw new NotFoundException("게시물이 없습니다.");
         }
 
-        return post;
+        return posts;
+    }
+
+    /* 게시물 목록 조회 (좋아요 오름차순) */
+    @Transactional(readOnly = true)
+    public List<BoardQueryDto> findPostsByLikesAsc() throws NotFoundException {
+        List<BoardQueryDto> posts = boardQueryMapper.selectPostsByLikesAsc();
+
+        if (posts.isEmpty()) {
+            throw new NotFoundException("게시물이 없습니다.");
+        }
+
+        return posts;
+    }
+
+    /* 게시물 목록 조회 (댓글 많은 순) */
+    @Transactional(readOnly = true)
+    public List<BoardQueryDto> findPostsByComments() throws NotFoundException {
+        List<BoardQueryDto> posts = boardQueryMapper.selectPostsByComments();
+
+        if (posts.isEmpty()) {
+            throw new NotFoundException("게시물이 없습니다.");
+        }
+
+        return posts;
     }
 }
