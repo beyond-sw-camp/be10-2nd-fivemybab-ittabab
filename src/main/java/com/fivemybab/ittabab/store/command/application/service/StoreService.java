@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.store.command.application.service;
 
-import com.fivemybab.ittabab.store.command.application.dto.StoreRegistDTO;
-import com.fivemybab.ittabab.store.command.application.dto.StoreUpdateDTO;
+import com.fivemybab.ittabab.store.command.application.dto.CreateStoreDto;
+import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreDto;
 import com.fivemybab.ittabab.store.command.application.repository.StoreRepository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.Store;
 import jakarta.transaction.Transactional;
@@ -20,42 +20,42 @@ public class StoreService {
 
     /* 가게 추가 */
     @Transactional
-    public void registStore(StoreRegistDTO newStore) {
+    public void registStore(CreateStoreDto newStore) {
         storeRepository.save(modelMapper.map(newStore, Store.class));
     }
 
     /* 가게 수정 */
     @Transactional
-    public void updateStore(Long storeId, StoreUpdateDTO storeUpdateDTO) {
+    public void updateStore(Long storeId, UpdateStoreDto updateStoreDto) {
         Store store =
                 storeRepository.findById(storeId)
                         .orElseThrow(()-> new IllegalArgumentException("가게를 찾지 못했습니다."));
 
-        if (storeUpdateDTO.getStoreName() != null) {
-            store.modifyStoreName(storeUpdateDTO.getStoreName());
+        if (updateStoreDto.getStoreName() != null) {
+            store.modifyStoreName(updateStoreDto.getStoreName());
         }
 
-        if (storeUpdateDTO.getStoreLocation() != null) {
-            store.modifyStoreLocation(storeUpdateDTO.getStoreLocation());
+        if (updateStoreDto.getStoreLocation() != null) {
+            store.modifyStoreLocation(updateStoreDto.getStoreLocation());
         }
 
-        if (storeUpdateDTO.getStoreOpenTime() != null) {
-            store.modifyStoreOpenTime(storeUpdateDTO.getStoreOpenTime());
+        if (updateStoreDto.getStoreOpenTime() != null) {
+            store.modifyStoreOpenTime(updateStoreDto.getStoreOpenTime());
         }
 
-        if (storeUpdateDTO.getStoreEndTime() != null) {
-            store.modifyStoreEndTime(storeUpdateDTO.getStoreEndTime());
+        if (updateStoreDto.getStoreEndTime() != null) {
+            store.modifyStoreEndTime(updateStoreDto.getStoreEndTime());
         }
 
-        if (storeUpdateDTO.getStoreWeek() != null) {
-            store.modifyStoreWeek(storeUpdateDTO.getStoreWeek());
+        if (updateStoreDto.getStoreWeek() != null) {
+            store.modifyStoreWeek(updateStoreDto.getStoreWeek());
         }
 
-        if (storeUpdateDTO.getStoreInfo() != null) {
-            store.modifyStoreInfo(storeUpdateDTO.getStoreInfo());
+        if (updateStoreDto.getStoreInfo() != null) {
+            store.modifyStoreInfo(updateStoreDto.getStoreInfo());
         }
 
-        if (storeUpdateDTO.getStoreStatus() != null) {
+        if (updateStoreDto.getStoreStatus() != null) {
             store.modifyStoreStatus(store.getStoreStatus());
         }
 

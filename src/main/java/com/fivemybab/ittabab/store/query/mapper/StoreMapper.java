@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.store.query.mapper;
 
 
-import com.fivemybab.ittabab.store.command.application.dto.StoreInfoDTO;
+import com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.List;
 public interface StoreMapper {
 
     /* 전체 가게 조회*/
-    List<StoreInfoDTO> findStoreList();
+    List<StoreInfoDto> findStoreList();
 
     /* 특정 가게 조회 */
-    StoreInfoDTO findStoreByStoreId(Long storeId);
+    StoreInfoDto findStoreByStoreId(Long storeId);
 
 
 }

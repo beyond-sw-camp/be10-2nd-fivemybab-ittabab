@@ -5,14 +5,14 @@
 <mapper namespace="com.fivemybab.ittabab.store.query.mapper.StoreMapper">
     <select
             id="findStoreList"
-            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDTO">
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
     </select>
 
     <select
             id="findStoreByStoreId"
-            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDTO">
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
         WHERE store_id = #{storeId}
