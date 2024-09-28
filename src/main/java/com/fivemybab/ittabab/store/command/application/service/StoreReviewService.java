@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.store.command.application.service;
 
-import com.fivemybab.ittabab.store.command.application.dto.StoreReviewRegistDTO;
-import com.fivemybab.ittabab.store.command.application.dto.StoreReviewUpdateDTO;
+import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
+import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.repository.StoreReviewRepository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.StoreReview;
 import jakarta.transaction.Transactional;
@@ -18,25 +18,25 @@ public class StoreReviewService {
 
     /* 가게 리뷰 추가 */
     @Transactional
-    public void registStoreReview(StoreReviewRegistDTO newStoreReview) {
+    public void registStoreReview(CreateStoreReviewDto newStoreReview) {
         repository.save(modelMapper.map(newStoreReview, StoreReview.class));
     }
 
     /* 가게 리뷰 수정*/
     @Transactional
-    public void updateStoreReview(Long reviewId, StoreReviewUpdateDTO storeReviewUpdateDTO) {
+    public void updateStoreReview(Long reviewId, UpdateStoreReviewDto updateStoreReviewDTO) {
         StoreReview storeReview = repository.findById(reviewId)
                 .orElseThrow(()-> new IllegalArgumentException("리뷰를 찾지 못했습니다."));
 
 
 
 
-        if(storeReviewUpdateDTO.getReviewContent() != null) {
-            storeReview.modifyStoreReviewContent(storeReviewUpdateDTO.getReviewContent());
+        if(updateStoreReviewDTO.getReviewContent() != null) {
+            storeReview.modifyStoreReviewContent(updateStoreReviewDTO.getReviewContent());
         }
 
         // 만약 평점에 값을 입력하지 않을 경우 -> 예외처리 추가할 것
-        storeReview.modifyStoreReviewRating(storeReviewUpdateDTO.getRating());
+        storeReview.modifyStoreReviewRating(updateStoreReviewDTO.getRating());
 
 
 

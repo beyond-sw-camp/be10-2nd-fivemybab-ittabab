@@ -13,8 +13,9 @@ import java.time.LocalTime;
 @Setter
 @ToString
 @AllArgsConstructor
-public class StoreUpdateDTO {
+public class StoreInfoDto {
 
+    private Long storeId;
     private String storeName;
     private String storeLocation;
     @Schema(type = "string", example = "09:00", description = "시간은 HH:mm 형식으로 입력하세요.")
@@ -24,5 +25,6 @@ public class StoreUpdateDTO {
     private String storeWeek;
     private String storeInfo;
     private StoreStatus storeStatus;
+    private Long userId;
 
 }

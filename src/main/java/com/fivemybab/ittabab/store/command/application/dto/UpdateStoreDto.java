@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Setter
 @ToString
 @AllArgsConstructor
-public class StoreRegistDTO {
+public class UpdateStoreDto {
 
     private String storeName;
     private String storeLocation;
@@ -24,6 +24,5 @@ public class StoreRegistDTO {
     private String storeWeek;
     private String storeInfo;
     private StoreStatus storeStatus;
-    private Long userId;
 
 }
