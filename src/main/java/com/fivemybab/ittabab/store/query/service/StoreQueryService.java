@@ -17,10 +17,6 @@ public class StoreQueryService {
         return storeMapper.findStoreList();
     }
 
-    public StoreInfoDto findStoreByStoreId(Long id){
-        return storeMapper.findStoreByStoreId(id);
-    }
-
-
+    public StoreInfoDto findStoreByStoreId(Long id){ return storeMapper.findStoreByStoreId(id); }
 
 }

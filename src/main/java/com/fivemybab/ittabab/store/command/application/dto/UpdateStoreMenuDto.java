@@ -7,12 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MenuDTO {
+public class UpdateStoreMenuDto {
 
-    private Long menuId;
-    private Long storeId;
     private String menuName;
-    private int menuPrice;
-    private int menuCategoryCode;
+    private Integer menuPrice;
+    private Long MenuCategoryId;
 
 }

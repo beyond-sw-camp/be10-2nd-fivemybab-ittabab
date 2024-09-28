@@ -13,7 +13,7 @@ public class CreateStoreReviewDto {
     private Long storeId;
     private Long userId;
     private String reviewContent;
-    private int rating;
+    private Integer rating;
     private boolean isBlinded;
 
 
