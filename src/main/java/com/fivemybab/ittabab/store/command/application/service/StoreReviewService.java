@@ -19,7 +19,8 @@ public class StoreReviewService {
     /* 가게 리뷰 추가 */
     @Transactional
     public void registStoreReview(CreateStoreReviewDto newStoreReview) {
-        repository.save(modelMapper.map(newStoreReview, StoreReview.class));
+        StoreReview storeReview = modelMapper.map(newStoreReview, StoreReview.class);
+        repository.save(storeReview);
     }
 
     /* 가게 리뷰 수정*/
@@ -29,16 +30,13 @@ public class StoreReviewService {
                 .orElseThrow(()-> new IllegalArgumentException("리뷰를 찾지 못했습니다."));
 
 
-
-
         if(updateStoreReviewDTO.getReviewContent() != null) {
             storeReview.modifyStoreReviewContent(updateStoreReviewDTO.getReviewContent());
         }
 
-        // 만약 평점에 값을 입력하지 않을 경우 -> 예외처리 추가할 것
-        storeReview.modifyStoreReviewRating(updateStoreReviewDTO.getRating());
-
-
+        if (updateStoreReviewDTO.getRating() != null) {
+            storeReview.modifyStoreReviewRating(updateStoreReviewDTO.getRating());
+        }
 
     }
 

@@ -7,9 +7,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UpdateStoreReviewDto {
+public class CreateStoreMenuDto {
 
-    private String reviewContent;
-    private Integer rating;
+    private Long storeId;
+    private String menuName;
+    private Integer menuPrice;
+    private Long MenuCategoryId;
 
 }
