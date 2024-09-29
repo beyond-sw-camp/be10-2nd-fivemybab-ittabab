@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    UserDto findById(@Param("id") Long id);
+    UserDto findById(Long id);
 
     List<UserDto> findAll();
 

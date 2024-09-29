@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Table(name = "user_info")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE user_info SET user_status = 'WITHDRAWN' WHERE user_id=?")
+@SQLDelete(sql = "UPDATE user_info SET user_status = 'WITHDRAWN', sign_out_date = NOW() WHERE user_id=?")
 public class UserInfo {
 
     @Id
