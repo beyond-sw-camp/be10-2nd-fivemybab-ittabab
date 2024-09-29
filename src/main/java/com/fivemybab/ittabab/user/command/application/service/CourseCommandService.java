@@ -1,13 +1,9 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
 import com.fivemybab.ittabab.exception.NotFoundException;
-import com.fivemybab.ittabab.user.command.application.dto.CreateBootCampRequest;
 import com.fivemybab.ittabab.user.command.application.dto.CreateCourseRequest;
-import com.fivemybab.ittabab.user.command.application.dto.UpdateBootCampRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateCourseRequest;
-import com.fivemybab.ittabab.user.command.domain.aggregate.BootCamp;
 import com.fivemybab.ittabab.user.command.domain.aggregate.Course;
-import com.fivemybab.ittabab.user.command.domain.repository.BootCampRepository;
 import com.fivemybab.ittabab.user.command.domain.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
