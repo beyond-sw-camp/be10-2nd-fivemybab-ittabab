@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.good.command.domain.aggregate;
 
+import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,9 +21,7 @@ public class Good {
     private Target target;
     private Long targetId;
 
-    @Builder
-    public Good(Long goodId, Long userId, Target target, Long targetId) {
-        this.goodId = goodId;
+    public Good(Long userId, Target target, Long targetId) {
         this.userId = userId;
         this.target = target;
         this.targetId = targetId;
