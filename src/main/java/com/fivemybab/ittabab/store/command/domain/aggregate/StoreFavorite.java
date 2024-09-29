@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "favorite")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Favorite {
+public class StoreFavorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

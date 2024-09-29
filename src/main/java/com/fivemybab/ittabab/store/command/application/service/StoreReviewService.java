@@ -38,6 +38,7 @@ public class StoreReviewService {
             storeReview.modifyStoreReviewRating(updateStoreReviewDTO.getRating());
         }
 
+
     }
 
     /* 가게 리뷰 삭제 */
