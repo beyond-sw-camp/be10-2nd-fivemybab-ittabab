@@ -45,7 +45,7 @@ public class PictureCommandService {
 
             // 파일을 지정된 경로에 저장
             Files.write(filePath, file.getBytes());
-            System.out.println("저장");
+
             // 파일의 URL 경로를 생성
             String fileUrl = "/uploads/" + fileName;
 
