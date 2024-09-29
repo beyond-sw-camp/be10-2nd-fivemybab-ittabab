@@ -32,7 +32,7 @@ public class StoreMenuController {
 
     /* 가게 메뉴 삭제하기 */
     @DeleteMapping("/{menuId}")
-    public ResponseEntity<String> DeleteStoreMenu(@PathVariable Long menuId) {
+    public ResponseEntity<Void> DeleteStoreMenu(@PathVariable Long menuId) {
         storeMenuService.deleteStoreMenu(menuId);
         return ResponseEntity.noContent().build();
     }
