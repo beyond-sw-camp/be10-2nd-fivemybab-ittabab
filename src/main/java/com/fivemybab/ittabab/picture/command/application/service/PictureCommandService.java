@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 public class PictureCommandService {
 
-    @Value("${upload.path}") // application.yml에서 본인 파일 경로로 변경 하시길
+    @Value("${upload.path}") // config.properties 에서 본인 파일 경로로 변경 하시길
     private String uploadPath;
 
     private final PictureRepository pictureRepository;
@@ -45,11 +45,10 @@ public class PictureCommandService {
 
             // 파일을 지정된 경로에 저장
             Files.write(filePath, file.getBytes());
-
+            System.out.println(filePath.toAbsolutePath());
             // 파일의 URL 경로를 생성
             String fileUrl = "/uploads/" + fileName;
 
-            // Picture 엔티티 저장
             Picture picture = new Picture(fileUrl, target, targetId);
             pictureRepository.save(picture);
 
