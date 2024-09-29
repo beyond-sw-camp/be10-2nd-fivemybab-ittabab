@@ -3,24 +3,20 @@ package com.fivemybab.ittabab.good.command.application.service;
 import com.fivemybab.ittabab.good.command.domain.aggregate.Good;
 import com.fivemybab.ittabab.good.command.domain.aggregate.Target;
 import com.fivemybab.ittabab.good.command.domain.repository.GoodRepository;
-import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 @RequiredArgsConstructor
-public class GoodService {
+public class GoodCommandService {
 
     private final GoodRepository goodRepository;
     private final UserRepository userRepository;
 
     @Transactional
     public void createGood(Long userId, Target target, Long targetId) {
-
 
         // 좋아요를 눌렀는지 확인
         goodRepository.findByUserIdAndTargetAndTargetId(userId, target, targetId)
@@ -41,10 +37,4 @@ public class GoodService {
 
         goodRepository.delete(good);
     }
-
-    // 특정 대상의 좋아요 개수 반환
-    public Long countGoods(Target target, Long targetId) {
-        return goodRepository.countByTargetAndTargetId(target, targetId);
-    }
-
 }

@@ -1,9 +1,7 @@
 package com.fivemybab.ittabab.good.command.domain.aggregate;
 
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
