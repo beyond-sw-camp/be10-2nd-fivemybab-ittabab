@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface BoardQueryMapper {
+  
     // 최신순으로 게시물 목록 조회
     List<BoardQueryDto> selectPostsByTime();
 
@@ -15,6 +16,4 @@ public interface BoardQueryMapper {
 
     // 좋아요가 가장 적은 게시물 목록 조회
     List<BoardQueryDto> selectPostsByLikesAsc();
-
-
 }

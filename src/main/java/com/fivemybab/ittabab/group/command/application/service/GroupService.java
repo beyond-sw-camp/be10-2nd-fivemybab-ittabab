@@ -1,12 +1,15 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupCommentDto;
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
-import com.fivemybab.ittabab.group.command.application.mapper.GroupCommentMapper;
-import com.fivemybab.ittabab.group.command.application.mapper.GroupInfoMapper;
-import com.fivemybab.ittabab.group.command.application.repository.GroupInfoRepository;
+import com.fivemybab.ittabab.group.command.domain.aggregate.GroupInfo;
+import com.fivemybab.ittabab.group.command.domain.aggregate.GroupUser;
+import com.fivemybab.ittabab.group.command.domain.repository.GroupInfoRepository;
+import com.fivemybab.ittabab.group.command.domain.repository.GroupUserRepository;
+import com.fivemybab.ittabab.group.query.Service.GroupQueryService;
+import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.dto.GroupUserDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.mybatis.spring.SqlSessionTemplate;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,25 +18,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupService {
 
-    private final SqlSessionTemplate session;
     private final GroupInfoRepository groupInfoRepository;
-
-    public List<GroupInfoDto> findGroupByGroupStatus() {
-        return session.getMapper(GroupInfoMapper.class).findGroupByGroupStatus();
-    }
+    private final GroupUserRepository groupUserRepository;
+    private final ModelMapper modelMapper;
+    private final GroupQueryService groupQueryService;
 
     public GroupInfoDto findGroupByGroupId(Long groupId) {
-        return session.getMapper(GroupInfoMapper.class).findGroupByGroupId(groupId);
+        return groupQueryService.findGroupByGroupId(groupId);
     }
 
-    public void registerGroupUser(Long groupId, Long userId) {
-
+    /* 모임 등록 */
+    @Transactional
+    public void registGroup(GroupInfoDto newGroupInfo) {
+        groupInfoRepository.save(modelMapper.map(newGroupInfo, GroupInfo.class));
     }
 
-    public List<GroupCommentDto> findGroupCommentsByGroupId(Long groupId) {
-        List<GroupCommentDto> commentList = session.getMapper(GroupCommentMapper.class).findGroupCommentsByGroupId(groupId);
-
-        return commentList;
+    /* 로그인 ID -> 유저 ID */
+    public Long loginIdToUserId(String loginUserLoginId) {
+        return groupQueryService.loginIdToUserId(loginUserLoginId);
     }
 
+    /* 모임 삭제 */
+    @Transactional
+    public void deleteGroupInfo(Long groupId) {
+        groupInfoRepository.deleteById(groupId);
+    }
+
+    /* 모임에 가입된 사용자 아이디 가져오는 메소드 */
+    public List<Long> findGroupUserByGroupId(Long groupId) {
+        return groupQueryService.findGroupUserByGroupId(groupId);
+    }
+
+    /* 모임에 신규 사용자 가입 메소드 */
+    public void registGroupUser(Long userId, Long groupId) {
+        GroupUserDto newGroupUser = new GroupUserDto(null, userId, groupId);
+
+        groupUserRepository.save(modelMapper.map(newGroupUser, GroupUser.class));
+    }
 }

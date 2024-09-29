@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "picture")
+@Table(name = "good")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Good {
@@ -17,6 +17,11 @@ public class Good {
     private Long userId;
     @Enumerated(value = EnumType.STRING)
     private Target target;
-    private Long target_id;
+    private Long targetId;
 
+    public Good(Long userId, Target target, Long targetId) {
+        this.userId = userId;
+        this.target = target;
+        this.targetId = targetId;
+    }
 }

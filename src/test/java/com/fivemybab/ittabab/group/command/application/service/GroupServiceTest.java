@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
-import com.fivemybab.ittabab.group.command.application.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,12 +16,17 @@ class GroupServiceTest {
     @Autowired
     private GroupService service;
 
-    @Test
-    public void findGroupByGroupStatus() {
+    @ParameterizedTest
+    @ValueSource(strings = {"test01"})
+    public void findGroupByGroupStatus(String userId) {
         Assertions.assertDoesNotThrow(
                 () -> {
-                    List<GroupInfoDto> list = service.findGroupByGroupStatus();
-                    list.forEach(System.out::println);
+                    List<GroupInfoDto> list = service.findGroupByGroupStatus(userId);
+                    if (list.isEmpty() || list.size() < 1) {
+                        System.out.println("????");
+                    } else {
+                        list.forEach(System.out::println);
+                    }
                 }
         );
     }
@@ -33,4 +38,28 @@ class GroupServiceTest {
         GroupInfoDto foundGroup = service.findGroupByGroupId(groupId);
         Assertions.assertNotNull(foundGroup);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"test01", "test999"})
+    public void transferLoginIdtoUserId(String loginId) {
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    Long res = service.loginIdToUserId(loginId);
+                    System.out.println("res = " + res);
+                }
+        );
+    }
+
+    @Test
+    public void test() {
+        // 1번 모임에는 3명이 가입되어있다.
+        List<Long> arr = service.findGroupUserByGroupId(2L);
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    System.out.println(arr);
+                    System.out.println(arr.size());
+                }
+        );
+    }
+
 }

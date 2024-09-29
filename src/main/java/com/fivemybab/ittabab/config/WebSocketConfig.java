@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.config;
 
-import com.fivemybab.ittabab.group.command.application.handler.ChatHandler;
+import com.fivemybab.ittabab.group.command.infrastructure.handler.WebSocketChatHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -12,10 +12,10 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final ChatHandler chatHandler;
+    private final WebSocketChatHandler webSocketChatHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(chatHandler, "ws/chat").setAllowedOrigins("*");
+        registry.addHandler(webSocketChatHandler, "ws/chat").setAllowedOrigins("*");
     }
 }

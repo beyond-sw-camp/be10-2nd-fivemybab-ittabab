@@ -21,14 +21,15 @@ public class InquiryQueryController {
         this.inquiryQueryService = inquiryQueryService;
     }
 
-    @GetMapping("/list")
+    /* 전체 목록 */
+    @GetMapping("/admin")
     public ResponseEntity<List<InquiryDto>> findInquiryList() throws NotFoundException {
         List<InquiryDto> inquiryList = inquiryQueryService.findInquiryList();
         return new ResponseEntity<>(inquiryList, HttpStatus.OK);
     }
 
     /* 문의 조회 (사용자)*/
-    @GetMapping("/list/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<InquiryDto>> findInquiryListByUserId(@PathVariable Long userId) throws NotFoundException {
         List<InquiryDto> inquiryId = inquiryQueryService.findInquiryListByUserId(userId);
         return new ResponseEntity<>(inquiryId,HttpStatus.OK);

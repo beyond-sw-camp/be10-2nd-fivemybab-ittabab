@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.user.query.mapper.BootCampMapper">
+
+    <resultMap id="BootCampDtoResultMap" type="com.fivemybab.ittabab.user.query.dto.BootCampDto">
+        <result property="bootId" column="boot_id"/>
+        <result property="bootName" column="boot_name"/>
+        <result property="bootLocation" column="boot_location"/>
+    </resultMap>
+
+    <select id="findBootCampList" resultMap="BootCampDtoResultMap">
+        SELECT * FROM bootcamp
+    </select>
+
+</mapper>
