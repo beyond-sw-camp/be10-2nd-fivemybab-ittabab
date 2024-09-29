@@ -1,14 +1,13 @@
 package com.fivemybab.ittabab.user.command.domain.aggregate;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "BootCamp")
+@Table(name = "bootcamp")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
+@Getter
+@Setter
 public class BootCamp {
 
     @Id
@@ -17,10 +16,11 @@ public class BootCamp {
     private String bootName;
     private String bootLocation;
 
-    @Builder
-    public BootCamp(Long bootId, String bootName, String bootLocation) {
-        this.bootId = bootId;
+    public void modifyName(String bootName) {
         this.bootName = bootName;
+    }
+
+    public void modifyLocation(String bootLocation) {
         this.bootLocation = bootLocation;
     }
 

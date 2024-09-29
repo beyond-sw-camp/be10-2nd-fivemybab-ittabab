@@ -12,4 +12,7 @@ public interface UserMapper {
     UserDto findById(@Param("id") Long id);
 
     List<UserDto> findAll();
+
+    /* 로그인 아이디를 통한 회원 아이디 조회 */
+    Long loginIdToUserId(String loginUserLoginId);
 }

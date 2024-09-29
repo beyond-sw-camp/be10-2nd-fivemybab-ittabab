@@ -32,7 +32,7 @@ public class InquiryController {
 //    }
 
     /* 문의 등록 (사용자) */
-    @PostMapping("/question")
+    @PostMapping
     public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryQuestionResponse inquiryQuestionResponse) {
         inquiryQuestionResponse.setCreateDate(LocalDateTime.now());
         inquiryService.registInquiryQuestion(inquiryQuestionResponse);
@@ -41,7 +41,7 @@ public class InquiryController {
 
 
     /* 문의 답변 (관리자) */
-    @PostMapping("/answer/{inquiryId}")
+    @PostMapping("/{inquiryId}")
     public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
                                                        @RequestBody InquiryAnswerResponse inquiryanswerResponse) {
         if (inquiryanswerResponse.getResponseUserId() == null || inquiryanswerResponse.getInquiryReply() == null) {
