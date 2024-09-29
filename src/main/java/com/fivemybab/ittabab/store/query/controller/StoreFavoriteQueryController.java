@@ -1,6 +1,7 @@
 package com.fivemybab.ittabab.store.query.controller;
 import com.fivemybab.ittabab.store.command.application.dto.StoreFavoriteInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreFavoriteQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,8 @@ public class StoreFavoriteQueryController {
 
     private final StoreFavoriteQueryService storeFavoriteQueryService;
 
-    /* 전체 가게 즐겨찾기 목록 조회 */
+    /* 가게 즐겨찾기 전체 조회 */
+    @Operation(summary = "즐겨찾기 전체 조회")
     @GetMapping("/list")
     public ResponseEntity<List<StoreFavoriteInfoDto>> storeFavoriteList(){
         List<StoreFavoriteInfoDto> storeFavoriteList = storeFavoriteQueryService.findStoreFavoriteList();
@@ -29,6 +31,7 @@ public class StoreFavoriteQueryController {
     }
 
     /* 가게 즐겨찾기 상세 조회 */
+    @Operation(summary = "즐겨찾기 상세 조회")
     @GetMapping("/detail/{favoriteId}")
     public ResponseEntity<StoreFavoriteInfoDto> storeFavoriteDetail(@PathVariable Long favoriteId){
         StoreFavoriteInfoDto storeFavorite = storeFavoriteQueryService.findStoreFavoriteByFavoriteId(favoriteId);

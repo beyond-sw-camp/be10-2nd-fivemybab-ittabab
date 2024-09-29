@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.store.command.application.dto.StoreReviewInfoDto;
 import com.fivemybab.ittabab.store.command.domain.aggregate.StoreMenu;
 import com.fivemybab.ittabab.store.query.service.StoreQueryService;
 import com.fivemybab.ittabab.store.query.service.StoreReviewQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class StoreQueryController {
     private final StoreQueryService storeQueryService;
 
     /* 전체 가게 목록 조회 */
+    @Operation(summary = "가게 전체 조회")
     @GetMapping("/list")
     public ResponseEntity<List<StoreInfoDto>> storeList() {
         List<StoreInfoDto> storeList = storeQueryService.findStoreList();
@@ -35,6 +37,7 @@ public class StoreQueryController {
     }
 
     /* 가게 상세 조회 */
+    @Operation(summary = "가게 상세 조회")
     @GetMapping("/detail/{storeId}")
     public ResponseEntity<StoreInfoDto> storeDetail(@PathVariable Long storeId) {
         StoreInfoDto store = storeQueryService. findStoreByStoreId(storeId);
