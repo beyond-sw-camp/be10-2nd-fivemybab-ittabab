@@ -2,7 +2,7 @@ package com.fivemybab.ittabab.inquiry.command.application.controller;
 
 import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryAnswerResponse;
 import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryQuestionResponse;
-import com.fivemybab.ittabab.inquiry.command.application.service.InquiryService;
+import com.fivemybab.ittabab.inquiry.command.application.service.InquiryCommandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/inquiry")
-public class InquiryController {
+public class InquiryCommandController {
 
-    private final InquiryService inquiryService;
+    private final InquiryCommandService inquiryCommandService;
 
-    public InquiryController(InquiryService inquiryService) {
-        this.inquiryService = inquiryService;
+    public InquiryCommandController(InquiryCommandService inquiryCommandService) {
+        this.inquiryCommandService = inquiryCommandService;
     }
 //    @GetMapping("/list")
 //    public ResponseEntity<List<InquiryDto>> findInquiryList() {
@@ -35,7 +35,7 @@ public class InquiryController {
     @PostMapping
     public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryQuestionResponse inquiryQuestionResponse) {
         inquiryQuestionResponse.setCreateDate(LocalDateTime.now());
-        inquiryService.registInquiryQuestion(inquiryQuestionResponse);
+        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
         return new ResponseEntity<>("문의 등록(사용자) 완료", HttpStatus.CREATED);
     }
 
@@ -49,7 +49,7 @@ public class InquiryController {
         }
 
         // 서비스 호출로 답변을 등록
-        inquiryService.registInquiryAnswer(inquiryId, inquiryanswerResponse.getInquiryReply(), inquiryanswerResponse.getResponseUserId());
+        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryanswerResponse.getInquiryReply(), inquiryanswerResponse.getResponseUserId());
 
         return new ResponseEntity<>("문의 답변 등록(관리자) 완료", HttpStatus.CREATED);
     }

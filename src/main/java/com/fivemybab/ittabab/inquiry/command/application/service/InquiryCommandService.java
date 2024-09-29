@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class InquiryService {
+public class InquiryCommandService {
 
     private final InquiryRepository inquiryRepository;
     private final ModelMapper modelMapper;
 
-    public InquiryService(InquiryRepository inquiryRepository, ModelMapper modelMapper) {
+    public InquiryCommandService(InquiryRepository inquiryRepository, ModelMapper modelMapper) {
         this.inquiryRepository = inquiryRepository;
         this.modelMapper = modelMapper;
     }

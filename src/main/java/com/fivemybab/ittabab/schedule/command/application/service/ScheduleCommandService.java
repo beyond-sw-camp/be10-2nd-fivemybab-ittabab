@@ -5,18 +5,15 @@ import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
 import com.fivemybab.ittabab.schedule.command.domain.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class ScheduleService {
+public class ScheduleCommandService {
 
     private final ScheduleRepository scheduleRepository;
     private final ModelMapper modelMapper;
 
-    public ScheduleService(ScheduleRepository scheduleRepository, ModelMapper modelMapper) {
+    public ScheduleCommandService(ScheduleRepository scheduleRepository, ModelMapper modelMapper) {
         this.scheduleRepository = scheduleRepository;
         this.modelMapper = modelMapper;
     }
