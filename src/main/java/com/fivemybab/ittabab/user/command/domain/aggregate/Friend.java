@@ -14,6 +14,13 @@ public class Friend {
     private Long friendId;
     private Long fromUserId;
     private Long toUserId;
-    private boolean accept;
+    @Enumerated(EnumType.STRING)
+    private FriendStatus friendStatus = FriendStatus.PENDING;
 
+    public void modifyStatus(String status) {
+        switch (status){
+            case "accept" -> this.friendStatus = FriendStatus.ACCEPTED;
+            case "reject" -> this.friendStatus = FriendStatus.REJECTED;
+        }
+    }
 }
