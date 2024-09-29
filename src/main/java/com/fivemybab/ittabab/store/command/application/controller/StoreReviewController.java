@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.store.command.application.controller;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreReviewService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class StoreReviewController {
     private final StoreReviewService storeReviewService;
 
     /* 가게 리뷰 등록하기 */
+    @Operation(summary = "리뷰 등록")
     @PostMapping
     public ResponseEntity<CreateStoreReviewDto> registStoreReview(@RequestBody CreateStoreReviewDto createStoreReviewDto) {
         storeReviewService.registStoreReview(createStoreReviewDto);
@@ -26,6 +28,7 @@ public class StoreReviewController {
     }
 
     /* 가게 리뷰 수정하기 */
+    @Operation(summary = "리뷰 수정")
     @PutMapping("/{reviewId}")
     public ResponseEntity<Void> updateStoreReview(@PathVariable Long reviewId, @RequestBody UpdateStoreReviewDto updateStoreReviewDTO) {
 
@@ -34,6 +37,7 @@ public class StoreReviewController {
     }
 
     /* 가게 리뷰 삭제하기 */
+    @Operation(summary = "리뷰 삭제")
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteStoreReview(@RequestParam Long reviewId) {
         storeReviewService.deleteStoreReview(reviewId);

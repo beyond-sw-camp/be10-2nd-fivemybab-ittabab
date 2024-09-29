@@ -2,6 +2,7 @@ package com.fivemybab.ittabab.store.query.controller;
 
 import com.fivemybab.ittabab.store.command.application.dto.StoreReviewInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreReviewQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class StoreReviewQueryController {
 
 
     /* 가게 리뷰 전체 조회 */
+    @Operation(summary = "리뷰 전체 조회")
     @GetMapping("/review/list")
     public ResponseEntity<List<StoreReviewInfoDto>> storeReviewList() {
         List<StoreReviewInfoDto> storeReviewList = storeReviewQueryService.findStoreReviewList();
@@ -31,6 +33,7 @@ public class StoreReviewQueryController {
     }
 
     /* 가게 리뷰 상세 조회 */
+    @Operation(summary = "리뷰 상세 조회")
     @GetMapping("/review/detail/{reviewId}")
     public ResponseEntity<StoreReviewInfoDto> storeReviewDetail(@PathVariable Long reviewId) {
         StoreReviewInfoDto storeReview = storeReviewQueryService.findStoreReviewById(reviewId);

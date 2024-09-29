@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.store.command.application.controller;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreMenuDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreMenuDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreMenuService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class StoreMenuController {
     private final StoreMenuService storeMenuService;
 
     /* 가게 메뉴 등록하기 */
+    @Operation(summary = "메뉴 등록")
     @PostMapping
     public ResponseEntity<CreateStoreMenuDto> CreateStoreMenu(@RequestBody CreateStoreMenuDto createStoreMenuDto) {
         storeMenuService.createStoreMenu(createStoreMenuDto);
@@ -26,6 +28,7 @@ public class StoreMenuController {
     }
 
     /* 가게 메뉴 수정하기 */
+    @Operation(summary = "메뉴 수정")
     @PutMapping("/{menuId}")
     public ResponseEntity<UpdateStoreMenuDto> UpdateStoreMenu(@PathVariable Long menuId, @RequestBody UpdateStoreMenuDto updateStoreMenuDto) {
         storeMenuService.updateStoreMenu(menuId, updateStoreMenuDto);
@@ -34,6 +37,7 @@ public class StoreMenuController {
 
 
     /* 가게 메뉴 삭제하기 */
+    @Operation(summary = "메뉴 삭제")
     @DeleteMapping("/{menuId}")
     public ResponseEntity<Void> DeleteStoreMenu(@PathVariable Long menuId) {
         storeMenuService.deleteStoreMenu(menuId);
