@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.schedule.command.application.controller;
 
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
-import com.fivemybab.ittabab.schedule.command.application.service.ScheduleService;
+import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -10,18 +10,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
-public class ScheduleController {
+public class ScheduleCommandController {
 
-    private final ScheduleService scheduleService;
+    private final ScheduleCommandService scheduleCommandService;
     private final UserRepository userRepository;
 
-    public ScheduleController(ScheduleService scheduleService, UserRepository userRepository) {
+    public ScheduleCommandController(ScheduleCommandService scheduleCommandService, UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.scheduleService = scheduleService;
+        this.scheduleCommandService = scheduleCommandService;
     }
 
     /* 일정 입력 */
@@ -31,21 +30,21 @@ public class ScheduleController {
         Long userId = getUserIdFromUsername(username);
         scheduleDto.setUserId(userId);
         scheduleDto.setScheduleDate(LocalDate.now());
-        scheduleService.registSchedule(scheduleDto);
+        scheduleCommandService.registSchedule(scheduleDto);
         return new ResponseEntity<>("등록 완료", HttpStatus.OK);
     }
 
     /* 일정 수정 */
     @PutMapping
     public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDto scheduleDto){
-        scheduleService.modifySchedule(scheduleDto);
+        scheduleCommandService.modifySchedule(scheduleDto);
         return new ResponseEntity<>("수정 완료"+scheduleDto, HttpStatus.OK);
     }
 
     /* 일정 삭제 */
     @DeleteMapping("/{scheduleId}")
     public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId) {
-        scheduleService.deleteSchedule(scheduleId);
+        scheduleCommandService.deleteSchedule(scheduleId);
         return ResponseEntity.noContent().build();
     }
 
