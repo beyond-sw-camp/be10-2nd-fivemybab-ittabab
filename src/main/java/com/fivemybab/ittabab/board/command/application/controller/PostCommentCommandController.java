@@ -39,10 +39,5 @@ public class PostCommentCommandController {
         return ResponseEntity.noContent().build();
     }
 
-    // 특정 게시글의 모든 댓글 삭제 (게시글 ID 기준)
-    @DeleteMapping("/post/{postId}")
-    public ResponseEntity<Void> deleteCommentsByPostId(@PathVariable Long postId) {
-        postCommentCommandService.deleteCommentsByPostId(postId);
-        return ResponseEntity.noContent().build();
-    }
+
 }
