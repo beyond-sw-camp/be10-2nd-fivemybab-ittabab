@@ -16,6 +16,5 @@ public interface BoardQueryMapper {
     // 좋아요가 가장 적은 게시물 목록 조회
     List<BoardQueryDto> selectPostsByLikesAsc();
 
-    // 댓글 많은 순으로 게시물 목록 조회
-    List<BoardQueryDto> selectPostsByComments();
+
 }

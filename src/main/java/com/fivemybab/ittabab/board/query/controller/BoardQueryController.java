@@ -37,12 +37,7 @@ public class BoardQueryController {
         return ResponseEntity.ok(posts);
     }
 
-    /* 게시물 목록 조회 (댓글 많은 순) */
-    @GetMapping("/posts/comments")
-    public ResponseEntity<List<BoardQueryDto>> getPostsByComments() throws NotFoundException {
-        List<BoardQueryDto> posts = boardQueryService.findPostsByComments();
-        return ResponseEntity.ok(posts);
-    }
+
 
 /*    *//* 게시물 ID로 조회 *//*
     @GetMapping("/post/{postId}")

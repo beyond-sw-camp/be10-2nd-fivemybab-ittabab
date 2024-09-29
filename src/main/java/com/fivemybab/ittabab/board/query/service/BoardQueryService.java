@@ -53,15 +53,5 @@ public class BoardQueryService {
         return posts;
     }
 
-    /* 게시물 목록 조회 (댓글 많은 순) */
-    @Transactional(readOnly = true)
-    public List<BoardQueryDto> findPostsByComments() throws NotFoundException {
-        List<BoardQueryDto> posts = boardQueryMapper.selectPostsByComments();
 
-        if (posts.isEmpty()) {
-            throw new NotFoundException("게시물이 없습니다.");
-        }
-
-        return posts;
-    }
 }
