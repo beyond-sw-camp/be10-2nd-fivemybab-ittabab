@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @ToString
 public class CreateCourseRequest {
 
+    private Long bootId;
     private LocalDate startDate;
     private LocalDate endDate;
     private String className;
