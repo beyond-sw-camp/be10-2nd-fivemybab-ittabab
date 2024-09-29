@@ -20,4 +20,19 @@ public class Course {
     private String className;
     private int seasonNum;
 
+    public void modifyStart(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void modifyEnd(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void modifyName(String className) {
+        this.className = className;
+    }
+
+    public void modifyNum(int seasonNum) {
+        this.seasonNum = seasonNum;
+    }
 }
