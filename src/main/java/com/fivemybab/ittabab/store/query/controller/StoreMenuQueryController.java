@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.store.query.controller;
 
 import com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreMenuQueryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "Menu", description = "가게 메뉴 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/store/menu")
