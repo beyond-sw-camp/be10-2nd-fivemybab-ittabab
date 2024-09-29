@@ -24,10 +24,20 @@ public class FriendQueryController {
 
     /* 친구 요청 조회 */
     @Operation(summary = "친구 요청 조회")
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Long>> getUserById(@PathVariable Long id) {
+    @GetMapping("/{id}/request")
+    public ResponseEntity<List<Long>> getFriendRequests(@PathVariable Long id) {
 
         List<Long> friendRequests = friendQueryService.findFriendRequests(id);
+
+        return new ResponseEntity<>(friendRequests, HttpStatus.OK);
+    }
+
+    /* 친구 목록 조회 */
+    @Operation(summary = "친구 목록 조회")
+    @GetMapping("/{id}/list")
+    public ResponseEntity<List<Long>> getFriendList(@PathVariable Long id) {
+
+        List<Long> friendRequests = friendQueryService.findFriendList(id);
 
         return new ResponseEntity<>(friendRequests, HttpStatus.OK);
     }
