@@ -21,7 +21,7 @@ public class StoreReview {
     private Long userId;
     private String reviewContent;
     private Integer rating;
-    private LocalDateTime createDate;
+    private LocalDateTime createDate = LocalDateTime.now();
     private LocalDateTime updateDate;
     private boolean isBlinded;
 
@@ -33,6 +33,10 @@ public class StoreReview {
         this.rating = newReviewRating;
     }
 
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateDate = LocalDateTime.now(); // 수정 시에 업데이트 시간 변경
+    }
 
 
 }

@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "post")
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Post {
 
     @Id
@@ -29,6 +29,14 @@ public class Post {
       this.isBlinded = isBlinded;
       this.createDate = createDate;
       this.userId = userId;
+  }
+
+  public void modifyTitle(String postTitle) {
+      this.postTitle = postTitle;
+  }
+
+  public void modifyContent(String postContent) {
+      this.postContent = postContent;
   }
 
 }

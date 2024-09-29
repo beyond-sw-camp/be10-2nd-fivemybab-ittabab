@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.application.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FavoriteDTO {
+@AllArgsConstructor
+public class StoreFavoriteInfoDto {
 
     private Long favoriteId;
     private Long userId;
