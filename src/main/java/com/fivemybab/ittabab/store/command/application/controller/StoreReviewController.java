@@ -3,11 +3,14 @@ package com.fivemybab.ittabab.store.command.application.controller;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreReviewService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+@Tag(name = "Review", description = "가게 리뷰 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/store/review")
