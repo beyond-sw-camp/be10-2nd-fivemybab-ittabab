@@ -5,14 +5,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "post_comment")
 @Getter
-@Setter // Setter 어노테이션 추가
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 보호
 public class PostComment {
 
@@ -50,5 +49,8 @@ public class PostComment {
     @PreUpdate
     protected void onUpdate() {
         this.updateDate = LocalDateTime.now();
+    }
+
+    public void setCommentContent(String commentContent) {
     }
 }

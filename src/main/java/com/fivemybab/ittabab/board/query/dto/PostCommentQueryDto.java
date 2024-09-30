@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardCommentQueryDto {
+public class PostCommentQueryDto {
     private Long postId;        // 게시물 ID
     private String title;       // 게시물 제목
     private String content;     // 게시물 내용

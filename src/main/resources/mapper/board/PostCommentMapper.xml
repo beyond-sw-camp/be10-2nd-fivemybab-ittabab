@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.fivemybab.ittabab.board.query.mapper.BoardCommentQueryMapper">
-    <resultMap id="BoardCommentResultMap" type="com.fivemybab.ittabab.board.query.dto.BoardCommentQueryDto">
+<mapper namespace="com.fivemybab.ittabab.board.query.mapper.PostCommentQueryMapper">
+    <resultMap id="PostCommentResultMap" type="com.fivemybab.ittabab.board.query.dto.PostCommentQueryDto">
         <result property="postId" column="post_id"/>
         <result property="title" column="post_title"/>
         <result property="content" column="post_content"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <!-- 게시글을 댓글 많은 순으로 정렬 -->
-    <select id="selectPostsByCommentCount" resultMap="BoardCommentResultMap">
+    <select id="selectPostsByCommentCount" resultMap="PostCommentResultMap">
         SELECT p.post_id, p.post_title, p.post_content, u.username, p.create_date, COUNT(pc.post_comment_id) AS comment_count
         FROM post p
                  JOIN user_info u ON p.user_id = u.user_id

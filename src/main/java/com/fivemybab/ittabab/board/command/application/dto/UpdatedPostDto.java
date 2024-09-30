@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class UpdatedBoardDTO {
+public class UpdatedPostDto {
     private String postTitle;
     private String postContent;
     private Boolean isBlinded;
