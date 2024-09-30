@@ -50,3 +50,5 @@ public class PostCommentCommandService {
         postCommentRepository.deleteCommentByPostId(postId);
     }
 }
+
+

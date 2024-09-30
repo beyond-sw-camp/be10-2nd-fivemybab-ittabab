@@ -6,19 +6,23 @@ import com.fivemybab.ittabab.board.command.application.dto.UpdatePostCommentDto;
 import com.fivemybab.ittabab.board.command.application.service.PostCommentCommandService;
 import com.fivemybab.ittabab.board.command.domain.aggregate.PostComment;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/post-comments")
+@RequestMapping("/postComments")
 @RequiredArgsConstructor
+@Tag(name = "Post", description = "게시판 관련 api")
 public class PostCommentCommandController {
 
     private final PostCommentCommandService postCommentCommandService;
 
     // 댓글 생성
     @PostMapping
+    @Operation(summary = "댓글 등록")
     public ResponseEntity<PostComment> createComment(@RequestBody CreatePostCommentDto createPostCommentDto) {
         PostComment createdComment = postCommentCommandService.createComment(createPostCommentDto);
         return ResponseEntity.ok(createdComment);

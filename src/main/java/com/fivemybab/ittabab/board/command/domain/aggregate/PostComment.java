@@ -52,5 +52,6 @@ public class PostComment {
     }
 
     public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 }

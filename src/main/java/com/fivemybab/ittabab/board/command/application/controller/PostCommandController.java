@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.board.command.application.controller;
 import com.fivemybab.ittabab.board.command.application.dto.CreatePostDto;
 import com.fivemybab.ittabab.board.command.application.dto.UpdatedPostDto;
 import com.fivemybab.ittabab.board.command.application.service.PostCommandService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Tag(name = "Post",description = "게시판 관련 API")
 public class PostCommandController {
 
     private final PostCommandService postCommandService;
