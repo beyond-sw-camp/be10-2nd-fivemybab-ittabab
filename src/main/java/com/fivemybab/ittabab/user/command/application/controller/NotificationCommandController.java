@@ -31,6 +31,7 @@ public class NotificationCommandController {
     @Operation(summary = "알림 읽음")
     @PutMapping("/{notificationId}/read")
     public ResponseEntity<?> readNotification(@PathVariable Long notificationId) {
+
         try {
             notificationCommandService.readNotification(notificationId);
             return new ResponseEntity<>(HttpStatus.OK);
