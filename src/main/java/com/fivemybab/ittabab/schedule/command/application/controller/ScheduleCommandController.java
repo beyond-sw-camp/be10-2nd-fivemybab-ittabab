@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.schedule.command.application.service.ScheduleComman
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/schedule")
 @RequiredArgsConstructor
+@Tag(name = "Schedule", description = "일정 관련 API")
 public class ScheduleCommandController {
 
     private final ScheduleCommandService scheduleCommandService;
