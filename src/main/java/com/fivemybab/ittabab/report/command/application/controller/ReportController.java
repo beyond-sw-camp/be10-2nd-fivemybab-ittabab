@@ -7,6 +7,7 @@ import com.fivemybab.ittabab.report.command.application.dto.ResolveReportRequest
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportResponse;
 import com.fivemybab.ittabab.report.command.application.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/report")
+@Tag(name = "Report", description = "신고 관련 API")
 public class ReportController {
 
     private final ReportService reportService;
