@@ -21,7 +21,7 @@ public class GroupCommentCommandService {
     }
 
     @Transactional
-    public void deleteByGroupComentId(Long groupCommentId) {
+    public void deleteByGroupCommentId(Long groupCommentId) {
         repository.deleteById(groupCommentId);
     }
 
