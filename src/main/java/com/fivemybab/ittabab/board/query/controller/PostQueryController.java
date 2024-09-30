@@ -21,7 +21,7 @@ public class PostQueryController {
 
     /* 게시물 목록 조회 (최신순) */
     @Operation(summary = "게시글 목록 조회(최신순)")
-    @GetMapping("time")
+    @GetMapping("recent")
     public ResponseEntity<List<PostQueryDto>> getPostsByTime() throws NotFoundException {
         List<PostQueryDto> posts = postQueryService.findPostsByTime();
         return ResponseEntity.ok(posts);
@@ -42,13 +42,4 @@ public class PostQueryController {
         List<PostQueryDto> posts = postQueryService.findPostsByLikesAsc();
         return ResponseEntity.ok(posts);
     }
-
-
-
-/*    *//* 게시물 ID로 조회 *//*
-    @GetMapping("/post/{postId}")
-    public ResponseEntity<BoardQueryDto> getPostById(@PathVariable Long postId) throws NotFoundException {
-        BoardQueryDto post = boardQueryService.findPostById(postId);
-        return ResponseEntity.ok(post);
-    }*/
 }
