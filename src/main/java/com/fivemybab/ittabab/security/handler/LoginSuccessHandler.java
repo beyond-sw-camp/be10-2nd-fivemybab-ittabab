@@ -1,5 +1,8 @@
 package com.fivemybab.ittabab.security.handler;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
+import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
+import com.fivemybab.ittabab.user.query.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,6 +24,7 @@ import java.util.List;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final Environment env;
+    private final UserMapper userMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -29,9 +33,16 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         List<String> authorities = authentication.getAuthorities().stream()
                 .map(role -> role.getAuthority())
                 .toList();
+        log.info("auth : {}", authorities);
+
+        String loginId = authentication.getName();
+        UserInfo user = userMapper.findByLoginId(loginId)
+                .orElseThrow(() -> new NotFoundException("해당 로그인id가 존재하지 않습니다. : " + loginId));
+        String userId = user.getUserId().toString();
 
         Claims claims = Jwts.claims().setSubject(authentication.getName());
         claims.put("auth", authorities);
+        claims.put("userId", userId);
 
         String token = Jwts.builder()
                 .setClaims(claims)
