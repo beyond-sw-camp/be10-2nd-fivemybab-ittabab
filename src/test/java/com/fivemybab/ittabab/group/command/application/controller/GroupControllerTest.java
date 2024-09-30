@@ -7,6 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class GroupControllerTest {
 
     @Autowired
-    GroupController groupController;
+    GroupInfoCommandController groupInfoCommandController;
 
 }

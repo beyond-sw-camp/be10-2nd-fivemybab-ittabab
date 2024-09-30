@@ -4,26 +4,46 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fivemybab.ittabab.user.query.mapper.UserMapper">
 
-    <!--    &lt;!&ndash; 모든 회원 조회 쿼리 &ndash;&gt;-->
-    <!--    <select id="findAllUsers" resultType="com.fivemybab.ittabab.user.command.dto.UserDTO">-->
-    <!--        SELECT * FROM user_info-->
-    <!--    </select>-->
+    <resultMap id="UserDtoResultMap" type="com.fivemybab.ittabab.user.command.application.dto.UserDto">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="loginId" column="login_id"/>
+        <result property="pwd" column="pwd"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="birth" column="birth"/>
+        <result property="courseId" column="course_id"/>
+        <result property="userStatus" column="user_status"/>
+        <result property="userRole" column="user_role"/>
+        <result property="signUpDate" column="sign_up_date"/>
+        <result property="signOutDate" column="sign_out_date"/>
+    </resultMap>
 
-    <!--    &lt;!&ndash; 특정 회원 조회 쿼리 &ndash;&gt;-->
-    <!--    <select id="findUserById" parameterType="long" resultType="com.fivemybab.ittabab.user.command.dto.UserDTO">-->
-    <!--        SELECT * FROM user_info WHERE user_id = #{userId}-->
-    <!--    </select>-->
+    <resultMap id="UserInfoResultMap" type="com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="loginId" column="login_id"/>
+        <result property="pwd" column="pwd"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="birth" column="birth"/>
+        <result property="courseId" column="course_id"/>
+        <result property="userStatus" column="user_status"/>
+        <result property="userRole" column="user_role"/>
+        <result property="signUpDate" column="sign_up_date"/>
+        <result property="signOutDate" column="sign_out_date"/>
+    </resultMap>
 
-    <!--    &lt;!&ndash; 회원 추가 쿼리 &ndash;&gt;-->
-    <!--    <insert id="insertUser" parameterType="com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo">-->
-    <!--        INSERT INTO user_info (username, email, phone, sign_up_date, user_role)-->
-    <!--        VALUES (#{username}, #{email}, #{phone}, #{signUpDate}, #{UserDole})-->
-    <!--    </insert>-->
+    <select id="findById" resultMap="UserDtoResultMap">
+        SELECT *
+        FROM user_info
+        WHERE user_id = #{id}
+    </select>
 
-    <!--    &lt;!&ndash; 회원 삭제 쿼리 &ndash;&gt;-->
-    <!--    <delete id="deleteUserById" parameterType="long">-->
-    <!--        DELETE FROM user_info WHERE user_id = #{userId}-->
-    <!--    </delete>-->
+    <select id="findAll" resultMap="UserDtoResultMap">
+        SELECT *
+        FROM user_info
+    </select>
 
     <select id="findUserIdByLoginId"
             resultType="long">
@@ -31,4 +51,13 @@
         FROM user_info
         WHERE login_id = #{loginUserLoginId}
     </select>
+
+    <select id="findByLoginId"
+            parameterType="String"
+            resultMap="UserInfoResultMap">
+        SELECT *
+        FROM user_info
+        WHERE login_id = #{loginId}
+    </select>
+
 </mapper>
