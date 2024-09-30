@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.board.query.controller;
 import com.fivemybab.ittabab.board.query.dto.BoardCommentQueryDto;
 import com.fivemybab.ittabab.board.query.service.BoardCommentQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/boardComment")
 @RequiredArgsConstructor
+@Tag(name = "Board", description = "게시판 관련 API")
 public class BoardCommentQueryController {
 
     private final BoardCommentQueryService boardCommentQueryService;

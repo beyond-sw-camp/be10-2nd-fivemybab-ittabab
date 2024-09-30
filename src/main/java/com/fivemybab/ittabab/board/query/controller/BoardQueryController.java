@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.board.query.controller;
 import com.fivemybab.ittabab.board.query.dto.BoardQueryDto;
 import com.fivemybab.ittabab.board.query.service.BoardQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/board")
 @RequiredArgsConstructor
+@Tag(name = "Board", description = "게시판 관련 API")
 public class BoardQueryController {
 
     private final BoardQueryService boardQueryService;
