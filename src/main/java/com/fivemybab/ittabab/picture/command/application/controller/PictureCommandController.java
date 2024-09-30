@@ -2,6 +2,7 @@ package com.fivemybab.ittabab.picture.command.application.controller;
 
 import com.fivemybab.ittabab.picture.command.application.service.PictureCommandService;
 import com.fivemybab.ittabab.picture.command.domain.aggregate.Target;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/picture")
 @RequiredArgsConstructor
+@Tag(name = "Picture", description = "사진 업로드 관련 API")
 public class PictureCommandController {
 
     private final PictureCommandService pictureCommandService;
