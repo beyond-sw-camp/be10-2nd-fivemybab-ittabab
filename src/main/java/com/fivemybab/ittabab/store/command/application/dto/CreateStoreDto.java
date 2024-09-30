@@ -8,8 +8,6 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class CreateStoreDto {
 
     private String storeName;
