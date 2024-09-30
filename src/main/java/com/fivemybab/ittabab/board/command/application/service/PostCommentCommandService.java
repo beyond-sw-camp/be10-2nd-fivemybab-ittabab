@@ -31,7 +31,7 @@ public class PostCommentCommandService {
     public PostComment updateComment(UpdatePostCommentDto updatePostCommentDto) {
         PostComment postComment = postCommentRepository.findById(updatePostCommentDto.getCommentId())
                 .orElseThrow(() -> new IllegalArgumentException("댓글을 찾을 수 없습니다."));
-        postComment.setCommentContent(updatePostCommentDto.getCommentContent());
+        postComment.updateCommentContent(updatePostCommentDto.getCommentContent());
         return postCommentRepository.save(postComment);
     }
 

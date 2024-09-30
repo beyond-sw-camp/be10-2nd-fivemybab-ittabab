@@ -30,6 +30,7 @@ public class PostCommentCommandController {
 
     // 댓글 수정
     @PutMapping("/{commentId}")
+    @Operation(summary = "댓글 수정")
     public ResponseEntity<PostComment> updateComment(@PathVariable Long commentId, @RequestBody UpdatePostCommentDto updatePostCommentDto) {
         updatePostCommentDto.setCommentId(commentId);
         PostComment updatedComment = postCommentCommandService.updateComment(updatePostCommentDto);
@@ -38,6 +39,7 @@ public class PostCommentCommandController {
 
     // 댓글 삭제 (댓글 ID 기준)
     @DeleteMapping("/{commentId}")
+    @Operation(summary = "댓글 삭제")
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
         postCommentCommandService.deleteComment(commentId);
         return ResponseEntity.noContent().build();
