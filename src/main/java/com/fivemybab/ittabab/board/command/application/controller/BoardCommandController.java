@@ -4,6 +4,7 @@ import com.fivemybab.ittabab.board.command.application.dto.CreateBoardDTO;
 import com.fivemybab.ittabab.board.command.application.dto.UpdatedBoardDTO;
 import com.fivemybab.ittabab.board.command.application.service.BoardCommandService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@Tag(name = "Board", description = "게시판 관련 API")
 public class BoardCommandController {
 
     private final BoardCommandService boardCommandService;
