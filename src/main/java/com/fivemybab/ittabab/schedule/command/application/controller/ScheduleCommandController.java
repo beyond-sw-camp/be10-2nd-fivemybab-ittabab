@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.schedule.command.application.service.ScheduleComman
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,15 +15,12 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/schedule")
+@RequiredArgsConstructor
 public class ScheduleCommandController {
 
     private final ScheduleCommandService scheduleCommandService;
     private final UserRepository userRepository;
 
-    public ScheduleCommandController(ScheduleCommandService scheduleCommandService, UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.scheduleCommandService = scheduleCommandService;
-    }
 
     /* 일정 입력 */
     @Operation(summary = "일정 등록")
