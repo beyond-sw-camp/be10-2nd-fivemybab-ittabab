@@ -25,6 +25,6 @@ public class UserQueryService {
 
     // 로그인한 유저의 로그인 아이디 -> 유저 아이디로 변환 메소드
     public Long loginIdToUserId(Authentication loginUserLoginId) {
-        return userMapper.findUserIdByLoginId(loginUserLoginId.getName());
+        return userMapper.loginIdToUserId(loginUserLoginId.getName());
     }
 }

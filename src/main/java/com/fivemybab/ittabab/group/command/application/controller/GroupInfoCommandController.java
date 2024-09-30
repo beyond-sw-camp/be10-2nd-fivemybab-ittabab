@@ -2,10 +2,11 @@ package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,28 +20,18 @@ import java.util.List;
 @RequestMapping(value = "/group")
 @Slf4j
 @Tag(name = "Group", description = "모임 관련 API")
+@RequiredArgsConstructor
 public class GroupInfoCommandController {
 
     private final GroupInfoCommandService groupService;
-
-    @Autowired
-    public GroupInfoCommandController(GroupInfoCommandService service) {
-        this.groupService = service;
-    }
-
-    // 로그인한 유저의 로그인 아이디 -> 유저 아이디로 변환 메소드
-    public Long loginIdToUserId(Authentication loginUserLoginId) {
-        Long userId = groupService.loginIdToUserId(loginUserLoginId.getName());
-
-        return userId;
-    }
+    private final UserQueryService userQueryService;
 
     /* 모임 등록 */
     @Operation(summary = "모임 등록")
     @PostMapping("/registGroup")
     public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginUserLoginId) {
 
-        Long userId = loginIdToUserId(loginUserLoginId);
+        Long userId = userQueryService.loginIdToUserId(loginUserLoginId);
 
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -79,7 +70,7 @@ public class GroupInfoCommandController {
 
             // 2
             for (Long userId : groupUserList) {
-                if (userId == groupService.loginIdToUserId(loginUserLoginId.getName())) {
+                if (userId == userQueryService.loginIdToUserId(loginUserLoginId)) {
                     return new ResponseEntity<>("이미 가입하셨습니다.", HttpStatus.OK);
                 }
             }
@@ -87,7 +78,7 @@ public class GroupInfoCommandController {
             // 3
             if (groupUserList.size() + 1 <= foundGroupInfo.getUserCounting()) {
                 // insert
-                groupService.registGroupUser(groupService.loginIdToUserId(loginUserLoginId.getName()), foundGroupInfo.getGroupId());
+                groupService.registGroupUser(userQueryService.loginIdToUserId(loginUserLoginId), foundGroupInfo.getGroupId());
             } else {
                 return null;
             }
@@ -128,6 +119,6 @@ public class GroupInfoCommandController {
     ) {
         Long creatorId = groupService.findGroupByGroupId(groupId).getUserId();
 
-        return creatorId == groupService.loginIdToUserId(loginUserLoginId.getName());
+        return creatorId == userQueryService.loginIdToUserId(loginUserLoginId);
     }
 }

@@ -33,11 +33,6 @@ public class GroupInfoCommandService {
         groupInfoRepository.save(modelMapper.map(newGroupInfo, GroupInfo.class));
     }
 
-    /* 로그인 ID -> 유저 ID */
-    public Long loginIdToUserId(String loginUserLoginId) {
-        return groupInfoQueryService.loginIdToUserId(loginUserLoginId);
-    }
-
     /* 모임 삭제 */
     @Transactional
     public void deleteGroupInfo(Long groupId) {

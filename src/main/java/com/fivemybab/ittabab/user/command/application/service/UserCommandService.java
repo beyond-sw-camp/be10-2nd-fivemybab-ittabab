@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.user.command.application.service1.service;
+package com.fivemybab.ittabab.user.command.application.service;
 
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;

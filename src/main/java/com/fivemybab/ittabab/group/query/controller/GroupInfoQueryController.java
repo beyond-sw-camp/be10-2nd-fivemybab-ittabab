@@ -30,13 +30,6 @@ public class GroupInfoQueryController {
         this.groupInfoQueryService = groupInfoQueryService;
     }
 
-    // 로그인한 유저의 로그인 아이디 -> 유저 아이디로 변환 메소드
-    public Long loginIdToUserId(Authentication loginUserLoginId) {
-        Long userId = groupInfoQueryService.loginIdToUserId(loginUserLoginId.getName());
-
-        return userId;
-    }
-
     /* 전체 모임 조회 */
     @Operation(summary = "전체 모임 조회")
     @GetMapping("/list")
