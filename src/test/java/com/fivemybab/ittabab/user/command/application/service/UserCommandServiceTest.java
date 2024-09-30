@@ -1,11 +1,14 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
+import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
+import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,9 @@ class UserCommandServiceTest {
 
     @Autowired
     private UserCommandService userCommandService;
+
+    @Autowired
+    private UserQueryService userQueryService;
 
     private static Stream<Arguments> getUserInfo() {
 
@@ -43,4 +49,24 @@ class UserCommandServiceTest {
                 () -> userCommandService.createUser(newUser)
         );
     }
+
+    private static Stream<Arguments> getModifyInfo() {
+
+        UpdateUserRequest user = new UpdateUserRequest();
+        user.setPwd("pass12");
+        user.setPhone("12345678910");
+
+        return Stream.of(Arguments.arguments(2L, user));
+    }
+
+    @DisplayName("회원 정보 수정 테스트")
+    @ParameterizedTest
+    @MethodSource("getModifyInfo")
+    void testModifyUser(Long userNo, UpdateUserRequest modifyInfo) {
+
+        Assertions.assertDoesNotThrow(
+                () -> userCommandService.modifyUser(userNo, modifyInfo)
+        );
+    }
+
 }
