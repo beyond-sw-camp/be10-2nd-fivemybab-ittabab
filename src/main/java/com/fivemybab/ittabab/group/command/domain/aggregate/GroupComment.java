@@ -18,4 +18,12 @@ public class GroupComment {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private boolean isBlinded;
+
+    public void modifyCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
+    public void modifyUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
 }
