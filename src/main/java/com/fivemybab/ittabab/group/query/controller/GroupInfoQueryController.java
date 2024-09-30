@@ -1,8 +1,8 @@
 package com.fivemybab.ittabab.group.query.controller;
 
-import com.fivemybab.ittabab.group.query.service.GroupQueryService;
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.service.GroupInfoQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +22,18 @@ import java.util.List;
 @RequestMapping(value = "/group")
 @Slf4j
 @Tag(name = "Group", description = "모임 관련 API")
-public class GroupQueryController {
+public class GroupInfoQueryController {
 
-    private final GroupQueryService groupQueryService;
+    private final GroupInfoQueryService groupInfoQueryService;
 
     @Autowired
-    public GroupQueryController(GroupQueryService groupQueryService) {
-        this.groupQueryService = groupQueryService;
+    public GroupInfoQueryController(GroupInfoQueryService groupInfoQueryService) {
+        this.groupInfoQueryService = groupInfoQueryService;
     }
 
     // 로그인한 유저의 로그인 아이디 -> 유저 아이디로 변환 메소드
     public Long loginIdToUserId(Authentication loginUserLoginId) {
-        Long userId = groupQueryService.loginIdToUserId(loginUserLoginId.getName());
+        Long userId = groupInfoQueryService.loginIdToUserId(loginUserLoginId.getName());
 
         return userId;
     }
@@ -50,10 +50,12 @@ public class GroupQueryController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        // 인증된 사용자의 이름을 가져옴
+        // 인증된 사용자의 이름을 가져옴(ex: test01)
         log.info("loginUserLoginId.getName: {}", loginUserLoginId.getName());
 
-        List<GroupInfoDto> groupList = groupQueryService.findGroupByGroupStatus(loginUserLoginId.getName());
+        Long courseId = groupInfoQueryService.findUserDtoByLoginId(loginUserLoginId.getName());
+        log.info("courseId: {}", courseId);
+        List<GroupInfoDto> groupList = groupInfoQueryService.findGroupByGroupStatus(loginUserLoginId.getName(), courseId);
 
         if (!groupList.isEmpty()) {
             model.addAttribute("groupList", groupList);
@@ -66,8 +68,8 @@ public class GroupQueryController {
     @Operation(summary = "모임 상세 조회")
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupInfoDto> groupDetail(@PathVariable Long groupId, Model model) {
-        GroupInfoDto foundGroup = groupQueryService.findGroupByGroupId(groupId);
-        List<GroupCommentDto> commentList = groupQueryService.findGroupCommentsByGroupId(groupId);
+        GroupInfoDto foundGroup = groupInfoQueryService.findGroupByGroupId(groupId);
+        List<GroupCommentDto> commentList = groupInfoQueryService.findGroupCommentsByGroupId(groupId);
         model.addAttribute("foundGroup", foundGroup);
         model.addAttribute("commentList", commentList);
         return ResponseEntity.ok(foundGroup);
