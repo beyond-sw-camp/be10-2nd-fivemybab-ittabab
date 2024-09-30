@@ -20,7 +20,8 @@ public class Notification {
     @Enumerated(value = EnumType.STRING)
     private Target target;
     private Long targetId;
-    private boolean isRead;
-    private LocalDateTime createDate;
+    private Long userId;
+    private boolean isRead = false;
+    private LocalDateTime createDate = LocalDateTime.now();
 
 }
