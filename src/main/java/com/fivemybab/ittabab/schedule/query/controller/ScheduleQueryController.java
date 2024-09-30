@@ -2,6 +2,7 @@ package com.fivemybab.ittabab.schedule.query.controller;
 
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.query.service.ScheduleQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class ScheduleQueryController {
     }
 
     /* 전체 일정 조회 */
+    @Operation(summary = "전체 일정 조회")
     @GetMapping
     public ResponseEntity<List<ScheduleDto>> scheduleList() {
         List<ScheduleDto> scheduleList = scheduleQueryService.findScheduleList();

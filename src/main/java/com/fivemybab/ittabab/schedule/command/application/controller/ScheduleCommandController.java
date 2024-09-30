@@ -4,6 +4,7 @@ import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,7 @@ public class ScheduleCommandController {
     }
 
     /* 일정 입력 */
+    @Operation(summary = "일정 등록")
     @PostMapping
     public ResponseEntity<String> registSchedule(@RequestBody ScheduleDto scheduleDto, Authentication authentication){
         String username = authentication.getName();
@@ -35,6 +37,7 @@ public class ScheduleCommandController {
     }
 
     /* 일정 수정 */
+    @Operation(summary = "일정 수정")
     @PutMapping
     public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDto scheduleDto){
         scheduleCommandService.modifySchedule(scheduleDto);
@@ -42,6 +45,7 @@ public class ScheduleCommandController {
     }
 
     /* 일정 삭제 */
+    @Operation(summary = "일정 삭제")
     @DeleteMapping("/{scheduleId}")
     public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleCommandService.deleteSchedule(scheduleId);
