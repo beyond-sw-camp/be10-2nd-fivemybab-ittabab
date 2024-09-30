@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
-@Tag(name = "Post",description = "게시판 관련 API")
+@Tag(name = "Post", description = "게시판 관련 API")
 public class PostCommandController {
 
     private final PostCommandService postCommandService;
