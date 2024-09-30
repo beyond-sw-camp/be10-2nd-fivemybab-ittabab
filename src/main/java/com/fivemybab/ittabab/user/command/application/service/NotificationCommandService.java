@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.user.command.application.dto.CreateNotificationRequest;
 import com.fivemybab.ittabab.user.command.application.dto.NotificationDto;
 import com.fivemybab.ittabab.user.command.domain.aggregate.Notification;
@@ -35,5 +36,16 @@ public class NotificationCommandService {
             Notification notification = modelMapper.map(notificationDto, Notification.class);
             notificationRepository.save(notification);
         }
+    }
+
+    @Transactional
+    public void readNotification(Long notificationId) {
+
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new NotFoundException("알림을 찾을 수 없습니다. ID: " + notificationId));
+
+        notification.readNotification();
+
+        notificationRepository.save(notification);
     }
 }
