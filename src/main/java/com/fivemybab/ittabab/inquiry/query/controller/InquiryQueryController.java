@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.inquiry.query.controller;
 import com.fivemybab.ittabab.inquiry.query.dto.InquiryDto;
 import com.fivemybab.ittabab.inquiry.query.service.InquiryQueryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/inquiry")
 @RequiredArgsConstructor
+@Tag(name = "Inquiry", description = "문의 관련 API")
 public class InquiryQueryController {
 
     private final InquiryQueryService inquiryQueryService;

@@ -4,6 +4,7 @@ import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryAnswerRespon
 import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryQuestionResponse;
 import com.fivemybab.ittabab.inquiry.command.application.service.InquiryCommandService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/inquiry")
 @RequiredArgsConstructor
+@Tag(name = "Inquiry", description = "문의 관련 API")
 public class InquiryCommandController {
 
     private final InquiryCommandService inquiryCommandService;
