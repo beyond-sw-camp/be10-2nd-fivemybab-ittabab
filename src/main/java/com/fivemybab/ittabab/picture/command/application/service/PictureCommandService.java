@@ -4,6 +4,7 @@ import com.fivemybab.ittabab.picture.command.domain.aggregate.Picture;
 import com.fivemybab.ittabab.picture.command.domain.aggregate.Target;
 import com.fivemybab.ittabab.picture.command.domain.repository.PictureRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +19,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PictureCommandService {
 
     @Value("${upload.path}") // config.properties 에서 본인 파일 경로로 변경 하시길
     private String uploadPath;
 
     private final PictureRepository pictureRepository;
-
-    public PictureCommandService(PictureRepository pictureRepository) {
-        this.pictureRepository = pictureRepository;
-    }
 
     @Transactional
     public List<String> savePictures(List<MultipartFile> files, Target target, Long targetId) throws IOException {
