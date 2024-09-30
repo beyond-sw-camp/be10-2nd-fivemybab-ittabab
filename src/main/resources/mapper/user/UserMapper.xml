@@ -19,6 +19,21 @@
         <result property="signOutDate" column="sign_out_date"/>
     </resultMap>
 
+    <resultMap id="UserInfoResultMap" type="com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="loginId" column="login_id"/>
+        <result property="pwd" column="pwd"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="birth" column="birth"/>
+        <result property="courseId" column="course_id"/>
+        <result property="userStatus" column="user_status"/>
+        <result property="userRole" column="user_role"/>
+        <result property="signUpDate" column="sign_up_date"/>
+        <result property="signOutDate" column="sign_out_date"/>
+    </resultMap>
+
     <select id="findById" resultMap="UserDtoResultMap">
         SELECT *
         FROM user_info
@@ -36,4 +51,13 @@
         FROM user_info
         WHERE login_id = #{loginUserLoginId}
     </select>
+
+    <select id="findByLoginId"
+            parameterType="String"
+            resultMap="UserInfoResultMap">
+        SELECT *
+        FROM user_info
+        WHERE login_id = #{loginId}
+    </select>
+
 </mapper>
