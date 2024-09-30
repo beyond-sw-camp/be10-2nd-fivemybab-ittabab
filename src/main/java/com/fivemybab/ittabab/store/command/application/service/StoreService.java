@@ -20,7 +20,7 @@ public class StoreService {
 
     /* 가게 추가 */
     @Transactional
-    public void registStore(CreateStoreDto newStore) {
+    public void createStore(CreateStoreDto newStore) {
         storeRepository.save(modelMapper.map(newStore, Store.class));
     }
 

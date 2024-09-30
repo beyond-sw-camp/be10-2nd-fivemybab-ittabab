@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
+import com.fivemybab.ittabab.group.query.Service.GroupQueryService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,13 +16,15 @@ class GroupServiceTest {
 
     @Autowired
     private GroupService service;
+    private GroupQueryService queryService;
+
 
     @ParameterizedTest
     @ValueSource(strings = {"test01"})
     public void findGroupByGroupStatus(String userId) {
         Assertions.assertDoesNotThrow(
                 () -> {
-                    List<GroupInfoDto> list = service.findGroupByGroupStatus(userId);
+                    List<GroupInfoDto> list = queryService.findGroupByGroupStatus(userId);
                     if (list.isEmpty() || list.size() < 1) {
                         System.out.println("????");
                     } else {

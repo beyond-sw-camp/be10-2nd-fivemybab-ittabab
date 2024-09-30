@@ -2,10 +2,7 @@ package com.fivemybab.ittabab.store.command.application.dto;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalTime;
 
@@ -13,6 +10,7 @@ import java.time.LocalTime;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class UpdateStoreDto {
 
     private String storeName;

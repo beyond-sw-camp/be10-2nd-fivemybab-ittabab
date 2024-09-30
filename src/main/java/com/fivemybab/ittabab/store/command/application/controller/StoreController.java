@@ -23,7 +23,7 @@ public class StoreController {
     @PostMapping
     public ResponseEntity<CreateStoreDto> registStore(@RequestBody CreateStoreDto createStoreDto) {
 
-        storeService.registStore(createStoreDto);
+        storeService.createStore(createStoreDto);
         return new ResponseEntity<>(createStoreDto, HttpStatus.CREATED);
     }
 
