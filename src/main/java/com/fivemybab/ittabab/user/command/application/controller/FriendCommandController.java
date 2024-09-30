@@ -2,7 +2,7 @@ package com.fivemybab.ittabab.user.command.application.controller;
 
 import com.fivemybab.ittabab.user.command.application.dto.FriendRequestDTO;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateFriendRequest;
-import com.fivemybab.ittabab.user.command.application.service.FriendCommandService;
+import com.fivemybab.ittabab.user.command.application.service1.service.FriendCommandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

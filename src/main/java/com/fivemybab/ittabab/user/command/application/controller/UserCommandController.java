@@ -2,7 +2,7 @@ package com.fivemybab.ittabab.user.command.application.controller;
 
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
-import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
+import com.fivemybab.ittabab.user.command.application.service1.service.UserCommandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

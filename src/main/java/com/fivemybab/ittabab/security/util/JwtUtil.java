@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.security.util;
 
-import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
+import com.fivemybab.ittabab.user.command.application.service1.service.UserCommandService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
