@@ -25,19 +25,19 @@ public class StoreMenuQueryController {
     private final StoreMenuQueryService storeMenuQueryService;
 
     /* 전체 메뉴 목록 조회 */
-    @Operation(summary = "메뉴 전체 조회")
-    @GetMapping("/list")
-    public ResponseEntity<List<StoreMenuInfoDto>> storeMenuList(Model model) {
-        List<StoreMenuInfoDto> storeMenuList = storeMenuQueryService.findStoreMenuList();
+    @Operation(summary = "가게 메뉴 전체 조회")
+    @GetMapping("/list/{storeId}")
+    public ResponseEntity<List<StoreMenuInfoDto>> storeMenuList(@PathVariable Long storeId) {
+        List<StoreMenuInfoDto> storeMenuList = storeMenuQueryService.findStoreMenuByStoreId(storeId);
 
         return new ResponseEntity<>(storeMenuList , HttpStatus.OK);
     }
 
     /* 가게 메뉴 상세 조회 */
-    @Operation(summary = "메뉴 상세 조회")
-    @GetMapping("/detail/{menuId}")
-    public ResponseEntity<StoreMenuInfoDto> storeMenuDetail(@PathVariable Long menuId, Model model) {
-        StoreMenuInfoDto storeMenu = storeMenuQueryService.findStoreMenuByMenuId(menuId);
+    @Operation(summary = "가게 메뉴 상세 조회")
+    @GetMapping("/detail/{storeId}/{menuId}")
+    public ResponseEntity<StoreMenuInfoDto> storeMenuDetail(@PathVariable Long storeId ,@PathVariable Long menuId) {
+        StoreMenuInfoDto storeMenu = storeMenuQueryService.findStoreMenuByMenuId(storeId, menuId);
 
         return new ResponseEntity<>(storeMenu , HttpStatus.OK);
     }

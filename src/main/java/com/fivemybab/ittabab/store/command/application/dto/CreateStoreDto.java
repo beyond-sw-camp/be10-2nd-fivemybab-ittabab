@@ -1,18 +1,13 @@
 package com.fivemybab.ittabab.store.command.application.dto;
 
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalTime;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 public class CreateStoreDto {
 
     private String storeName;
@@ -27,3 +22,4 @@ public class CreateStoreDto {
     private Long userId;
 
 }
+

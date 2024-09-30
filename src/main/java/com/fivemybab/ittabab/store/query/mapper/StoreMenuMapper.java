@@ -9,10 +9,10 @@ import java.util.List;
 public interface StoreMenuMapper {
 
     /* 가게 전체 메뉴 조회 */
-    List<StoreMenuInfoDto> findStoreMenuList();
+    List<StoreMenuInfoDto> findStoreMenuByStoreId(Long storeId);
 
     /* 가게 메뉴 상세 조회 */
-    StoreMenuInfoDto findStoreMenuByMenuId(Long menuId);
+    StoreMenuInfoDto findStoreMenuByMenuId(Long storeId, Long menuId);
 
 
 }
