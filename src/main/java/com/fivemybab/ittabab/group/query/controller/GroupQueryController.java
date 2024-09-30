@@ -3,6 +3,7 @@ package com.fivemybab.ittabab.group.query.controller;
 import com.fivemybab.ittabab.group.query.Service.GroupQueryService;
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,7 @@ public class GroupQueryController {
     }
 
     /* 전체 모임 조회 */
+    @Operation(summary = "전체 모임 조회")
     @GetMapping("/list")
     public String group(Model model, Authentication loginUserLoginId) {
         // 인증된 사용자가 아닌 경우 에러 페이지로 이동 -> 에러 페이지 구현해야 함.
@@ -56,6 +58,7 @@ public class GroupQueryController {
     }
 
     /* 모임 상세 조회 */
+    @Operation(summary = "모임 상세 조회")
     @GetMapping("/{groupId}")
     public String groupDetail(@PathVariable Long groupId, Model model) {
         GroupInfoDto foundGroup = groupQueryService.findGroupByGroupId(groupId);
