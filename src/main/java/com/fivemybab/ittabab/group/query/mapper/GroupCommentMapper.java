@@ -7,5 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface GroupCommentMapper {
-    List<GroupCommentDto> findGroupCommentsByGroupId(Long groupId);
+    List<GroupCommentDto> findByGroupId(Long groupId);
+
+    GroupCommentDto findByGroupCommentId(Long groupCommentId);
 }

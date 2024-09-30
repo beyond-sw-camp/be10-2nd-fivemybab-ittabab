@@ -21,6 +21,6 @@ public interface GroupInfoMapper {
     /* 로그인 아이디를 통한 회원 아이디 조회 */
     Long findUserIdByLoginId(String loginUserLoginId);
 
-    /* 로그인 아이디를 통한 회원 정보 조회 */
-    Long findUserDtoByLoginId(@Param("loginId") String loginId);
+    /* 로그인 아이디를 통한 교육과정 Id */
+    Long findCourseIdByLoginId(@Param("loginId") String loginId);
 }

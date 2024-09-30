@@ -1,6 +1,5 @@
 package com.fivemybab.ittabab.group.query.controller;
 
-import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.query.service.GroupInfoQueryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,9 +52,7 @@ public class GroupInfoQueryController {
         // 인증된 사용자의 이름을 가져옴(ex: test01)
         log.info("loginUserLoginId.getName: {}", loginUserLoginId.getName());
 
-        Long courseId = groupInfoQueryService.findUserDtoByLoginId(loginUserLoginId.getName());
-        log.info("courseId: {}", courseId);
-        List<GroupInfoDto> groupList = groupInfoQueryService.findGroupByGroupStatus(loginUserLoginId.getName(), courseId);
+        List<GroupInfoDto> groupList = groupInfoQueryService.findGroupByGroupStatus(loginUserLoginId.getName());
 
         if (!groupList.isEmpty()) {
             model.addAttribute("groupList", groupList);
@@ -69,9 +66,7 @@ public class GroupInfoQueryController {
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupInfoDto> groupDetail(@PathVariable Long groupId, Model model) {
         GroupInfoDto foundGroup = groupInfoQueryService.findGroupByGroupId(groupId);
-        List<GroupCommentDto> commentList = groupInfoQueryService.findGroupCommentsByGroupId(groupId);
         model.addAttribute("foundGroup", foundGroup);
-        model.addAttribute("commentList", commentList);
         return ResponseEntity.ok(foundGroup);
     }
 }

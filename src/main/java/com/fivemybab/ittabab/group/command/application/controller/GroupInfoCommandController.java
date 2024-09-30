@@ -55,7 +55,7 @@ public class GroupInfoCommandController {
 
     /* 모임 참여 */
     @Operation(summary = "모임 참여")
-    @GetMapping("/detail/{groupId}/join")
+    @GetMapping("/detail/{groupId}")
     public ResponseEntity<String> registGroupUser(
             @PathVariable Long groupId,
             Authentication loginUserLoginId

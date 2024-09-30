@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.user.command.application.service;
+package com.fivemybab.ittabab.user.command.application.service1.service;
 
 import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.user.command.application.dto.CreateBootCampRequest;
