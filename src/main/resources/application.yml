@@ -8,6 +8,13 @@ spring:
     username: ${db.username}
     password: ${db.password}
 
+  servlet:
+    multipart:
+      # 파일 저장 확인
+      location: ${spring.servlet.multipart.location}
+      max-file-size: 10MB
+      max-request-size: 10MB
+
   config:
       import: "classpath:config.properties"
 
@@ -20,6 +27,10 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
       ddl-auto: update
+
+# 본인 파일 경로 확인
+upload:
+  path: ${upload.path}
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
@@ -35,3 +46,5 @@ springdoc:
 token:
   secret: ${secret.key}
   expiration_time : ${expiration.time}
+
+

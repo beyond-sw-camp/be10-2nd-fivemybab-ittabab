@@ -2,6 +2,8 @@ package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.service.GroupService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/group")
 @Slf4j
+@Tag(name = "Group", description = "모임 관련 API")
 public class GroupController {
 
     private final GroupService groupService;
@@ -33,6 +36,7 @@ public class GroupController {
     }
 
     /* 모임 등록 */
+    @Operation(summary = "모임 등록")
     @PostMapping("/registGroup")
     public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginUserLoginId) {
 
@@ -50,6 +54,7 @@ public class GroupController {
     }
 
     /* 모임 참여 */
+    @Operation(summary = "모임 참여")
     @GetMapping("/detail/{groupId}/join")
     public ResponseEntity<String> registGroupUser(
             @PathVariable Long groupId,
@@ -92,6 +97,7 @@ public class GroupController {
     }
 
     /* 모임 채팅 참여 */
+    @Operation(summary = "모임 채팅 참여")
     @GetMapping("/chatroom/{groupId}")
     public String joinChatting(@PathVariable Long groupId, Model model) {
         // 참가자들에게 알람보내는 기능 추가 해야됨
@@ -100,6 +106,7 @@ public class GroupController {
     }
 
     /* 모임 삭제 */
+    @Operation(summary = "모임 삭제")
     @DeleteMapping("/{groupId}")
     public ResponseEntity<String> deleteGroup(
             @PathVariable Long groupId,

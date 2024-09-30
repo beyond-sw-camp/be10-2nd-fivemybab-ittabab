@@ -4,7 +4,7 @@ import com.fivemybab.ittabab.group.command.domain.aggregate.GroupInfo;
 import com.fivemybab.ittabab.group.command.domain.aggregate.GroupUser;
 import com.fivemybab.ittabab.group.command.domain.repository.GroupInfoRepository;
 import com.fivemybab.ittabab.group.command.domain.repository.GroupUserRepository;
-import com.fivemybab.ittabab.group.query.Service.GroupQueryService;
+import com.fivemybab.ittabab.group.query.service.GroupQueryService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.query.dto.GroupUserDto;
 import jakarta.transaction.Transactional;

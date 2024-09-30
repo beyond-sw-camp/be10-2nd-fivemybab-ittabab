@@ -1,4 +1,4 @@
-package com.fivemybab.ittabab.group.query.Service;
+package com.fivemybab.ittabab.group.query.service;
 
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
