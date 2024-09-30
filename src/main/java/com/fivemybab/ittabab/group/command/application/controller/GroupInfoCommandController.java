@@ -1,6 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
-import com.fivemybab.ittabab.group.command.application.service.GroupService;
+import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,12 +19,12 @@ import java.util.List;
 @RequestMapping(value = "/group")
 @Slf4j
 @Tag(name = "Group", description = "모임 관련 API")
-public class GroupController {
+public class GroupInfoCommandController {
 
-    private final GroupService groupService;
+    private final GroupInfoCommandService groupService;
 
     @Autowired
-    public GroupController(GroupService service) {
+    public GroupInfoCommandController(GroupInfoCommandService service) {
         this.groupService = service;
     }
 

@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fivemybab.ittabab.group.query.mapper.GroupInfoMapper">
+
+    <select id="findUserDtoByLoginId"
+            resultType="long">
+        SELECT course_id
+        FROM user_info
+        WHERE login_id = #{loginId}
+    </select>
+
     <select id="findGroupByGroupStatus"
             resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
         SELECT
@@ -19,6 +27,7 @@
         FROM group_info AS grp
         JOIN user_info AS usr ON usr.user_id = grp.user_id
         WHERE grp.group_status = 1
+        AND usr.course_id = #{courseId}
         ORDER BY grp.group_id DESC
     </select>
 
