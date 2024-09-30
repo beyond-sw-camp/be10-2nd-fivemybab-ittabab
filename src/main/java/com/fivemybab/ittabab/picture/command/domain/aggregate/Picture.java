@@ -1,6 +1,5 @@
 package com.fivemybab.ittabab.picture.command.domain.aggregate;
 
-import com.fivemybab.ittabab.good.command.domain.aggregate.Target;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,6 +17,11 @@ public class Picture {
     private String pictureUrl;
     @Enumerated(value = EnumType.STRING)
     private Target target;
-    private Long target_id;
+    private Long targetId;
 
+    public Picture(String pictureUrl, Target target, Long targetId) {
+        this.pictureUrl = pictureUrl;
+        this.target = target;
+        this.targetId = targetId;
+    }
 }
