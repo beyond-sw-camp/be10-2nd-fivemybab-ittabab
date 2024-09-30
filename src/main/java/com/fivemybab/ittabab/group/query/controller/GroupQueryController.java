@@ -1,9 +1,10 @@
 package com.fivemybab.ittabab.group.query.controller;
 
-import com.fivemybab.ittabab.group.query.Service.GroupQueryService;
+import com.fivemybab.ittabab.group.query.service.GroupQueryService;
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/group")
 @Slf4j
+@Tag(name = "Group", description = "모임 관련 API")
 public class GroupQueryController {
 
     private final GroupQueryService groupQueryService;
