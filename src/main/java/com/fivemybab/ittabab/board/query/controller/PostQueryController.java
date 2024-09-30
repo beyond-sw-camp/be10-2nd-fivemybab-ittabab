@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/post")
 @RequiredArgsConstructor
-@Tag(name = "Board", description = "게시판 관련 API")
+@Tag(name = "Post", description = "게시판 관련 API")
 public class PostQueryController {
 
     private final PostQueryService postQueryService;
 
     /* 게시물 목록 조회 (최신순) */
     @Operation(summary = "게시글 목록 조회(최신순)")
-    @GetMapping("/posts/time")
+    @GetMapping("recent")
     public ResponseEntity<List<PostQueryDto>> getPostsByTime() throws NotFoundException {
         List<PostQueryDto> posts = postQueryService.findPostsByTime();
         return ResponseEntity.ok(posts);
@@ -42,13 +42,4 @@ public class PostQueryController {
         List<PostQueryDto> posts = postQueryService.findPostsByLikesAsc();
         return ResponseEntity.ok(posts);
     }
-
-
-
-/*    *//* 게시물 ID로 조회 *//*
-    @GetMapping("/post/{postId}")
-    public ResponseEntity<BoardQueryDto> getPostById(@PathVariable Long postId) throws NotFoundException {
-        BoardQueryDto post = boardQueryService.findPostById(postId);
-        return ResponseEntity.ok(post);
-    }*/
 }

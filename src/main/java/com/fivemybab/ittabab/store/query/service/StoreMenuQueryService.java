@@ -14,8 +14,8 @@ public class StoreMenuQueryService {
 
     private final StoreMenuMapper storeMenuMapper;
 
-    public List<StoreMenuInfoDto> findStoreMenuList() {return storeMenuMapper.findStoreMenuList();}
+    public List<StoreMenuInfoDto> findStoreMenuByStoreId(Long storeId) {return storeMenuMapper.findStoreMenuByStoreId(storeId);}
 
-    public StoreMenuInfoDto findStoreMenuByMenuId(Long menuId) {return storeMenuMapper.findStoreMenuByMenuId(menuId); }
+    public StoreMenuInfoDto findStoreMenuByMenuId(Long storeId, Long menuId) {return storeMenuMapper.findStoreMenuByMenuId(storeId, menuId); }
 
 }

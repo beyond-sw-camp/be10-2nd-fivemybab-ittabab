@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.store.query.mapper.StoreOrderMenuMapper">
+    <select
+            id="findStoreOrderMenuList"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreOrderMenuInfoDto">
+        SELECT *
+        FROM order_menu
+    </select>
+
+    <select
+            id="findStoreOrderMenuByOrderId"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreOrderMenuInfoDto">
+        SELECT *
+        FROM order_menu
+        WHERE order_id = #{orderId}
+    </select>
+</mapper>

@@ -31,7 +31,7 @@ public class PostComment {
 
     // @Builder 어노테이션과 함께 필요한 생성자 추가
     @Builder
-    public PostComment(Long postId, Long parentCommentId, Long userId, String commentContent, boolean isBlinded) {
+    protected PostComment(Long postId, Long parentCommentId, Long userId, String commentContent, boolean isBlinded) {
         this.postId = postId;
         this.parentCommentId = parentCommentId;
         this.userId = userId;
@@ -51,6 +51,7 @@ public class PostComment {
         this.updateDate = LocalDateTime.now();
     }
 
-    public void setCommentContent(String commentContent) {
+    public void updateCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 }

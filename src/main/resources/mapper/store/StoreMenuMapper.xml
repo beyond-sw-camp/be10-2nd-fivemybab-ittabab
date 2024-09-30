@@ -4,10 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fivemybab.ittabab.store.query.mapper.StoreMenuMapper">
     <select
-            id="findStoreMenuList"
+            id="findStoreMenuByStoreId"
             resultType="com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto">
         SELECT *
         FROM menu
+        WHERE store_id = #{storeId}
     </select>
 
     <select
@@ -15,6 +16,7 @@
             resultType="com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto">
         SELECT *
         FROM menu
-        WHERE menu_id = #{menuId}
+        WHERE store_id = #{storeId}
+        AND menu_id = #{menuId}
     </select>
 </mapper>

@@ -6,7 +6,8 @@ import com.fivemybab.ittabab.security.handler.JwtAccessDeniedHandler;
 import com.fivemybab.ittabab.security.handler.JwtAuthenticationEntryPoint;
 import com.fivemybab.ittabab.security.handler.LoginSuccessHandler;
 import com.fivemybab.ittabab.security.util.JwtUtil;
-import com.fivemybab.ittabab.user.command.application.service1.service.UserCommandService;
+import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
+import com.fivemybab.ittabab.user.query.mapper.UserMapper;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ public class SecurityConfig {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserCommandService userCommandService;
+    private final UserMapper userMapper;
     private final Environment env;
     private final JwtUtil jwtUtil;
 
@@ -66,7 +68,7 @@ public class SecurityConfig {
 
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
         customAuthenticationFilter.setAuthenticationManager(getAuthenticationManager());
-        customAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(env));
+        customAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(env, userMapper));
 
         return customAuthenticationFilter;
     }
