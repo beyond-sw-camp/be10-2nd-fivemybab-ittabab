@@ -8,6 +8,7 @@
             resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
+        WHERE store_status = 'OPEN'
     </select>
 
     <select

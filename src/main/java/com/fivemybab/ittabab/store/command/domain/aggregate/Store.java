@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.domain.aggregate;
 
+import com.fivemybab.ittabab.user.command.domain.aggregate.FriendStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,9 +50,15 @@ public class Store {
         this.storeInfo = newStoreInfo;
     }
 
-    public void modifyStoreStatus(StoreStatus newStoreStatus) {
-        this.storeStatus = newStoreStatus;
-    }
+    public void modifyStoreStatus(String storeStatus) {
+        switch (storeStatus) {
 
+            case "OPEN" -> this.storeStatus = StoreStatus.OPEN;
+            case "CLOSED" -> this.storeStatus = StoreStatus.CLOSED;
+            case "TEMPORARILY_CLOSED" -> this.storeStatus = StoreStatus.TEMPORARILY_CLOSED;
+            case "PERMANENTLY_CLOSED" -> this.storeStatus = StoreStatus.PERMANENTLY_CLOSED;
+
+        }
+    }
 
 }
