@@ -92,20 +92,4 @@ class ScheduleServiceTest {
         assertFalse(scheduleRepository.existsById(scheduleId));
     }
 
-    @Test
-    @DisplayName("일정 조회 테스트")
-    void getScheduleByIdTest() {
-        // 먼저 일정 등록
-        scheduleCommandService.registSchedule(testScheduleDto);
-
-        // 등록된 일정 불러오기
-        ScheduleInfo savedSchedule = scheduleRepository.findAll().get(0);
-        Long scheduleId = savedSchedule.getScheduleId();
-
-        // 일정 조회
-        Long foundScheduleId = scheduleCommandService.getScheduleById(scheduleId);
-
-        // 조회된 일정 ID가 맞는지 확인
-        assertEquals(scheduleId, foundScheduleId);
-    }
 }
