@@ -10,11 +10,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "menu_category")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuCategory {
+public class StoreMenuCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuCategoryId;
     private String menuCategoryName;
 
+    public void modifyMenuCategoryName(String menuCategoryName) {
+        this.menuCategoryName = menuCategoryName;
+    }
 }
