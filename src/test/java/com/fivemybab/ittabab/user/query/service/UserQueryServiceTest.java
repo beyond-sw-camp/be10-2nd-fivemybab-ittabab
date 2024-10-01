@@ -20,7 +20,7 @@ class UserQueryServiceTest {
     @DisplayName("특정 회원 조회")
     @ParameterizedTest
     @ValueSource(longs = {2L})
-    void testFindCourseByBC(Long userId) {
+    void testUser(Long userId) {
 
         UserDto user = userQueryService.findById(userId);
 
@@ -33,7 +33,7 @@ class UserQueryServiceTest {
 
     @Test
     @DisplayName("회원 전체 조회")
-    void testCourseList() {
+    void testUserList() {
 
         List<UserDto> userList = userQueryService.findAll();
 

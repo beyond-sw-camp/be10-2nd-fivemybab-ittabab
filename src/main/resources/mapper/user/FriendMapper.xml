@@ -13,4 +13,14 @@
            AND friend_status = #{friendStatus}
     </select>
 
+    <select
+            id="findFriendListReverse"
+            resultType="long">
+        SELECT to_user_id
+        FROM friend
+        WHERE from_user_id = #{id}
+        AND friend_status = #{friendStatus}
+    </select>
+
+
 </mapper>
