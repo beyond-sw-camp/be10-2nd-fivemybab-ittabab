@@ -3,28 +3,19 @@ package com.fivemybab.ittabab.schedule.command.application.service;
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
 import com.fivemybab.ittabab.schedule.command.domain.repository.ScheduleRepository;
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ScheduleCommandService {
 
     private final ScheduleRepository scheduleRepository;
     private final ModelMapper modelMapper;
-    private final UserRepository userRepository;
-
-    public ScheduleCommandService(ScheduleRepository scheduleRepository, ModelMapper modelMapper, UserRepository userRepository) {
-        this.scheduleRepository = scheduleRepository;
-        this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
-    }
-
 
     /* 일정 추가 */
     @Transactional

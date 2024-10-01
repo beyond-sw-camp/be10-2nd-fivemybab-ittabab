@@ -3,17 +3,11 @@ package com.fivemybab.ittabab.schedule.command.application.controller;
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
 import com.fivemybab.ittabab.security.util.CustomUserDetails;
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
-import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
-import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
