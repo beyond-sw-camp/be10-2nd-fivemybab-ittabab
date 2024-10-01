@@ -1,6 +1,5 @@
 package com.fivemybab.ittabab.user.query.controller;
 
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.query.service.FriendQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
