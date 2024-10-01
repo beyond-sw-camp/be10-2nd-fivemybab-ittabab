@@ -1,27 +1,17 @@
 package com.fivemybab.ittabab.user.command.application.controller;
 
-import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.security.util.JwtUtil;
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
 import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserRole;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "User", description = "회원 관련 API")
 @RestController
