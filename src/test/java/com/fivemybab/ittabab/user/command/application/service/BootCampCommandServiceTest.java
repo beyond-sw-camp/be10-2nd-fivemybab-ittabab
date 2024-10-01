@@ -52,7 +52,7 @@ class BootCampCommandServiceTest {
     @DisplayName("부캠 수정 테스트")
     @ParameterizedTest
     @MethodSource("getModifyInfo")
-    void testModifyUser(Long id, UpdateBootCampRequest updateBootCampRequest) {
+    void testModifyBC(Long id, UpdateBootCampRequest updateBootCampRequest) {
 
         Assertions.assertDoesNotThrow(
                 () -> bootCampCommandService.modifyBootCamp(id, updateBootCampRequest)
@@ -62,7 +62,7 @@ class BootCampCommandServiceTest {
     @DisplayName("부캠 삭제 테스트")
     @ParameterizedTest
     @ValueSource(longs = {1L})
-    void testDeleteUser(Long id) {
+    void testDeleteBC(Long id) {
 
         Assertions.assertDoesNotThrow(
                 () -> bootCampCommandService.deleteBootCamp(id)

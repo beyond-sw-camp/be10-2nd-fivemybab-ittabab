@@ -37,7 +37,7 @@ class CourseCommandServiceTest {
     @DisplayName("훈련과정 등록 테스트")
     @ParameterizedTest
     @MethodSource("getCourseInfo")
-    void testCreateBC(CreateCourseRequest createCourseRequest) {
+    void testCreateCourse(CreateCourseRequest createCourseRequest) {
 
         Assertions.assertDoesNotThrow(
                 () -> courseCommandService.createCourse(createCourseRequest)
@@ -58,7 +58,7 @@ class CourseCommandServiceTest {
     @DisplayName("훈련과정 수정 테스트")
     @ParameterizedTest
     @MethodSource("getModifyInfo")
-    void testModifyUser(Long id, UpdateCourseRequest updateCourseRequest) {
+    void testModifyCourse(Long id, UpdateCourseRequest updateCourseRequest) {
 
         Assertions.assertDoesNotThrow(
                 () -> courseCommandService.modifyCourse(id, updateCourseRequest)
@@ -68,7 +68,7 @@ class CourseCommandServiceTest {
     @DisplayName("훈련과정 삭제 테스트")
     @ParameterizedTest
     @ValueSource(longs = {1L})
-    void testDeleteUser(Long userId) {
+    void testDeleteCourse(Long userId) {
 
         Assertions.assertDoesNotThrow(
                 () -> courseCommandService.deleteCourse(userId)
