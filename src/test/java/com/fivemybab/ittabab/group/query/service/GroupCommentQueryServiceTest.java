@@ -1,7 +1,7 @@
 package com.fivemybab.ittabab.group.query.service;
 
-import com.fivemybab.ittabab.group.command.domain.aggregate.GroupComment;
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

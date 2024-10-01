@@ -4,11 +4,13 @@ import com.fivemybab.ittabab.group.command.application.service.GroupCommentComma
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.UpdateGroupCommentDto;
 import com.fivemybab.ittabab.group.query.service.GroupCommentQueryService;
+import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,7 @@ public class GroupCommentCommandController {
     private final GroupCommentCommandService commandService;
     private final GroupCommentQueryService queryService;
     private final UserQueryService userQueryService;
+    private final ModelMapper modelMapper;
 
     /* 댓글 추가 기능 */
     @Operation(summary = "모임 댓글 추가 기능")
@@ -35,7 +38,7 @@ public class GroupCommentCommandController {
             Authentication loginId
     ) {
         newComment.setGroupCommentId(null);
-        newComment.setUserId(userQueryService.loginIdToUserId(loginId));
+        newComment.setUserId(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId());
         newComment.setParentCommentId(null);
         newComment.setCreateDate(LocalDateTime.now());
         newComment.setUpdateDate(LocalDateTime.now());
@@ -61,11 +64,11 @@ public class GroupCommentCommandController {
         }
 
         // 2. 해당 글의 작성자 인가?
-        if (userQueryService.loginIdToUserId(loginId) != foundGroupComment.getUserId()) {
+        if (modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() != foundGroupComment.getUserId()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 권한 없음
         }
 
-        commandService.deleteByGroupComentId(groupCommentId);
+        commandService.deleteByGroupCommentId(groupCommentId);
 
         return ResponseEntity.noContent().build(); // 삭제 성공
     }
@@ -88,7 +91,7 @@ public class GroupCommentCommandController {
         System.out.println("존재 o");
 
         // 작성자 확인
-        if (userQueryService.loginIdToUserId(loginId) != foundGroupComment.getUserId()) {
+        if (modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() != foundGroupComment.getUserId()) {
             System.out.println("다른 사람 글임");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

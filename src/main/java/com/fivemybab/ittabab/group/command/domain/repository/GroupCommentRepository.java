@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GroupCommentRepository extends JpaRepository<GroupComment, Long> {
+    public void deleteByGroupId(Long groupId);
 }

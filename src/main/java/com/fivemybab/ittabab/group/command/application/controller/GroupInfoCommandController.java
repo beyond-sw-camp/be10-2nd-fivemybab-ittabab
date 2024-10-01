@@ -2,11 +2,13 @@ package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,13 +27,14 @@ public class GroupInfoCommandController {
 
     private final GroupInfoCommandService groupService;
     private final UserQueryService userQueryService;
+    private final ModelMapper modelMapper;
 
     /* 모임 등록 */
     @Operation(summary = "모임 등록")
     @PostMapping("/registGroup")
-    public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginUserLoginId) {
+    public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginId) {
 
-        Long userId = userQueryService.loginIdToUserId(loginUserLoginId);
+        Long userId = modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId();
 
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -49,7 +52,7 @@ public class GroupInfoCommandController {
     @GetMapping("/detail/{groupId}")
     public ResponseEntity<String> registGroupUser(
             @PathVariable Long groupId,
-            Authentication loginUserLoginId
+            Authentication loginId
     ) {
         /* 처리과정
          * 1. 모임이 존재하는 확인
@@ -70,7 +73,7 @@ public class GroupInfoCommandController {
 
             // 2
             for (Long userId : groupUserList) {
-                if (userId == userQueryService.loginIdToUserId(loginUserLoginId)) {
+                if (userId == modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId()) {
                     return new ResponseEntity<>("이미 가입하셨습니다.", HttpStatus.OK);
                 }
             }
@@ -78,7 +81,7 @@ public class GroupInfoCommandController {
             // 3
             if (groupUserList.size() + 1 <= foundGroupInfo.getUserCounting()) {
                 // insert
-                groupService.registGroupUser(userQueryService.loginIdToUserId(loginUserLoginId), foundGroupInfo.getGroupId());
+                groupService.registGroupUser(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId(), foundGroupInfo.getGroupId());
             } else {
                 return null;
             }
@@ -89,7 +92,7 @@ public class GroupInfoCommandController {
 
     /* 모임 채팅 참여 */
     @Operation(summary = "모임 채팅 참여")
-    @GetMapping("/chatroom/{groupId}")
+    @GetMapping("/chat/{groupId}")
     public String joinChatting(@PathVariable Long groupId, Model model) {
         // 참가자들에게 알람보내는 기능 추가 해야됨
 
@@ -114,11 +117,11 @@ public class GroupInfoCommandController {
 
     /* 모임 모집자 확인 */
     public boolean checkCreator(
-            Authentication loginUserLoginId,
+            Authentication loginId,
             Long groupId
     ) {
         Long creatorId = groupService.findGroupByGroupId(groupId).getUserId();
 
-        return creatorId == userQueryService.loginIdToUserId(loginUserLoginId);
+        return creatorId == modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId();
     }
 }
