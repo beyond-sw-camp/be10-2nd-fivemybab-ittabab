@@ -8,4 +8,10 @@ import lombok.Setter;
 public class UpdateFriendRequest {
 
     private Long fromUserId;
+
+    public UpdateFriendRequest() {}
+
+    public UpdateFriendRequest(Long fromUserId) {
+        this.fromUserId = fromUserId;
+    }
 }

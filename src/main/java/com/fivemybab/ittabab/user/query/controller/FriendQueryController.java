@@ -1,14 +1,14 @@
 package com.fivemybab.ittabab.user.query.controller;
 
-import com.fivemybab.ittabab.user.command.application.dto.UserDto;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.user.query.service.FriendQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,20 +24,24 @@ public class FriendQueryController {
 
     /* 친구 요청 조회 */
     @Operation(summary = "친구 요청 조회")
-    @GetMapping("/{id}/request")
-    public ResponseEntity<List<Long>> getFriendRequests(@PathVariable Long id) {
+    @GetMapping("/request")
+    public ResponseEntity<List<Long>> getFriendRequests(@AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        List<Long> friendRequests = friendQueryService.findFriendRequests(id);
+        Long userId = loginUser.getUserId();   // 현재 로그인된 계정의 userId
+
+        List<Long> friendRequests = friendQueryService.findFriendRequests(userId);
 
         return new ResponseEntity<>(friendRequests, HttpStatus.OK);
     }
 
     /* 친구 목록 조회 */
     @Operation(summary = "친구 목록 조회")
-    @GetMapping("/{id}/list")
-    public ResponseEntity<List<Long>> getFriendList(@PathVariable Long id) {
+    @GetMapping("/list")
+    public ResponseEntity<List<Long>> getFriendList(@AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        List<Long> friendRequests = friendQueryService.findFriendList(id);
+        Long userId = loginUser.getUserId();   // 현재 로그인된 계정의 userId
+
+        List<Long> friendRequests = friendQueryService.findFriendList(userId);
 
         return new ResponseEntity<>(friendRequests, HttpStatus.OK);
     }
