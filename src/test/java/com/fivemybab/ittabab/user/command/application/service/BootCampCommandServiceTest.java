@@ -49,23 +49,23 @@ class BootCampCommandServiceTest {
         return Stream.of(Arguments.arguments(1L, BC));
     }
 
-    @DisplayName("부캠 정보 수정 테스트")
+    @DisplayName("부캠 수정 테스트")
     @ParameterizedTest
     @MethodSource("getModifyInfo")
-    void testModifyUser(Long userId, UpdateBootCampRequest updateBootCampRequest) {
+    void testModifyUser(Long id, UpdateBootCampRequest updateBootCampRequest) {
 
         Assertions.assertDoesNotThrow(
-                () -> bootCampCommandService.modifyBootCamp(userId, updateBootCampRequest)
+                () -> bootCampCommandService.modifyBootCamp(id, updateBootCampRequest)
         );
     }
 
-    @DisplayName("부캠 정보 삭제 테스트")
+    @DisplayName("부캠 삭제 테스트")
     @ParameterizedTest
     @ValueSource(longs = {1L})
-    void testDeleteUser(Long userId) {
+    void testDeleteUser(Long id) {
 
         Assertions.assertDoesNotThrow(
-                () -> bootCampCommandService.deleteBootCamp(userId)
+                () -> bootCampCommandService.deleteBootCamp(id)
         );
     }
 }
