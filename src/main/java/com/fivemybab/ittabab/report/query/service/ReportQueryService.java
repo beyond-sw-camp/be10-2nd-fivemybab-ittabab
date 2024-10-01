@@ -19,7 +19,6 @@ public class ReportQueryService {
     public List<ReportDto> findReportList() throws NotFoundException {
 
         List<ReportDto> reportList = reportMapper.adminReportList();
-//        System.out.println("Report List: " + reportList);
         if (reportList.isEmpty()) {
             throw new NotFoundException("들어온 문의 없음");
         }

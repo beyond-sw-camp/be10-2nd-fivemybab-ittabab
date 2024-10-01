@@ -28,16 +28,7 @@ public class ReportQueryController {
     // 모든 신고 조회
     @Operation(summary = "모든 신고 조회(관리자)")
     @GetMapping
-    public ResponseEntity<List<ReportDto>> getAllReports(Authentication authentication) throws NotFoundException {
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        boolean isAdmin = userDetails.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"));
-
-        if (!isAdmin) {
-            throw new AccessDeniedException("관리자만 접근할 수 있습니다.");
-        }
+    public ResponseEntity<List<ReportDto>> getAllReports() throws NotFoundException {
 
         List<ReportDto> reportList =reportQueryService.findReportList();
         return new ResponseEntity<>(reportList, HttpStatus.OK);
