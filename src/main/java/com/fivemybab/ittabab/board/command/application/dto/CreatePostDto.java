@@ -15,5 +15,6 @@ public class CreatePostDto {
     private String postTitle;
     private String postContent;
     private LocalDateTime createDate;
+    private Long postId; // 테스트 코드 때문에 추가함
 
 }
