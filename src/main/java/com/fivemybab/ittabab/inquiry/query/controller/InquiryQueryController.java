@@ -2,12 +2,14 @@ package com.fivemybab.ittabab.inquiry.query.controller;
 
 import com.fivemybab.ittabab.inquiry.query.dto.InquiryDto;
 import com.fivemybab.ittabab.inquiry.query.service.InquiryQueryService;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +35,8 @@ public class InquiryQueryController {
     /* 문의 조회 (사용자)*/
     @Operation(summary = "문의 조회(사용자)")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<InquiryDto>> findInquiryListByUserId(@PathVariable Long userId) throws NotFoundException {
-        List<InquiryDto> inquiryId = inquiryQueryService.findInquiryListByUserId(userId);
+    public ResponseEntity<List<InquiryDto>> findInquiryListByUserId(@AuthenticationPrincipal CustomUserDetails loginUser) throws NotFoundException {
+        List<InquiryDto> inquiryId = inquiryQueryService.findInquiryListByUserId(loginUser.getUserId());
         return new ResponseEntity<>(inquiryId,HttpStatus.OK);
     }
 }

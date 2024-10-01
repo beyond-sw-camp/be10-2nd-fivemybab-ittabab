@@ -18,7 +18,6 @@ import java.util.List;
 public class InquiryQueryService {
 
     private final InquiryMapper inquiryMapper;
-    private final ModelMapper modelMapper;
 
     /* 문의 목록 */
     @Transactional(readOnly = true)

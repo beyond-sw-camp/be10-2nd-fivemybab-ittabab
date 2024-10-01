@@ -46,7 +46,7 @@ class InquiryCommandServiceTest {
         inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
 
         // 문의가 제대로 저장되었는지 확인
-        Inquiry savedInquiry = inquiryRepository.findAll().get(2); // 등록한 문의가 저장된 번호
+        Inquiry savedInquiry = inquiryRepository.findAll().get(0); // 등록한 문의가 저장된 번호
         assertNotNull(savedInquiry);
         assertEquals("문의 드립니다", savedInquiry.getInquiryContent());
         assertEquals(1L, savedInquiry.getInquiryUserId());
