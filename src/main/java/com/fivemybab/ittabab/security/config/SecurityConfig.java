@@ -6,7 +6,6 @@ import com.fivemybab.ittabab.security.handler.JwtAccessDeniedHandler;
 import com.fivemybab.ittabab.security.handler.JwtAuthenticationEntryPoint;
 import com.fivemybab.ittabab.security.handler.LoginSuccessHandler;
 import com.fivemybab.ittabab.security.util.JwtUtil;
-import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
 import com.fivemybab.ittabab.user.query.mapper.UserMapper;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;

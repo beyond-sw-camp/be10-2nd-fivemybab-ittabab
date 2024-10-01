@@ -33,16 +33,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         List<String> authorities = authentication.getAuthorities().stream()
                 .map(role -> role.getAuthority())
                 .toList();
-        log.info("auth : {}", authorities);
-
-        String loginId = authentication.getName();
-        UserInfo user = userMapper.findByLoginId(loginId)
-                .orElseThrow(() -> new NotFoundException("해당 로그인id가 존재하지 않습니다. : " + loginId));
-        String userId = user.getUserId().toString();
 
         Claims claims = Jwts.claims().setSubject(authentication.getName());
         claims.put("auth", authorities);
-        claims.put("userId", userId);
 
         String token = Jwts.builder()
                 .setClaims(claims)
