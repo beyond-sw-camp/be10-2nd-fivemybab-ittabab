@@ -139,3 +139,4 @@ VALUES ('You have a new comment', 'POST', 1, 1, FALSE, '2024-01-01 12:00:00'),
        ('Your review was featured', 'REVIEW', 5, 5, TRUE, '2024-05-01 12:00:00'),
        ('Group event is starting soon', 'GROUP', 6, 6, FALSE, '2024-06-01 12:00:00'),
        ('New friend request received', 'USER', 7, 7, TRUE, '2024-07-01 12:00:00');
+
