@@ -37,8 +37,8 @@ public class ReportController {
 
     // 신고 처리 (관리자만 가능)
     @Operation(summary = "신고 처리 (관리자)")
-    @PostMapping("admin/{reportId}")
-    public ResponseEntity<ResolveReportResponse> resolveReport(@PathVariable Long reportId,@RequestBody ResolveReportRequest request) {
+    @PostMapping("/admin/{reportId}")
+    public ResponseEntity<ResolveReportResponse> resolveReport(@PathVariable("reportId") Long reportId,@RequestBody ResolveReportRequest request) {
         return ResponseEntity.ok(reportService.resolveReport(reportId, request));
     }
 }
