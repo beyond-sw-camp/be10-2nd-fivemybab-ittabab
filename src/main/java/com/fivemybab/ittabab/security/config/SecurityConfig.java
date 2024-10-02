@@ -4,7 +4,9 @@ import com.fivemybab.ittabab.security.filter.CustomAuthenticationFilter;
 import com.fivemybab.ittabab.security.filter.JwtFilter;
 import com.fivemybab.ittabab.security.handler.JwtAccessDeniedHandler;
 import com.fivemybab.ittabab.security.handler.JwtAuthenticationEntryPoint;
+import com.fivemybab.ittabab.security.handler.LoginFailureHandler;
 import com.fivemybab.ittabab.security.handler.LoginSuccessHandler;
+import com.fivemybab.ittabab.security.util.CustomUserDetailsService;
 import com.fivemybab.ittabab.security.util.JwtUtil;
 import com.fivemybab.ittabab.user.query.mapper.UserMapper;
 import jakarta.servlet.Filter;
@@ -30,7 +32,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private final BCryptPasswordEncoder passwordEncoder;
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final UserMapper userMapper;
     private final Environment env;
     private final JwtUtil jwtUtil;
@@ -68,7 +70,8 @@ public class SecurityConfig {
 
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
         customAuthenticationFilter.setAuthenticationManager(getAuthenticationManager());
-        customAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(env, userMapper));
+        customAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(env));
+        customAuthenticationFilter.setAuthenticationFailureHandler(new LoginFailureHandler());
 
         return customAuthenticationFilter;
     }
@@ -77,7 +80,7 @@ public class SecurityConfig {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(userDetailsService);
+        provider.setUserDetailsService(customUserDetailsService);
         return new ProviderManager(provider);
     }
 }
