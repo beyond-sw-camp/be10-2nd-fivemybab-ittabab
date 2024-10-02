@@ -26,9 +26,9 @@ class GoodCommandServiceTest {
     @Test
     @DisplayName("좋아요 생성 성공")
     void createGood_Success() {
-        Long userId = 4L;
+        Long userId = 8L;
         Target target = Target.POST;
-        Long targetId = 8L;
+        Long targetId = 1L;
 
         // 좋아요 생성
         goodCommandService.createGood(userId, target, targetId);
@@ -41,9 +41,9 @@ class GoodCommandServiceTest {
     @Test
     @DisplayName("이미 좋아요를 눌렀을 때 예외 발생")
     void createGood_AlreadyLiked_Exception() {
-        Long userId = 4L;
+        Long userId = 8L;
         Target target = Target.POST;
-        Long targetId = 8L;
+        Long targetId = 1L;
 
         // 이미 좋아요 생성
         goodCommandService.createGood(userId, target, targetId);
@@ -59,9 +59,9 @@ class GoodCommandServiceTest {
     @Test
     @DisplayName("좋아요 삭제 성공")
     void deleteGood_Success() {
-        Long userId = 4L;
+        Long userId = 8L;
         Target target = Target.POST;
-        Long targetId = 8L;
+        Long targetId = 1L;
 
         // 좋아요 삭제
         goodCommandService.deleteGood(userId, target, targetId);
@@ -74,9 +74,9 @@ class GoodCommandServiceTest {
     @Test
     @DisplayName("좋아요를 누르지 않았을 때 삭제 시도 시 예외 발생")
     void deleteGood_NotLiked_Exception() {
-        Long userId = 4L;
+        Long userId = 8L;
         Target target = Target.POST;
-        Long targetId = 8L;
+        Long targetId = 1L;
 
         // 좋아요 삭제 시도 (아직 좋아요를 누르지 않았음)
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
