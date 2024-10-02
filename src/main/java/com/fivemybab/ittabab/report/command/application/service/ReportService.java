@@ -4,6 +4,7 @@ import com.fivemybab.ittabab.board.command.domain.aggregate.Post;
 import com.fivemybab.ittabab.board.command.domain.aggregate.PostComment;
 import com.fivemybab.ittabab.board.command.domain.repository.PostCommentRepository;
 import com.fivemybab.ittabab.board.command.domain.repository.PostRepository;
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportRequest;
 import com.fivemybab.ittabab.report.command.application.dto.ResolveReportResponse;
 import com.fivemybab.ittabab.report.command.domain.aggregate.Target;
@@ -11,11 +12,8 @@ import com.fivemybab.ittabab.report.command.application.dto.CreateReportRequest;
 
 import com.fivemybab.ittabab.report.command.domain.aggregate.Report;
 import com.fivemybab.ittabab.report.command.domain.repository.ReportRepository;
-import com.fivemybab.ittabab.store.command.application.repository.StoreRepository;
 import com.fivemybab.ittabab.store.command.application.repository.StoreReviewRepository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.StoreReview;
-import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,7 @@ public class ReportService {
     public CreateReportRequest createReport(CreateReportRequest createReportRequest, Long userId) {
 
         if (userId == null) {
-            throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
+            throw new NotFoundException("회원 정보를 찾을 수 없습니다.");
         }
         // 게시물 작성자 확인
         Long contentOwnerId = findContentOwner(createReportRequest.getReportTarget(), createReportRequest.getTargetId());
@@ -83,15 +81,15 @@ public class ReportService {
 
         if ("POST".equals(reportTarget)) {
             Post post = postRepository.findById(targetId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
+                    .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
             return post.getUserId();
         } else if ("REVIEW".equals(reportTarget)) {
             StoreReview storeReview = storeReviewRepository.findById(targetId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 리뷰을 찾을 수 없습니다."));
+                    .orElseThrow(() -> new NotFoundException("해당 리뷰을 찾을 수 없습니다."));
             return storeReview.getUserId();
         } else if ("COMMENT".equals(reportTarget)) {
             PostComment postComment = postCommentRepository.findById(targetId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
+                    .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
             return postComment.getUserId();
         }
 

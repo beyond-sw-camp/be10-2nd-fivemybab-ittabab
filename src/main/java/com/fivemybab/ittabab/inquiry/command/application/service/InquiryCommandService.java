@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.inquiry.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryAnswerResponse;
 import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryQuestionResponse;
 import com.fivemybab.ittabab.inquiry.command.domain.aggregate.Inquiry;
@@ -33,7 +34,7 @@ public class InquiryCommandService {
     @Transactional
     public void registInquiryAnswer(Long inquiryId, InquiryAnswerResponse inquiryAnswerResponse) {
         Inquiry inquiryInfo = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 문의: " + inquiryId));
+                .orElseThrow(() -> new NotFoundException("없는 문의: " + inquiryId));
 
         // 답변 등록
         inquiryInfo.setInquiryReply(inquiryAnswerResponse.getInquiryReply());
