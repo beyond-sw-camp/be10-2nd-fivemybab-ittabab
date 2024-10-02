@@ -14,6 +14,7 @@
         <result property="categoryName" column="category_name"/>
     </resultMap>
 
+    <!-- 메뉴 인기순으로 조회(리뷰, 별점 내림차순) -->
     <select
             id="findStorePopularMenuByStoreId"
             resultMap="StorePopularMenuMap">

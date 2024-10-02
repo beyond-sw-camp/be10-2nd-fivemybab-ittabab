@@ -17,6 +17,10 @@ public class StoreReviewQueryService {
         return storeReviewMapper.findStoreReviewList();
     }
 
+    public List<StoreReviewInfoDto> findStoreReviewByStoreIdList(Long storeId) {
+        return storeReviewMapper.findStoreReviewByStoreIdList(storeId);
+    }
+
     public StoreReviewInfoDto findStoreReviewById(Long id) {
         return storeReviewMapper.findStoreReviewById(id);
     }
