@@ -2,6 +2,7 @@ package com.fivemybab.ittabab.store.query.controller;
 
 
 import com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto;
+import com.fivemybab.ittabab.store.command.application.dto.StorePopularMenuInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreMenuQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,6 +33,16 @@ public class StoreMenuQueryController {
 
         return new ResponseEntity<>(storeMenuList , HttpStatus.OK);
     }
+
+    /* 메뉴 리뷰가 많은 순대로 조회하되, 후순위로 별점이 높은 순으로 조회 */
+    @Operation(summary = "인기 메뉴순으로 전체 조회")
+    @GetMapping("/popular/{storeId}")
+    public ResponseEntity<List<StorePopularMenuInfoDto>> storePopularMenuList(@PathVariable Long storeId) {
+        List<StorePopularMenuInfoDto> storePopularMenuList = storeMenuQueryService.findStorePopularMenuByStoreId(storeId);
+
+        return new ResponseEntity<>(storePopularMenuList , HttpStatus.OK);
+    }
+
 
     /* 가게 메뉴 상세 조회 */
     @Operation(summary = "가게 메뉴 상세 조회")
