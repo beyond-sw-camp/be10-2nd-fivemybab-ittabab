@@ -45,17 +45,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         // Public 접근 허용
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/**").permitAll()
 
                         // HttpMethod(All) - USER
                         .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"
-                        ,"/inquiry/user","/picture/**","/report/user/**","/schedule/**").hasRole("USER")
+                        ,"/inquiry/user","/picture/**","/report/user/**","/schedule/**","/friend/**","/notification/**"
+                        ,"/user/**").hasRole("USER")
 
                         // HttpMethod(All) - ADMIN
-                        .requestMatchers("/inquiry/admin/**","/report/admin/**").hasRole("ADMIN")
-                        // HttpMethod(DELETE) - ADMIN
-//                        .requestMatchers().hasRole("ADMIN")
-
+                        .requestMatchers("/inquiry/admin/**","/report/admin/**","/bootcamp/**","/course/**","/user/admin/**").hasRole("ADMIN")
 
                         // 모든 요청에 대해 인증 필요
                         .anyRequest().authenticated()
