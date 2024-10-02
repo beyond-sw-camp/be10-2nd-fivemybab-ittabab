@@ -66,13 +66,11 @@ public class UserCommandController {
         return ResponseEntity.ok().body("회원 삭제 완료");
     }
 
-    /*
-    @GetMapping("/admin")
-    public ResponseEntity<?> getUserList(@AuthenticationPrincipal CustomUserDetails loginUser) {
+    @GetMapping("/location")
+    public ResponseEntity<String> locationUser() {
 
-        Long userId = loginUser.getUserId();   // 현재 로그인된 계정의 userId;
+        userCommandService.getCurrentLocation();
 
         return ResponseEntity.ok().build();
     }
-    */
 }
