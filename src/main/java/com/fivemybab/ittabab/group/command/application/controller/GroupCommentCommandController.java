@@ -71,23 +71,31 @@ public class GroupCommentCommandController {
             return ResponseEntity.notFound().build();
         }
 
+        log.info("founGroupComment {}", foundGroupComment);
+
         Long userUserId = userQueryService.findUserIdByLoginId(loginId).orElseThrow(() -> new NotFoundException("해당 유저는 없습니다.")).getUserId();
         UserRole role = UserRole.valueOf(userQueryService.findById(userUserId).getUserRole());
 
+        System.out.println("접근자: " + modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId());
+
+        System.out.println("작성자 = " + foundGroupComment.getUserId());
+
+        System.out.println("res = " + (modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() == foundGroupComment.getUserId()));
+
         // 2. 해당 글의 작성자 또는 관리자 여부
-        if (
-            // 작성자 여부 확인
-                !(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() != foundGroupComment.getUserId())
-                        &&
-                        // 관리자 여부 확인
-                        !(role.equals(UserRole.ADMIN))
-        ) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 권한 없음
+
+        // 작성자 입니까?
+        if (!(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() == foundGroupComment.getUserId())) {
+
+            // 관리자 입니까?
+            if (!(role.equals(UserRole.ADMIN))) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
         }
 
         commandService.deleteByGroupCommentId(groupCommentId);
 
-        return ResponseEntity.noContent().build(); // 삭제 성공
+        return ResponseEntity.ok().build();
     }
 
     /* 댓글 수정 기능 */
