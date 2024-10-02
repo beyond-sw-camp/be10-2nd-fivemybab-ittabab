@@ -38,7 +38,7 @@ public class StoreController {
     }
 
 
-    /* 가게 삭제하기 */
+    /* 가게 삭제하기 (관리자만) */
     @Operation(summary = "가게 삭제")
     @DeleteMapping("/{storeId}")
     public ResponseEntity<Void> deleteStore(@RequestParam Long storeId) {

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/group")
+@RequestMapping(value = "/groupComment")
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "Group", description = "모임 관련 API")
@@ -27,7 +27,7 @@ public class GroupCommentQueryController {
 
     /* 모임 댓글 조회 */
     @Operation(summary = "모임 댓글 조회")
-    @GetMapping("/comment/{groupId}")
+    @GetMapping("/{groupId}")
     public ResponseEntity<List<GroupCommentDto>> groupComment(
             @PathVariable
             Long groupId,

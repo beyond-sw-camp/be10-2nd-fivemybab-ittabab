@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(value = "/group")
+@RequestMapping(value = "/groupComment")
 @Slf4j
 @Tag(name = "Group", description = "모임 관련 API")
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class GroupCommentCommandController {
 
     /* 댓글 추가 기능 */
     @Operation(summary = "모임 댓글 추가 기능")
-    @PostMapping(value = "/registerComment")
+    @PostMapping
     public ResponseEntity<Void> registerComment(
             @RequestBody GroupCommentDto newComment,
             Authentication loginId
@@ -50,7 +50,7 @@ public class GroupCommentCommandController {
     }
 
     @Operation(summary = "모임 댓글 삭제 기능")
-    @DeleteMapping("comment/{groupCommentId}")
+    @DeleteMapping("/{groupCommentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long groupCommentId,
             Authentication loginId
@@ -75,7 +75,7 @@ public class GroupCommentCommandController {
 
     /* 댓글 수정 기능 */
     @Operation(summary = "모임 댓글 수정")
-    @PutMapping("/comment/{groupCommentId}")
+    @PutMapping("/{groupCommentId}")
     public ResponseEntity<String> modifyGroupComment(
             @PathVariable Long groupCommentId,
             @RequestBody UpdateGroupCommentDto modifyComment,

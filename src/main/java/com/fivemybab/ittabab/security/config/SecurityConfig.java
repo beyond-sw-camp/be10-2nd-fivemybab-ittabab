@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -42,14 +43,25 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authz ->
-                        authz.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-                                .anyRequest().authenticated()
+                .authorizeHttpRequests(authz -> authz
+                        // Public 접근 허용
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                        // HttpMethod(All) - USER
+                        .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"
+                        ,"/inquiry/user","/picture/**","/report/user/**","/schedule/**").hasRole("USER")
+
+                        // HttpMethod(All) - ADMIN
+                        .requestMatchers("/inquiry/admin/**","/report/admin/**").hasRole("ADMIN")
+                        // HttpMethod(DELETE) - ADMIN
+//                        .requestMatchers().hasRole("ADMIN")
+
+
+                        // 모든 요청에 대해 인증 필요
+                        .anyRequest().authenticated()
                 )
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
         http.addFilterBefore(new JwtFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);

@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "User", description = "회원 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/user/admin")
 public class UserQueryController {
 
     private final UserQueryService userQueryService;

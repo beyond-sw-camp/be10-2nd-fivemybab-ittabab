@@ -23,7 +23,7 @@ public class PostCommentQueryController {
 
     /* 댓글 많은 순으로 게시글 목록 조회 */
     @Operation(summary = "댓글 많은 순 게시글 목록", description = "댓글이 많은 순서로 조회합니다.")
-    @GetMapping("/posts/comments")
+    @GetMapping
     public ResponseEntity<List<PostCommentQueryDto>> getPostsByCommentCount() throws NotFoundException {
         List<PostCommentQueryDto> posts = postCommentQueryService.findPostsByCommentCount();
         return ResponseEntity.ok(posts);
