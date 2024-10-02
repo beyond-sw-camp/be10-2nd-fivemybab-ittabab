@@ -31,7 +31,10 @@ public class GroupInfoQueryController {
     }
 
     /* 전체 모임 조회 */
-    @Operation(summary = "전체 모임 조회")
+    @Operation(
+            summary = "전체 모임 조회",
+            description = "전체 모임을 조회합니다(블라인드 처리되지 않은)."
+    )
     @GetMapping("/list")
     public ResponseEntity<List<GroupInfoDto>> group(Model model, Authentication loginUserLoginId) {
         // 인증된 사용자가 아닌 경우 에러 페이지로 이동 -> 에러 페이지 구현해야 함.
@@ -55,7 +58,10 @@ public class GroupInfoQueryController {
     }
 
     /* 모임 상세 조회 */
-    @Operation(summary = "모임 상세 조회")
+    @Operation(
+            summary = "모임 상세 조회",
+            description = "특정 모임의 상세 정보를 조회합니다."
+    )
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupInfoDto> groupDetail(@PathVariable Long groupId, Model model) {
         GroupInfoDto foundGroup = groupInfoQueryService.findGroupByGroupId(groupId);

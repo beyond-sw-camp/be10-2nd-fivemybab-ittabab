@@ -8,6 +8,7 @@
         SELECT *
         FROM group_comment
         WHERE group_id = #{groupId}
+        AND is_blinded = false
         ORDER BY create_date DESC
     </select>
 

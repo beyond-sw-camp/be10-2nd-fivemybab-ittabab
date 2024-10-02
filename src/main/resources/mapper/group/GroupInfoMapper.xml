@@ -23,7 +23,8 @@
         grp.create_date,
         grp.end_date,
         grp.group_post,
-        grp.is_blinded
+        grp.is_blinded,
+        grp.chat_room_status
         FROM group_info AS grp
         JOIN user_info AS usr ON usr.user_id = grp.user_id
         WHERE grp.group_status = 1
