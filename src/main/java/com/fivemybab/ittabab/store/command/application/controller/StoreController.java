@@ -23,30 +23,35 @@ public class StoreController {
     /* 가게 등록하기  */
     @Operation(summary = "가게 등록")
     @PostMapping
-    public ResponseEntity<CreateStoreDto> createStore(@RequestBody CreateStoreDto createStoreDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
+    public ResponseEntity<String> createStore(@RequestBody CreateStoreDto createStoreDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        storeService.createStore(createStoreDto, loginUser.getUserId());
-        return new ResponseEntity<>(createStoreDto, HttpStatus.CREATED);
+        createStoreDto.setUserId(loginUser.getUserId());
+        storeService.createStore(createStoreDto);
+        return new ResponseEntity<>("가게 등록 완료", HttpStatus.CREATED);
 
     }
-
 
     /* 가게 수정하기 */
     @Operation(summary = "가게 수정")
     @PutMapping("/{storeId}")
-    public ResponseEntity<Void> updateStore(@PathVariable Long storeId, @RequestBody UpdateStoreDto updateStoreDto) {
+    public ResponseEntity<String> updateStore(@PathVariable Long storeId, @RequestBody UpdateStoreDto updateStoreDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
+
+        updateStoreDto.setUserId(loginUser.getUserId());
         storeService.updateStore(storeId, updateStoreDto);
 
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("가게 수정 완료", HttpStatus.OK);
     }
 
 
     /* 가게 삭제하기 */
     @Operation(summary = "가게 삭제")
     @DeleteMapping("/{storeId}")
-    public ResponseEntity<Void> deleteStore(@RequestParam Long storeId) {
-        storeService.deleteStore(storeId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteStore(@RequestParam Long storeId,  @AuthenticationPrincipal CustomUserDetails loginUser) {
+
+        storeService.deleteStore(storeId, loginUser.getUserId());
+
+        return new ResponseEntity<>("가게 삭제 완료", HttpStatus.NO_CONTENT);
+
     }
 
 }
