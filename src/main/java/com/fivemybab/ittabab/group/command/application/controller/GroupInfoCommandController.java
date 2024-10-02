@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
 import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
 import com.fivemybab.ittabab.group.query.dto.ChatMessageDto;
@@ -7,6 +8,7 @@ import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.query.dto.RequestChatDto;
 import com.fivemybab.ittabab.group.query.service.GroupInfoQueryService;
 import com.fivemybab.ittabab.user.command.application.dto.UserDto;
+import com.fivemybab.ittabab.user.command.domain.aggregate.UserRole;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +37,10 @@ public class GroupInfoCommandController {
     private final ModelMapper modelMapper;
 
     /* 모임 등록 */
-    @Operation(summary = "모임 등록")
+    @Operation(
+            summary = "모임 등록",
+            description = "새로운 모임을 등록합니다."
+    )
     @PostMapping("/registGroup")
     public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginId) {
 
@@ -53,7 +58,10 @@ public class GroupInfoCommandController {
     }
 
     /* 모임 참여 */
-    @Operation(summary = "모임 참여")
+    @Operation(
+            summary = "모임 참여",
+            description = "모임에 참여합니다. \n해당 모임에 가입되지 않은 상태여야 합니다."
+    )
     @GetMapping("/detail/{groupId}")
     public ResponseEntity<String> registGroupUser(
             @PathVariable Long groupId,
@@ -96,7 +104,9 @@ public class GroupInfoCommandController {
     }
 
     /* 모임 채팅 생성 */
-    @Operation(summary = "모임 채팅 생성")
+    @Operation(
+            summary = "모임 채팅 생성",
+            description = "모임 모집을 마감하고 채팅방을 생성합니다. 채팅방이 생성되지 않은 상태여야 생성이 가능합니다.")
     @PostMapping("/chat")
     public ResponseEntity<String> createChat(
             @RequestBody RequestChatDto requestChatDto,
@@ -122,7 +132,10 @@ public class GroupInfoCommandController {
     }
 
     /* 모임 채팅방 채팅 전송 */
-    @Operation(summary = "채팅 전송")
+    @Operation(
+            summary = "채팅 전송",
+            description = "채팅방에 채팅을 전송합니다. 채팅방이 활성화된 상태여야 전송이 가능합니다."
+    )
     @PostMapping("/chat/{groupId}")
     public ResponseEntity<String> joinChat(
             @PathVariable Long groupId,
@@ -144,13 +157,20 @@ public class GroupInfoCommandController {
     }
 
     /* 모임 삭제 */
-    @Operation(summary = "모임 삭제")
+    @Operation(
+            summary = "모임 삭제",
+            description = "모임을 삭제합니다. 작성자 또는 관리자만이 삭제가 가능합니다."
+    )
     @DeleteMapping("/{groupId}")
     public ResponseEntity<String> deleteGroup(
             @PathVariable Long groupId,
             Authentication loginUserLoginId
     ) {
-        if (checkCreator(loginUserLoginId, groupId)) {
+
+        Long userUserId = userQueryService.findUserIdByLoginId(loginUserLoginId).orElseThrow(() -> new NotFoundException("해당 유저는 없습니다.")).getUserId();
+        UserRole role = UserRole.valueOf(userQueryService.findById(userUserId).getUserRole());
+
+        if (checkCreator(loginUserLoginId, groupId) || role.equals(UserRole.ADMIN)) {
             groupService.deleteGroupInfo(groupId);
 
             return ResponseEntity.status(HttpStatus.OK).build();

@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
+import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
 import com.fivemybab.ittabab.group.command.domain.aggregate.GroupInfo;
 import com.fivemybab.ittabab.group.command.domain.aggregate.GroupUser;
 import com.fivemybab.ittabab.group.command.domain.repository.GroupCommentRepository;
@@ -33,6 +34,7 @@ public class GroupInfoCommandService {
 
     private final UserQueryService userQueryService;
     private final GroupInfoQueryService groupInfoQueryService;
+    private final GroupInfoCommandService groupInfoCommandService;
     private final NotificationCommandService notificationCommandService;
 
 
@@ -88,6 +90,14 @@ public class GroupInfoCommandService {
         notificationRequest.setUserIdList(userList);
 
         notificationCommandService.createNotification(notificationRequest);
+
+        // 2. 해당 모임의 채팅방을 생성 상태로 변경한다.
+
+        GroupInfo foundGroupInfo = groupInfoRepository.findById(chatMessageDto.getChatRoomId()).orElse(null);
+
+        if(foundGroupInfo != null) {
+            foundGroupInfo.modifyChatRoomStatus(ChatRoomStatus.Created);
+        }
     }
 
     /* 모임 채팅방에 메시지 전송*/
