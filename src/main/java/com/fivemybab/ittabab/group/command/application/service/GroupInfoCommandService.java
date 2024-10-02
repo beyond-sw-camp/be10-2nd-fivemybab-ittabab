@@ -29,12 +29,9 @@ public class GroupInfoCommandService {
     private final GroupInfoRepository groupInfoRepository;
     private final GroupUserRepository groupUserRepository;
     private final GroupCommentRepository groupCommentRepository;
-
     private final ModelMapper modelMapper;
-
     private final UserQueryService userQueryService;
     private final GroupInfoQueryService groupInfoQueryService;
-    private final GroupInfoCommandService groupInfoCommandService;
     private final NotificationCommandService notificationCommandService;
 
 
