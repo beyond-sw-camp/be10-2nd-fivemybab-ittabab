@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class GoodCommandService {
 
     private final GoodRepository goodRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public void createGood(Long userId, Target target, Long targetId) {

@@ -57,8 +57,9 @@ public class StoreService {
 
         if (updateStoreDto.getStoreStatus() != null) {
 
-            String status = updateStoreDto.getStoreStatus().toString();
-            store.modifyStoreStatus(status);
+            String storeStatus = updateStoreDto.getStoreStatus().toString();
+            store.modifyStoreStatus(storeStatus);
+
         }
 
     }

@@ -3,7 +3,7 @@ package com.fivemybab.ittabab.report.query.service;
 import com.fivemybab.ittabab.report.query.dto.ReportDto;
 import com.fivemybab.ittabab.report.query.mapper.ReportMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.javassist.NotFoundException;
+import com.fivemybab.ittabab.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +19,8 @@ public class ReportQueryService {
     public List<ReportDto> findReportList() throws NotFoundException {
 
         List<ReportDto> reportList = reportMapper.adminReportList();
-//        System.out.println("Report List: " + reportList);
         if (reportList.isEmpty()) {
-            throw new NotFoundException("들어온 문의 없음");
+            throw new NotFoundException("들어온 신고 없음");
         }
 
         return reportList;

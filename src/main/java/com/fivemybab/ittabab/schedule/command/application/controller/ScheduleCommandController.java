@@ -2,14 +2,13 @@ package com.fivemybab.ittabab.schedule.command.application.controller;
 
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
-import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
-import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,15 +20,12 @@ import java.time.LocalDate;
 public class ScheduleCommandController {
 
     private final ScheduleCommandService scheduleCommandService;
-    private final UserRepository userRepository;
-
 
     /* 일정 입력 */
     @Operation(summary = "일정 등록")
     @PostMapping
-    public ResponseEntity<String> registSchedule(@RequestBody ScheduleDto scheduleDto, Authentication authentication){
-        String username = authentication.getName();
-        Long userId = getUserIdFromUsername(username);
+    public ResponseEntity<String> registSchedule(@RequestBody ScheduleDto scheduleDto, @AuthenticationPrincipal CustomUserDetails loginUser){
+        Long userId = loginUser.getUserId();
         scheduleDto.setUserId(userId);
         scheduleDto.setScheduleDate(LocalDate.now());
         scheduleCommandService.registSchedule(scheduleDto);
@@ -39,7 +35,12 @@ public class ScheduleCommandController {
     /* 일정 수정 */
     @Operation(summary = "일정 수정")
     @PutMapping
-    public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDto scheduleDto){
+    public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDto scheduleDto, @AuthenticationPrincipal CustomUserDetails loginUser){
+        Long userId = loginUser.getUserId();
+        Long scheduleDtoUserId = scheduleDto.getUserId();
+        if(!userId.equals(scheduleDtoUserId)){
+            return new ResponseEntity<>("작성자가 아닙니다.", HttpStatus.OK);
+        }
         scheduleCommandService.modifySchedule(scheduleDto);
         return new ResponseEntity<>("수정 완료"+scheduleDto, HttpStatus.OK);
     }
@@ -47,17 +48,13 @@ public class ScheduleCommandController {
     /* 일정 삭제 */
     @Operation(summary = "일정 삭제")
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId) {
+    public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId, @AuthenticationPrincipal CustomUserDetails loginUser) {
+        Long userId = loginUser.getUserId();
+        Long scheduleUserId = scheduleCommandService.getScheduleById(scheduleId);
+        if(!userId.equals(scheduleUserId)){
+            return new ResponseEntity<>("작성자만 삭제가능합니다.", HttpStatus.OK);
+        }
         scheduleCommandService.deleteSchedule(scheduleId);
         return ResponseEntity.noContent().build();
-    }
-
-    // 사용자 인증
-    private Long getUserIdFromUsername(String username) {
-        UserInfo userInfo = userRepository.findByUsername(username);
-        if (userInfo != null) {
-            return userInfo.getUserId();
-        }
-        throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
     }
 }
