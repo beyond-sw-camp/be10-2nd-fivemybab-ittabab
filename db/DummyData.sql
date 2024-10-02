@@ -175,9 +175,10 @@ VALUES ('Spam Post', 'This post is spam.', 'POST', 1, 1, '2024-08-16 09:00:00', 
        ('Offensive Comment', 'This comment is offensive.', 'COMMENT', 2, 2, '2024-08-17 10:30:00', FALSE),
        ('Inappropriate Review', 'The review contains inappropriate content.', 'REVIEW', 3, 3, '2024-08-18 12:00:00',
         FALSE),
-       ('Fake Profile', 'This user is using a fake profile.', 'USER', 4, 4, '2024-08-19 13:15:00', FALSE),
+       ('Fake Profile', 'This user is using a fake profile.', 'COMMENT', 4, 4, '2024-08-19 13:15:00', FALSE),
        ('Spam Message', 'This message is spam.', 'COMMENT', 5, 5, '2024-08-20 14:30:00', FALSE),
-       ('Inappropriate Group Post', 'Group post violates guidelines.', 'GROUP', 6, 6, '2024-08-21 15:45:00', FALSE);
+       ('Inappropriate Group Post', 'Group post violates guidelines.', 'POST', 6, 6, '2024-08-21 15:45:00', FALSE);
+
 
 -- Good (Like)
 INSERT INTO good (user_id, target, target_id)
@@ -194,8 +195,9 @@ VALUES ('http://example.com/image1.jpg', 'POST', 1),
        ('http://example.com/image2.jpg', 'REVIEW', 2),
        ('http://example.com/image3.jpg', 'COMMENT', 3),
        ('http://example.com/image4.jpg', 'GROUP', 4),
-       ('http://example.com/image5.jpg', 'USER', 5),
+       ('http://example.com/image5.jpg', 'POST', 5),
        ('http://example.com/image6.jpg', 'POST', 6);
+
 
 -- Notification
 INSERT INTO notification (content, target, target_id, user_id, is_read, create_date)
