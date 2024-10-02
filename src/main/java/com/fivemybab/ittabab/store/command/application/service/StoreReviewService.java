@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.repository.StoreReviewRepository;
@@ -18,16 +19,32 @@ public class StoreReviewService {
 
     /* 가게 리뷰 추가 */
     @Transactional
-    public void registStoreReview(CreateStoreReviewDto newStoreReview) {
+    public void registStoreReview(CreateStoreReviewDto newStoreReview, Long userId) {
+
+        // 존재하지 않는 가게 ID 입력시
+        if(!repository.existsById(newStoreReview.getStoreId())) {
+            throw new NotFoundException("해당 가게가 존재하지 않습니다.");
+        }
+
+
         StoreReview storeReview = modelMapper.map(newStoreReview, StoreReview.class);
+        storeReview.setUserId(userId);
         repository.save(storeReview);
     }
 
     /* 가게 리뷰 수정*/
     @Transactional
-    public void updateStoreReview(Long reviewId, UpdateStoreReviewDto updateStoreReviewDTO) {
-        StoreReview storeReview = repository.findById(reviewId)
-                .orElseThrow(()-> new IllegalArgumentException("리뷰를 찾지 못했습니다."));
+    public void updateStoreReview(Long userId ,UpdateStoreReviewDto updateStoreReviewDTO) {
+
+        Long reviewId = updateStoreReviewDTO.getReviewId();
+
+        if(!repository.existsById(reviewId)) {
+            throw new NotFoundException("해당 가게 리뷰가 존재하지 않습니다.");
+        }
+
+
+        StoreReview storeReview = repository.findByReviewIdAndUserId(reviewId, userId)
+                .orElseThrow(()-> new IllegalArgumentException("타인의 가게 리뷰는 수정할 수 없습니다."));
 
 
         if(updateStoreReviewDTO.getReviewContent() != null) {

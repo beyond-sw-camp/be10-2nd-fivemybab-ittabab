@@ -22,6 +22,5 @@ public class UpdateStoreDto {
     private String storeWeek;
     private String storeInfo;
     private StoreStatus storeStatus;
-    private Long userId;
 
 }

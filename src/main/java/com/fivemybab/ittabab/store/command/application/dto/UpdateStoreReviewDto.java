@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class UpdateStoreReviewDto {
 
+    private Long reviewId;
     private String reviewContent;
     private Integer rating;
 

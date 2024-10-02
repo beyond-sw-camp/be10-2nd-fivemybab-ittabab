@@ -24,6 +24,8 @@ public class Store {
     private StoreStatus storeStatus = StoreStatus.OPEN;
     private Long userId;
 
+    public void setUserId(Long userId) {this.userId = userId;}
+
     public void modifyStoreName(String newStoreName) {
         this.storeName = newStoreName;
     }

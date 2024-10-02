@@ -21,22 +21,26 @@ public class StoreService {
 
     /* 가게 추가 */
     @Transactional
-    public void createStore(CreateStoreDto newStore) {
+    public void createStore(CreateStoreDto newStore, Long userId) {
 
-        storeRepository.save(modelMapper.map(newStore, Store.class));
+
+
+        Store store = modelMapper.map(newStore, Store.class);
+        store.setUserId(userId);
+        storeRepository.save(store);
 
     }
 
     /* 가게 수정 */
     @Transactional
-    public void updateStore(Long storeId, UpdateStoreDto updateStoreDto) {
+    public void updateStore(Long storeId, Long userId ,UpdateStoreDto updateStoreDto) {
 
         if (!storeRepository.existsByStoreId(storeId)) {
             throw new NotFoundException("해당 가게가 존재하지 않습니다.");
         }
 
         Store store =
-                storeRepository.findByStoreIdAndUserId(storeId, updateStoreDto.getUserId())
+                storeRepository.findByStoreIdAndUserId(storeId, userId)
                         .orElseThrow(()-> new IllegalArgumentException("타인이 등록한 가게는 수정할 수 없습니다."));
 
         if (updateStoreDto.getStoreName() != null) {

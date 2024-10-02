@@ -40,7 +40,6 @@ class StoreServiceTest {
         store.setStoreWeek("월, 화, 수, 목, 금");
         store.setStoreInfo("미슐랭 3스타 같아요");
         store.setStoreStatus(StoreStatus.OPEN);
-        store.setUserId(1L);
 
         return Stream.of(Arguments.of(store));
     }
@@ -52,7 +51,7 @@ class StoreServiceTest {
     void testCreateStore(CreateStoreDto newStore, @AuthenticationPrincipal CustomUserDetails loginUser ) {
 
         Assertions.assertDoesNotThrow(
-                () -> storeService.createStore(newStore)
+                () -> storeService.createStore(newStore, loginUser.getUserId())
         );
     }
 
@@ -69,10 +68,10 @@ class StoreServiceTest {
     @DisplayName("가게 정보 수정 테스트")
     @ParameterizedTest
     @MethodSource("getModifyStoreInfo")
-    void testUpdateStore(Long storeId, UpdateStoreDto modifyInfo) {
+    void testUpdateStore(Long storeId, Long userId, UpdateStoreDto modifyInfo) {
 
         Assertions.assertDoesNotThrow(
-                () -> storeService.updateStore(storeId, modifyInfo)
+                () -> storeService.updateStore(storeId, userId, modifyInfo)
         );
     }
 

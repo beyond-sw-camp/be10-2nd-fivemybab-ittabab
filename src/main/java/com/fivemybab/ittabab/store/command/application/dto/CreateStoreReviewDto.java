@@ -11,7 +11,6 @@ import lombok.ToString;
 public class CreateStoreReviewDto {
 
     private Long storeId;
-    private Long userId;
     private String reviewContent;
     private Integer rating;
     private boolean isBlinded;
