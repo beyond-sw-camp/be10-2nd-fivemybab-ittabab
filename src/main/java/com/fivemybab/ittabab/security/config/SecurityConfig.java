@@ -45,7 +45,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         // Public 접근 허용
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/**").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/user/**").permitAll()
+                        .requestMatchers("/user/**").permitAll()
 
                         // HttpMethod(All) - USER
                         .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"
