@@ -10,10 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class InquiryQuestionResponse {
-
-    private Long inquiryId;
     private String inquiryContent;
     private LocalDateTime createDate;
-    private Long inquiryUserId;
 
 }

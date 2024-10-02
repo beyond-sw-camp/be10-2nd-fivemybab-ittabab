@@ -26,9 +26,9 @@ public class InquiryCommandController {
     @Operation(summary = "문의 등록(사용자)")
     @PostMapping("/user")
     public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryQuestionResponse inquiryQuestionResponse, @AuthenticationPrincipal CustomUserDetails loginUser) {
-        inquiryQuestionResponse.setInquiryUserId(loginUser.getUserId());
+        Long userId = loginUser.getUserId();
         inquiryQuestionResponse.setCreateDate(LocalDateTime.now());
-        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
+        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse, userId);
         return new ResponseEntity<>("문의 등록(사용자) 완료", HttpStatus.CREATED);
     }
 
@@ -38,8 +38,8 @@ public class InquiryCommandController {
     public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
                                                        @RequestBody InquiryAnswerResponse inquiryAnswerResponse
     ,@AuthenticationPrincipal CustomUserDetails loginUser) {
-        inquiryAnswerResponse.setResponseUserId(loginUser.getUserId());
-        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse);
+
+        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse, loginUser.getUserId());
 
         return new ResponseEntity<>("문의 답변 등록(관리자) 완료", HttpStatus.CREATED);
     }
