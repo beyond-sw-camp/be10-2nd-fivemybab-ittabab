@@ -27,7 +27,7 @@ public class ReportController {
 
     // 신고 생성
     @Operation(summary = "신고 생성")
-    @PostMapping
+    @PostMapping("/user")
     public ResponseEntity<CreateReportRequest> createReport(@RequestBody CreateReportRequest createReportRequest, @AuthenticationPrincipal CustomUserDetails loginUser) {
         createReportRequest.setCreateDate(LocalDateTime.now());
         reportService.createReport(createReportRequest, loginUser.getUserId());
@@ -37,7 +37,7 @@ public class ReportController {
 
     // 신고 처리 (관리자만 가능)
     @Operation(summary = "신고 처리 (관리자)")
-    @PostMapping("/{reportId}")
+    @PostMapping("admin/{reportId}")
     public ResponseEntity<ResolveReportResponse> resolveReport(@PathVariable Long reportId,@RequestBody ResolveReportRequest request) {
         return ResponseEntity.ok(reportService.resolveReport(reportId, request));
     }

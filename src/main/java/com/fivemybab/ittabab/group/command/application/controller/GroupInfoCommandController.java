@@ -41,7 +41,7 @@ public class GroupInfoCommandController {
             summary = "모임 등록",
             description = "새로운 모임을 등록합니다."
     )
-    @PostMapping("/registGroup")
+    @PostMapping
     public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginId) {
 
         Long userId = modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId();
