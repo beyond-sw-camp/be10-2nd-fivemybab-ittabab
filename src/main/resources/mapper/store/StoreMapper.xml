@@ -3,12 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fivemybab.ittabab.store.query.mapper.StoreMapper">
+    <resultMap id="StoreReviewRatingMap" type="com.fivemybab.ittabab.store.command.application.dto.StorePopularInfoDto">
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="storeLocation" column="store_location"/>
+        <result property="storeOpenTime" column="store_open_time"/>
+        <result property="storeEndTime" column="store_end_time"/>
+        <result property="storeWeek" column="store_week"/>
+        <result property="storeInfo" column="store_info"/>
+        <result property="storeStatus" column="store_status"/>
+    </resultMap>
+
+    <!-- 오픈되어 있는 가게 전체 조회 -->
     <select
             id="findStoreList"
             resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
         WHERE store_status = 'OPEN'
+    </select>
+
+    <!-- 가게 리뷰가 많은 순대로 조회하되, 후순위로 별점이 많은 순으로 조회 -->
+    <select
+            id="findStoreReviewRatingList"
+            resultMap="StoreReviewRatingMap">
+        SELECT s.store_id, s.store_name, s.store_location, s.store_open_time, s.store_end_time, s.store_week, s.store_info, s.store_status,
+        COUNT(r.review_id) AS review_count,
+        IFNULL(AVG(r.rating), 0) AS average_rating
+        FROM store s
+        LEFT JOIN review r ON s.store_id = r.store_id
+        GROUP BY s.store_id, s.store_name, s.store_location, s.store_open_time, s.store_end_time, s.store_week, s.store_info
+        ORDER BY review_count DESC, average_rating DESC;
     </select>
 
     <select

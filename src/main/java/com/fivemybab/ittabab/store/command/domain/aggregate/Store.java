@@ -1,10 +1,8 @@
 package com.fivemybab.ittabab.store.command.domain.aggregate;
 
-import com.fivemybab.ittabab.user.command.domain.aggregate.FriendStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
