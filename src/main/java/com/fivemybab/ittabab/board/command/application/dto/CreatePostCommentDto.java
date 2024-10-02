@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.board.command.application.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
