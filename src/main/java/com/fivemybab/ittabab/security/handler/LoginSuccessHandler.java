@@ -24,7 +24,6 @@ import java.util.List;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final Environment env;
-    private final UserMapper userMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
