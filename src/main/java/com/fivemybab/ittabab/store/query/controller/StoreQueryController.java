@@ -1,17 +1,13 @@
 package com.fivemybab.ittabab.store.query.controller;
 
 import com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto;
-import com.fivemybab.ittabab.store.command.application.dto.StoreReviewInfoDto;
-import com.fivemybab.ittabab.store.command.domain.aggregate.StoreMenu;
+import com.fivemybab.ittabab.store.command.application.dto.StorePopularInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreQueryService;
-import com.fivemybab.ittabab.store.query.service.StoreReviewQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +31,18 @@ public class StoreQueryController {
 
         return new ResponseEntity<>(storeList, HttpStatus.OK);
     }
+
+    /* 가게 리뷰가 많은 순대로 조회하되, 후순위로 별점이 많은 순으로 조회 */
+
+    @Operation(summary = "가게 리뷰 및 평점순으로 조회")
+    @GetMapping("/popular")
+    public ResponseEntity<List<StorePopularInfoDto>> storeReviewRatingList() {
+        List<StorePopularInfoDto> storeList = storeQueryService.findStoreReviewRatingList();
+
+        return new ResponseEntity<>(storeList, HttpStatus.OK);
+    }
+
+
 
     /* 가게 상세 조회 */
     @Operation(summary = "가게 상세 조회")

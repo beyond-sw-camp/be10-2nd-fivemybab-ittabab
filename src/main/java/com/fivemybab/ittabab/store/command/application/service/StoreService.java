@@ -59,6 +59,7 @@ public class StoreService {
 
             String storeStatus = updateStoreDto.getStoreStatus().toString();
             store.modifyStoreStatus(storeStatus);
+
         }
 
     }
