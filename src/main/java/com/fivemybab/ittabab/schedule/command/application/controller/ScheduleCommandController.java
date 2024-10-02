@@ -2,6 +2,7 @@ package com.fivemybab.ittabab.schedule.command.application.controller;
 
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleCreateRequire;
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
+import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleModifyRequest;
 import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
 import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,15 +36,15 @@ public class ScheduleCommandController {
     /* 일정 수정 */
     @Operation(summary = "일정 수정")
     @PutMapping
-    public ResponseEntity<String> modifySchedule(@RequestBody ScheduleDto scheduleDto, @AuthenticationPrincipal CustomUserDetails loginUser){
+    public ResponseEntity<String> modifySchedule(@RequestBody ScheduleModifyRequest scheduleModifyRequest, @AuthenticationPrincipal CustomUserDetails loginUser){
         Long userId = loginUser.getUserId();
-        Long scheduleDtoUserId = scheduleDto.getUserId();
+        Long scheduleDtoUserId = scheduleCommandService.getScheduleById(scheduleModifyRequest.getScheduleId());
         if(!userId.equals(scheduleDtoUserId)){
             return new ResponseEntity<>("작성자가 아닙니다.", HttpStatus.OK);
         }
-        scheduleDto.setUserId(userId);
-        scheduleCommandService.modifySchedule(scheduleDto);
-        return new ResponseEntity<>("수정 완료"+scheduleDto, HttpStatus.OK);
+        scheduleModifyRequest.setScheduleDate(LocalDate.now());
+        scheduleCommandService.modifySchedule(scheduleModifyRequest);
+        return new ResponseEntity<>("수정 완료"+scheduleModifyRequest, HttpStatus.OK);
     }
 
     /* 일정 삭제 */
