@@ -34,7 +34,7 @@ public class UserCommandService {
     private final RedisService redisService;
 
     private String AUTH_CODE_PREFIX = "AuthCode_";
-    @Value("${mail.auth-code-expiration-millis}")
+    @Value("${spring.mail.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;
 
     @Transactional
@@ -45,6 +45,8 @@ public class UserCommandService {
 
         // 이메일 인증 검증
         EmailVerification(newUser.getEmail(), newUser.getAuthCode());
+
+        // 위치 인증
 
         user.encryptPwd(passwordEncoder.encode(newUser.getPwd()));
         userRepository.save(user);
