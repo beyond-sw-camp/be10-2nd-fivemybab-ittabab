@@ -22,7 +22,7 @@ public class PostCommentCommandController {
 
     // 댓글 생성
     @PostMapping
-    @Operation(summary = "댓글 등록")
+    @Operation(summary = "댓글 등록", description = "댓글을 등록합니다.")
     public ResponseEntity<PostComment> createComment(@RequestBody CreatePostCommentDto createPostCommentDto) {
         PostComment createdComment = postCommentCommandService.createComment(createPostCommentDto);
         return ResponseEntity.ok(createdComment);
@@ -30,7 +30,7 @@ public class PostCommentCommandController {
 
     // 댓글 수정
     @PutMapping("/{commentId}")
-    @Operation(summary = "댓글 수정")
+    @Operation(summary = "댓글 수정", description = "댓글을 수정합니다.")
     public ResponseEntity<PostComment> updateComment(@PathVariable Long commentId, @RequestBody UpdatePostCommentDto updatePostCommentDto) {
         updatePostCommentDto.setCommentId(commentId);
         PostComment updatedComment = postCommentCommandService.updateComment(updatePostCommentDto);
@@ -39,7 +39,7 @@ public class PostCommentCommandController {
 
     // 댓글 삭제 (댓글 ID 기준)
     @DeleteMapping("/{commentId}")
-    @Operation(summary = "댓글 삭제")
+    @Operation(summary = "댓글 삭제", description = "댓글을 삭제합니다.")
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
         postCommentCommandService.deleteComment(commentId);
         return ResponseEntity.noContent().build();

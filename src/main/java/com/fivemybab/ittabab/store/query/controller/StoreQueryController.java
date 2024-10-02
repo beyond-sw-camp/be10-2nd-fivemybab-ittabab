@@ -34,7 +34,7 @@ public class StoreQueryController {
 
     /* 가게 리뷰가 많은 순대로 조회하되, 후순위로 별점이 많은 순으로 조회 */
 
-    @Operation(summary = "가게 리뷰 및 평점순으로 조회")
+    @Operation(summary = "가게 인기순으로 조회(리뷰, 별점 내림차순)")
     @GetMapping("/popular")
     public ResponseEntity<List<StorePopularInfoDto>> storeReviewRatingList() {
         List<StorePopularInfoDto> storeList = storeQueryService.findStoreReviewRatingList();

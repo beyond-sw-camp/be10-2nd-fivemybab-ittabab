@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Favorite", description = "가게 즐겨찾기 관련 API")
+@Tag(name = "StoreFavorite", description = "가게 즐겨찾기 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/store/favorite")

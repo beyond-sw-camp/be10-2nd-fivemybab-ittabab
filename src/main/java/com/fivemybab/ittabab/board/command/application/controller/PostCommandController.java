@@ -23,7 +23,7 @@ public class PostCommandController {
 
     //게시판 작성(create)
     @PostMapping
-    @Operation(summary = "게시판 글 작성")
+    @Operation(summary = "게시판 글 작성", description = "게시판에 글을 작성(등록)합니다.")
     public ResponseEntity<CreatePostDto> createPost(@RequestBody CreatePostDto createPostDto, @RequestParam Long userId) {
         createPostDto.setCreateDate(LocalDateTime.now());
         CreatePostDto createdPost = postCommandService.createPost(createPostDto, userId);
@@ -32,7 +32,7 @@ public class PostCommandController {
 
     //게시판 삭제(delete)
     @DeleteMapping("/{postId}")
-    @Operation(summary = "게시판 글 삭제")
+    @Operation(summary = "게시판 글 삭제", description = "게시판의 글을 삭제합니다.")
     public ResponseEntity<Void> deletePost(@PathVariable final Long postId){
         postCommandService.deletePost(postId);
         return ResponseEntity.noContent().build();
@@ -40,7 +40,7 @@ public class PostCommandController {
 
     //게시판 수정 (update)
     @PutMapping("/{postId}")
-    @Operation(summary = "게시판 글 수정")
+    @Operation(summary = "게시판 글 수정", description = "게시판의 글을 수정합니다.")
     public ResponseEntity<Void> updatePost(
             @PathVariable Long postId,
             @RequestBody @Valid UpdatedPostDto updatedPostDto) {

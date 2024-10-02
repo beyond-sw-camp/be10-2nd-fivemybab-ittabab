@@ -16,8 +16,8 @@
 
     <!-- 오픈되어 있는 가게 전체 조회 -->
     <select
-        id="findStoreList"
-        resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
+            id="findStoreList"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
         WHERE store_status = 'OPEN'
@@ -37,8 +37,8 @@
     </select>
 
     <select
-        id="findStoreByStoreId"
-        resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
+            id="findStoreByStoreId"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreInfoDto">
         SELECT *
         FROM store
         WHERE store_id = #{storeId}
