@@ -31,12 +31,12 @@ class InquiryCommandServiceTest {
         // 문의 등록용 데이터 생성
         inquiryQuestionResponse = new InquiryQuestionResponse();
         inquiryQuestionResponse.setInquiryContent("문의 드립니다");
-        inquiryQuestionResponse.setInquiryUserId(1L);
+
 
         // 답변 등록용 데이터 생성
         inquiryAnswerResponse = new InquiryAnswerResponse();
         inquiryAnswerResponse.setInquiryReply("문의 답변입니다.");
-        inquiryAnswerResponse.setResponseUserId(2L); // 관리자 ID 가정
+
     }
 
     @Test
