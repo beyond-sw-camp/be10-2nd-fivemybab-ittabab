@@ -26,7 +26,9 @@ public class GroupCommentQueryController {
     private final GroupCommentQueryService queryService;
 
     /* 모임 댓글 조회 */
-    @Operation(summary = "모임 댓글 조회")
+    @Operation(
+            summary = "모임 댓글 조회",
+            description = "특정 모임의 등록된 모든 댓글을 조회합니다(블라인드 처리되지 않은).")
     @GetMapping("/{groupId}")
     public ResponseEntity<List<GroupCommentDto>> groupComment(
             @PathVariable

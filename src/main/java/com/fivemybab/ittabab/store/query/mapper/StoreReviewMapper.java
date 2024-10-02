@@ -8,8 +8,11 @@ import java.util.List;
 @Mapper
 public interface StoreReviewMapper {
 
-    /* 가게 전체 리뷰 조회 */
+    /* 전체 리뷰 조회 */
     List<StoreReviewInfoDto> findStoreReviewList();
+
+    /* 특정 가게 전체 리뷰 조회 */
+    List<StoreReviewInfoDto> findStoreReviewByStoreIdList(Long id);
 
     /* 특정 가게 리뷰 조회 */
     StoreReviewInfoDto findStoreReviewById(Long id);
