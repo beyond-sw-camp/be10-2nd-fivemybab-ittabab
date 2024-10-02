@@ -21,21 +21,23 @@ public class StoreService {
 
     /* 가게 추가 */
     @Transactional
-    public void createStore(CreateStoreDto newStore, Long userId) {
-
-        if(userId == null) {
-            throw new NotFoundException("회원 정보를 찾을 수 없습니다.");
-        }
+    public void createStore(CreateStoreDto newStore) {
 
         storeRepository.save(modelMapper.map(newStore, Store.class));
+
     }
 
     /* 가게 수정 */
     @Transactional
     public void updateStore(Long storeId, UpdateStoreDto updateStoreDto) {
+
+        if (!storeRepository.existsByStoreId(storeId)) {
+            throw new NotFoundException("해당 가게가 존재하지 않습니다.");
+        }
+
         Store store =
-                storeRepository.findById(storeId)
-                        .orElseThrow(()-> new IllegalArgumentException("가게를 찾지 못했습니다."));
+                storeRepository.findByStoreIdAndUserId(storeId, updateStoreDto.getUserId())
+                        .orElseThrow(()-> new IllegalArgumentException("타인이 등록한 가게는 수정할 수 없습니다."));
 
         if (updateStoreDto.getStoreName() != null) {
             store.modifyStoreName(updateStoreDto.getStoreName());
@@ -73,9 +75,22 @@ public class StoreService {
 
     /* 가게 삭제 */
     @Transactional
-    public void deleteStore(Long storeId) {
-        storeRepository.deleteById(storeId);
+    public void deleteStore(Long storeId, Long userId) {
+
+        if (!storeRepository.existsByStoreId(storeId)) {
+            throw new NotFoundException("해당 가게가 존재하지 않습니다.");
+        }
+
+
+        // 사용자 ID로 가게를 찾고, 가게가 존재하지 않거나 사용자가 등록한 가게가 아닐 경우 예외 발생
+        Store store = storeRepository.findByStoreIdAndUserId(storeId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("타인이 등록한 가게는 삭제할 수 없습니다."));
+
+        // 가게 삭제
+        storeRepository.delete(store);
     }
+
+
 
 
 }

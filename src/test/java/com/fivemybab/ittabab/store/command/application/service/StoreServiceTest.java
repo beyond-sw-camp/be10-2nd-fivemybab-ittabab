@@ -52,7 +52,7 @@ class StoreServiceTest {
     void testCreateStore(CreateStoreDto newStore, @AuthenticationPrincipal CustomUserDetails loginUser ) {
 
         Assertions.assertDoesNotThrow(
-                () -> storeService.createStore(newStore, loginUser.getUserId())
+                () -> storeService.createStore(newStore)
         );
     }
 
@@ -79,9 +79,9 @@ class StoreServiceTest {
     @DisplayName("가게 정보 삭제 테스트")
     @ParameterizedTest
     @ValueSource(longs = {8L})
-    void testDeleteStore(Long storeId) {
+    void testDeleteStore(Long storeId, Long userId) {
         Assertions.assertDoesNotThrow(
-                () -> storeService.deleteStore(storeId)
+                () -> storeService.deleteStore(storeId, userId)
         );
     }
 
