@@ -22,16 +22,11 @@ public class Inquiry {
     private Long responseUserId;
     private Long inquiryUserId;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createDate = LocalDateTime.now();
-    }
-
-    public void modifyInquiryReply(String scheduleContent) {
+    public void modifyInquiryReply(String inquiryReply) {
         this.inquiryReply = inquiryReply;
     }
 
-    public void modifyInquiryReplyTime(LocalDateTime scheduleDate) {
+    public void modifyInquiryReplyTime(LocalDateTime inquiryReplyTime) {
         this.inquiryReplyTime = inquiryReplyTime;
     }
 
@@ -39,12 +34,18 @@ public class Inquiry {
         this.responseUserId = responseUserId;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.createDate = LocalDateTime.now();
+    }
+
+
+
     @Builder
-    public Inquiry(String inquiryContent, LocalDateTime createDate, String inquiryReply, Long responseUserId, Long inquiryUserId) {
+    public Inquiry(String inquiryContent, LocalDateTime createDate, String inquiryReply, Long inquiryUserId) {
         this.inquiryContent = inquiryContent;
         this.createDate = createDate;
         this.inquiryReply = inquiryReply;
-        this.responseUserId = responseUserId;
         this.inquiryUserId = inquiryUserId;
     }
 

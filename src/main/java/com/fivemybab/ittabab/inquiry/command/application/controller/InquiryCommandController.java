@@ -35,11 +35,13 @@ public class InquiryCommandController {
     /* 문의 답변 (관리자) */
     @Operation(summary = "문의 답변(관리자)")
     @PostMapping("/admin/{inquiryId}")
-    public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
+    public ResponseEntity<String> registInquiryAnswer( @PathVariable("inquiryId") Long inquiryId,
                                                        @RequestBody InquiryAnswerResponse inquiryAnswerResponse
     ,@AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse, loginUser.getUserId());
+        Long userId = loginUser.getUserId();
+        inquiryAnswerResponse.setInquiryReplyTime(LocalDateTime.now());
+        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse, userId);
 
         return new ResponseEntity<>("문의 답변 등록(관리자) 완료", HttpStatus.CREATED);
     }

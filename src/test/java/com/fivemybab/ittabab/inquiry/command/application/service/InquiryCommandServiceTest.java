@@ -55,23 +55,20 @@ class InquiryCommandServiceTest {
     @Test
     @DisplayName("문의 답변 등록 테스트")
     void registInquiryAnswerTest() {
-        // 먼저 문의를 등록
-        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse,1L);
-        Inquiry savedInquiry = inquiryRepository.findAll().get(0);
-        Long inquiryId = savedInquiry.getInquiryId();
+
 
         // 문의에 대한 답변 등록
-        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse, 1L);
+        inquiryCommandService.registInquiryAnswer(9L, inquiryAnswerResponse, 3L);
 
         // 답변이 제대로 저장되었는지 확인
-        Optional<Inquiry> inquiryOpt = inquiryRepository.findById(inquiryId);
+        Optional<Inquiry> inquiryOpt = inquiryRepository.findById(9L);
         assertTrue(inquiryOpt.isPresent());
 
         Inquiry inquiryWithAnswer = inquiryOpt.get();
         assertNotNull(inquiryWithAnswer.getInquiryReply());
         assertEquals("문의 답변입니다.", inquiryWithAnswer.getInquiryReply());
         assertNotNull(inquiryWithAnswer.getInquiryReplyTime());
-        assertEquals(2L, inquiryWithAnswer.getResponseUserId());
+        assertEquals(3L, inquiryWithAnswer.getResponseUserId());
     }
 
     @Test
