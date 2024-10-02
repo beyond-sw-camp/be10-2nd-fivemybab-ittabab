@@ -17,4 +17,7 @@ public class StoreFavorite {
     private Long userId;
     private Long storeId;
 
+    public void setUserId(Long userId) {this.userId = userId;}
+
+
 }

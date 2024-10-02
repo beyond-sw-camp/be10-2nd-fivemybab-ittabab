@@ -3,5 +3,14 @@ package com.fivemybab.ittabab.store.command.application.repository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.StoreFavorite;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface StoreFavoriteRepository extends JpaRepository<StoreFavorite, Long> {
+
+    boolean existsByUserIdAndStoreId(Long userId, Long storeId);
+
+    Optional<StoreFavorite> deleteByFavoriteIdAndUserId(Long favoriteId, Long userId);
+
+    boolean existsByFavoriteIdAndStoreId(Long favoriteId, Long storeId);
+
 }
