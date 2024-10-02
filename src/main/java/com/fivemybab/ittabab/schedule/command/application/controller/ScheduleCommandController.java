@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.schedule.command.application.controller;
 
+import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleCreateRequire;
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.application.service.ScheduleCommandService;
 import com.fivemybab.ittabab.security.util.CustomUserDetails;
@@ -24,11 +25,10 @@ public class ScheduleCommandController {
     /* 일정 입력 */
     @Operation(summary = "일정 등록")
     @PostMapping
-    public ResponseEntity<String> registSchedule(@RequestBody ScheduleDto scheduleDto, @AuthenticationPrincipal CustomUserDetails loginUser){
+    public ResponseEntity<String> registSchedule(@RequestBody ScheduleCreateRequire scheduleCreateRequire, @AuthenticationPrincipal CustomUserDetails loginUser){
         Long userId = loginUser.getUserId();
-        scheduleDto.setUserId(userId);
-        scheduleDto.setScheduleDate(LocalDate.now());
-        scheduleCommandService.registSchedule(scheduleDto);
+        scheduleCreateRequire.setScheduleDate(LocalDate.now());
+        scheduleCommandService.registSchedule(scheduleCreateRequire, userId);
         return new ResponseEntity<>("등록 완료", HttpStatus.OK);
     }
 
@@ -41,6 +41,7 @@ public class ScheduleCommandController {
         if(!userId.equals(scheduleDtoUserId)){
             return new ResponseEntity<>("작성자가 아닙니다.", HttpStatus.OK);
         }
+        scheduleDto.setUserId(userId);
         scheduleCommandService.modifySchedule(scheduleDto);
         return new ResponseEntity<>("수정 완료"+scheduleDto, HttpStatus.OK);
     }

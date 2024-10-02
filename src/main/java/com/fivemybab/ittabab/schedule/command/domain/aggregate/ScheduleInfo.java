@@ -30,4 +30,12 @@ public class ScheduleInfo {
     public void modifyScheduleTitle(String scheduleTitle) {
         this.scheduleTitle = scheduleTitle;
     }
+
+    @Builder
+    public ScheduleInfo(LocalDate scheduleDate, String scheduleTitle, String scheduleContent, Long userId) {
+        this.scheduleDate = scheduleDate;
+        this.scheduleTitle = scheduleTitle;
+        this.scheduleContent = scheduleContent;
+        this.userId = userId;
+    }
 }

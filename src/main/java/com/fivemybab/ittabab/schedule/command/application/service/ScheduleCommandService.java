@@ -1,6 +1,7 @@
 package com.fivemybab.ittabab.schedule.command.application.service;
 
 import com.fivemybab.ittabab.exception.NotFoundException;
+import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleCreateRequire;
 import com.fivemybab.ittabab.schedule.command.application.dto.ScheduleDto;
 import com.fivemybab.ittabab.schedule.command.domain.aggregate.ScheduleInfo;
 import com.fivemybab.ittabab.schedule.command.domain.repository.ScheduleRepository;
@@ -20,8 +21,15 @@ public class ScheduleCommandService {
 
     /* 일정 추가 */
     @Transactional
-    public void registSchedule(ScheduleDto scheduleDto) {
-        scheduleRepository.save(modelMapper.map(scheduleDto, ScheduleInfo.class));
+    public void registSchedule(ScheduleCreateRequire scheduleCreateRequire, Long userId) {
+        ScheduleInfo scheduleInfo = ScheduleInfo.builder()
+                .scheduleDate(scheduleCreateRequire.getScheduleDate())
+                .scheduleTitle(scheduleCreateRequire.getScheduleTitle())
+                .scheduleContent(scheduleCreateRequire.getScheduleContent())
+                .userId(userId) // userId 설정
+                .build();
+
+        scheduleRepository.save(scheduleInfo);
     }
 
     /* 일정 수정 */
