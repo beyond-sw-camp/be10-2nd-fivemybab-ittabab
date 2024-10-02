@@ -65,7 +65,6 @@ class GroupInfoCommandServiceTest {
         });
     }
 
-
     @DisplayName(value = "모임 삭제 테스트")
     @Test
     public void deleteGroup() {
@@ -73,5 +72,4 @@ class GroupInfoCommandServiceTest {
             service.deleteGroupInfo(10L);
         });
     }
-
 }

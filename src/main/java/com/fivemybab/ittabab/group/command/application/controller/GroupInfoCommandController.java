@@ -1,7 +1,11 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
 import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
+import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
+import com.fivemybab.ittabab.group.query.dto.ChatMessageDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
+import com.fivemybab.ittabab.group.query.dto.RequestChatDto;
+import com.fivemybab.ittabab.group.query.service.GroupInfoQueryService;
 import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +30,7 @@ import java.util.List;
 public class GroupInfoCommandController {
 
     private final GroupInfoCommandService groupService;
+    private final GroupInfoQueryService groupInfoQueryService;
     private final UserQueryService userQueryService;
     private final ModelMapper modelMapper;
 
@@ -90,13 +95,52 @@ public class GroupInfoCommandController {
         return null;
     }
 
-    /* 모임 채팅 참여 */
-    @Operation(summary = "모임 채팅 참여")
-    @GetMapping("/chat/{groupId}")
-    public String joinChatting(@PathVariable Long groupId, Model model) {
-        // 참가자들에게 알람보내는 기능 추가 해야됨
+    /* 모임 채팅 생성 */
+    @Operation(summary = "모임 채팅 생성")
+    @PostMapping("/chat")
+    public ResponseEntity<String> createChat(
+            @RequestBody RequestChatDto requestChatDto,
+            Authentication loginId,
+            Model model
+    ) {
 
-        return "group/chatroom";
+        ChatRoomStatus chatRoomStatus = groupInfoQueryService.findGroupByGroupId(requestChatDto.getGroupId()).getChatRoomStatus();
+
+        if (chatRoomStatus == ChatRoomStatus.Not_Created) {
+            ChatMessageDto chatMessageDto = new ChatMessageDto();
+
+            chatMessageDto.setMessageType(ChatMessageDto.MessageType.ENTER);
+            chatMessageDto.setChatRoomId(requestChatDto.getGroupId());
+            chatMessageDto.setMessage(chatMessageDto.getMessage());
+            groupService.createChat(chatMessageDto, loginId);
+            return new ResponseEntity<>("채팅 생성 성공", HttpStatus.OK);
+        } else if (chatRoomStatus == ChatRoomStatus.Created) {
+            return new ResponseEntity<>("이미 생성되어 있습니다.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("채팅방이 닫혔습니다. 관리자에게 문의하세요.", HttpStatus.OK);
+        }
+    }
+
+    /* 모임 채팅방 채팅 전송 */
+    @Operation(summary = "채팅 전송")
+    @PostMapping("/chat/{groupId}")
+    public ResponseEntity<String> joinChat(
+            @PathVariable Long groupId,
+            @RequestBody ChatMessageDto chatMessageDto,
+            Authentication loginId
+    ) {
+
+        ChatRoomStatus chatRoomStatus = groupInfoQueryService.findGroupByGroupId(groupId).getChatRoomStatus();
+
+        if (chatRoomStatus == ChatRoomStatus.Created) {
+            chatMessageDto.setMessageType(ChatMessageDto.MessageType.TALK);
+            chatMessageDto.setChatRoomId(groupId);
+            groupService.sendChat(chatMessageDto, loginId);
+
+            return new ResponseEntity<>("채팅 전송 완료", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("채팅 전송에 실패했습니다.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     /* 모임 삭제 */
