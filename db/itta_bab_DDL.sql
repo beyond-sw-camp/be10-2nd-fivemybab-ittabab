@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS bootcamp CASCADE;
 CREATE TABLE IF NOT EXISTS bootcamp (
     boot_id BIGINT AUTO_INCREMENT NOT NULL COMMENT '부트캠프 번호',
     boot_name VARCHAR(100) NOT NULL COMMENT '부트캠프 이름',
+    address VARCHAR(300) NOT NULL COMMENT '주소',
     latitude DOUBLE NOT NULL COMMENT '위도',
     longitude DOUBLE NOT NULL COMMENT '경도',
     PRIMARY KEY (boot_id)
@@ -207,7 +208,7 @@ CREATE TABLE IF NOT EXISTS group_info (
     group_category_id BIGINT NOT NULL COMMENT '모임 카테고리 번호',
     user_id BIGINT NOT NULL COMMENT '모임장 번호',
     group_title VARCHAR(300) NOT NULL COMMENT '모임 제목',
-    user_counting INT NOT NULL COMMENT '모집 인원', 
+    user_counting INT NOT NULL COMMENT '모집 인원',
     group_status BOOLEAN NOT NULL COMMENT '모집 상태',
     create_date DATETIME NOT NULL COMMENT '생성 일시',
     end_date DATETIME NOT NULL COMMENT '마감 일시',
@@ -237,7 +238,7 @@ CREATE TABLE IF NOT EXISTS group_comment (
 
 -- 모임별 회원(group_user)
 CREATE TABLE IF NOT EXISTS group_user (
-    group_user_id   BIGINT AUTO_INCREMENT NOT NULL COMMENT '모임 회원 번호', 
+    group_user_id   BIGINT AUTO_INCREMENT NOT NULL COMMENT '모임 회원 번호',
     user_id 		  BIGINT NOT NULL COMMENT '회원 번호',
     group_id		  BIGINT NOT NULL COMMENT '모임 번호',
     PRIMARY KEY (group_user_id),

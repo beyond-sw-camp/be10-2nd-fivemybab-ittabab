@@ -36,6 +36,13 @@ public class BootCampCommandService {
     public void createBootCamp(CreateBootCampRequest createBootCampRequest) {
 
         BootCamp bootCamp = modelMapper.map(createBootCampRequest, BootCamp.class);
+
+        /* 주소로 좌표 변환 */
+        double[] list = getCoordinates(bootCamp.getAddress());
+
+        bootCamp.setLatitude(list[0]);
+        bootCamp.setLongitude(list[1]);
+
         bootcampRepository.save(bootCamp);
     }
 
@@ -45,7 +52,7 @@ public class BootCampCommandService {
         BootCamp foundBootCamp = bootcampRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 id에 맞는 훈련 기관이 없습니다. code : " + id));
         foundBootCamp.modifyName(updateBootCampRequest.getBootName());
-        foundBootCamp.modifyLocation(updateBootCampRequest.getBootLocation());
+        foundBootCamp.modifyLocation(updateBootCampRequest.getAddress());
     }
 
     @Transactional

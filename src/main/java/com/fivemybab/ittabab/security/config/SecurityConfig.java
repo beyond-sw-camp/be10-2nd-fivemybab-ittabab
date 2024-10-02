@@ -48,6 +48,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/user/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/bootcamp/**").permitAll()
 
                         // HttpMethod(All) - USER
                         .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"
