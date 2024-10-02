@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreDto;
 import com.fivemybab.ittabab.store.command.application.repository.StoreRepository;
@@ -20,7 +21,12 @@ public class StoreService {
 
     /* 가게 추가 */
     @Transactional
-    public void createStore(CreateStoreDto newStore) {
+    public void createStore(CreateStoreDto newStore, Long userId) {
+
+        if(userId == null) {
+            throw new NotFoundException("회원 정보를 찾을 수 없습니다.");
+        }
+
         storeRepository.save(modelMapper.map(newStore, Store.class));
     }
 

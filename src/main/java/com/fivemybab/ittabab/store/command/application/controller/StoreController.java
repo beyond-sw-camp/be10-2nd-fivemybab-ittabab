@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.application.controller;
 
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreService;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Store", description = "가게 관련 API")
@@ -21,10 +23,11 @@ public class StoreController {
     /* 가게 등록하기  */
     @Operation(summary = "가게 등록")
     @PostMapping
-    public ResponseEntity<CreateStoreDto> registStore(@RequestBody CreateStoreDto createStoreDto) {
+    public ResponseEntity<CreateStoreDto> createStore(@RequestBody CreateStoreDto createStoreDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        storeService.createStore(createStoreDto);
+        storeService.createStore(createStoreDto, loginUser.getUserId());
         return new ResponseEntity<>(createStoreDto, HttpStatus.CREATED);
+
     }
 
 

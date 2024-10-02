@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.store.command.application.service;
 
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreDto;
 import com.fivemybab.ittabab.store.command.application.dto.StoreStatus;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreDto;
@@ -13,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.util.stream.Stream;
 
@@ -47,10 +49,10 @@ class StoreServiceTest {
     @DisplayName("가게 정보 등록 테스트")
     @ParameterizedTest
     @MethodSource("getStoreInfo")
-    void testCreateStore(CreateStoreDto newStore) {
+    void testCreateStore(CreateStoreDto newStore, @AuthenticationPrincipal CustomUserDetails loginUser ) {
 
         Assertions.assertDoesNotThrow(
-                () -> storeService.createStore(newStore)
+                () -> storeService.createStore(newStore, loginUser.getUserId())
         );
     }
 
