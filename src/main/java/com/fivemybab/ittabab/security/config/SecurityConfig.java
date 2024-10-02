@@ -46,8 +46,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         // Public 접근 허용
 
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/user/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
 
                         // HttpMethod(All) - USER
                         .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"
