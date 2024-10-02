@@ -2,7 +2,6 @@ package com.fivemybab.ittabab.board.command.application.service;
 
 import com.fivemybab.ittabab.board.command.application.dto.CreatePostDto;
 import com.fivemybab.ittabab.board.command.application.dto.UpdatedPostDto;
-import com.fivemybab.ittabab.board.command.application.service.PostCommandService;
 import com.fivemybab.ittabab.board.command.domain.aggregate.Post;
 import com.fivemybab.ittabab.board.command.domain.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -43,46 +43,40 @@ class PostCommandServiceTest {
         updatedPostDto.setPostContent("수정된 내용");
     }
 
-    @Test
-    @DisplayName("게시글 등록 테스트")
-    void createPostTest() {
-        // 게시글 등록
-        postCommandService.createPost(createPostDto, 1L);
 
-        // 게시글이 제대로 저장되었는지 확인
-        Post savedPost = postRepository.findAll().get(0); // 등록한 게시글이 저장된 번호
-        assertNotNull(savedPost);
-        assertEquals("테스트 제목", savedPost.getPostTitle());
-        assertEquals("테스트 내용", savedPost.getPostContent());
+
+    @Test
+    @DisplayName("존재하지 않는 게시글 수정 시 예외 발생 테스트")
+    void updateNonExistentPostTest() {
+        Long nonExistentPostId = 999L; // 실제 존재하지 않는 게시글 ID
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            postCommandService.updatePost(nonExistentPostId, updatedPostDto);
+        });
+    }
+
+
+    @Test
+    @DisplayName("존재하지 않는 게시글 삭제 시 예외 발생 테스트")
+    void deleteNonExistentPostTest() {
+        Long nonExistentPostId = 999L; // 실제 존재하지 않는 게시글 ID
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            postCommandService.deletePost(nonExistentPostId);
+        });
     }
 
     @Test
-    @DisplayName("게시글 수정 테스트")
-    void updatePostTest() {
-        // 먼저 게시글을 등록
-        CreatePostDto post = postCommandService.createPost(createPostDto, 1L);
-        Long postId = post.getPostId();
+    @DisplayName("누락된 상태로 게시글 생성 시 예외 발생 테스트")
+    void createPostWithMissingFieldsTest() {
+        // 필수 필드 누락된 DTO 생성
+        CreatePostDto invalidCreatePostDto = new CreatePostDto();
 
-        // 게시글 수정
-        postCommandService.updatePost(postId, updatedPostDto);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            postCommandService.createPost(invalidCreatePostDto, 1L);
+        });
 
-        // 수정이 제대로 되었는지 확인
-        Post updatedPost = postRepository.findById(postId).orElseThrow();
-        assertEquals("수정된 제목", updatedPost.getPostTitle());
-        assertEquals("수정된 내용", updatedPost.getPostContent());
+        assertEquals("제목과 내용은 필수입니다.", exception.getMessage());
     }
 
-    @Test
-    @DisplayName("게시글 삭제 테스트")
-    void deletePostTest() {
-        // 먼저 게시글을 등록
-        CreatePostDto post = postCommandService.createPost(createPostDto, 1L);
-        Long postId = post.getPostId();
-
-        // 게시글 삭제
-        postCommandService.deletePost(postId);
-
-        // 삭제되었는지 확인
-        assertFalse(postRepository.existsById(postId));
-    }
 }

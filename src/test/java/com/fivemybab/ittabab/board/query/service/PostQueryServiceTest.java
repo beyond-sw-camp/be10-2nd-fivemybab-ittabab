@@ -25,7 +25,7 @@ class PostQueryServiceTest {
 
         // 게시물 목록이 null이 아니고, 올바르게 조회되는지 확인
         Assertions.assertNotNull(posts);
-        posts.forEach(post -> System.out.println(post));
+        posts.forEach(System.out::println);
     }
 
     @Test
@@ -35,6 +35,6 @@ class PostQueryServiceTest {
 
         // 게시물 목록이 null이 아니고, 올바르게 조회되는지 확인
         Assertions.assertNotNull(posts);
-        posts.forEach(post -> System.out.println(post));
+        posts.forEach(System.out::println);
     }
 }
