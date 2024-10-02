@@ -116,7 +116,7 @@ public class GroupInfoCommandController {
 
         ChatRoomStatus chatRoomStatus = groupInfoQueryService.findGroupByGroupId(requestChatDto.getGroupId()).getChatRoomStatus();
 
-        if (chatRoomStatus == ChatRoomStatus.Not_Created) {
+        if (chatRoomStatus.equals(ChatRoomStatus.NOT_CREATED)) {
             ChatMessageDto chatMessageDto = new ChatMessageDto();
 
             chatMessageDto.setMessageType(ChatMessageDto.MessageType.ENTER);
@@ -124,7 +124,7 @@ public class GroupInfoCommandController {
             chatMessageDto.setMessage(chatMessageDto.getMessage());
             groupService.createChat(chatMessageDto, loginId);
             return new ResponseEntity<>("채팅 생성 성공", HttpStatus.OK);
-        } else if (chatRoomStatus == ChatRoomStatus.Created) {
+        } else if (chatRoomStatus.equals(ChatRoomStatus.CREATED)) {
             return new ResponseEntity<>("이미 생성되어 있습니다.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("채팅방이 닫혔습니다. 관리자에게 문의하세요.", HttpStatus.OK);
@@ -145,7 +145,7 @@ public class GroupInfoCommandController {
 
         ChatRoomStatus chatRoomStatus = groupInfoQueryService.findGroupByGroupId(groupId).getChatRoomStatus();
 
-        if (chatRoomStatus == ChatRoomStatus.Created) {
+        if (chatRoomStatus.equals(ChatRoomStatus.CREATED)) {
             chatMessageDto.setMessageType(ChatMessageDto.MessageType.TALK);
             chatMessageDto.setChatRoomId(groupId);
             groupService.sendChat(chatMessageDto, loginId);

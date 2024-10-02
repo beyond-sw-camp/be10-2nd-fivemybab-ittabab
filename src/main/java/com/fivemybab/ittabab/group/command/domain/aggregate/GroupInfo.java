@@ -1,10 +1,12 @@
 package com.fivemybab.ittabab.group.command.domain.aggregate;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @Table(name = "group_info")
 public class GroupInfo {
 

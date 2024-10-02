@@ -72,6 +72,7 @@ public class GroupInfoCommandService {
     }
 
     /* 모임 채팅방 생성 */
+    @Transactional
     public void createChat(ChatMessageDto chatMessageDto, Authentication loginId) {
 
         chatMessageDto.setSenderId(userQueryService.findUserIdByLoginId(loginId).get().getUserId());
@@ -90,11 +91,14 @@ public class GroupInfoCommandService {
 
         // 2. 해당 모임의 채팅방을 생성 상태로 변경한다.
 
-        GroupInfo foundGroupInfo = groupInfoRepository.findById(chatMessageDto.getChatRoomId()).orElse(null);
+        GroupInfo foundGroup = groupInfoRepository.findById(chatMessageDto.getChatRoomId()).orElse(null);
 
-        if(foundGroupInfo != null) {
-            foundGroupInfo.modifyChatRoomStatus(ChatRoomStatus.Created);
+        System.out.println("foundGroup = " + foundGroup);
+
+        if(foundGroup != null) {
+            foundGroup.modifyChatRoomStatus(ChatRoomStatus.CREATED);
         }
+        System.out.println("foundGroup.getChatRoomStatus() = " + foundGroup.getChatRoomStatus());
     }
 
     /* 모임 채팅방에 메시지 전송*/
