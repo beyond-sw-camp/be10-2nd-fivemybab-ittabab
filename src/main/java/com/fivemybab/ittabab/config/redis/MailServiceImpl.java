@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.config.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ public class MailServiceImpl implements MailService {
 
     private final JavaMailSender mailSender;
 
+    @Autowired
     public MailServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
