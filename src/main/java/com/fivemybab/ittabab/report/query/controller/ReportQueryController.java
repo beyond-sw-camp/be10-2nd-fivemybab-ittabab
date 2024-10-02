@@ -27,7 +27,7 @@ public class ReportQueryController {
 
     // 모든 신고 조회
     @Operation(summary = "모든 신고 조회(관리자)")
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<List<ReportDto>> getAllReports() throws NotFoundException {
 
         List<ReportDto> reportList =reportQueryService.findReportList();

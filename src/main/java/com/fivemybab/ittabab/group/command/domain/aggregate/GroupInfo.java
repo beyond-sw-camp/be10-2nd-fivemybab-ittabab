@@ -1,10 +1,12 @@
 package com.fivemybab.ittabab.group.command.domain.aggregate;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @Table(name = "group_info")
 public class GroupInfo {
 
@@ -20,6 +22,8 @@ public class GroupInfo {
     private LocalDateTime endDate;
     private String groupPost;
     private boolean isBlinded;
+    @Enumerated(EnumType.STRING)
+    private ChatRoomStatus chatRoomStatus;
 
     public void modifyUserCounting(int userCounting) {
         this.userCounting = userCounting;
@@ -35,5 +39,9 @@ public class GroupInfo {
 
     public void modifyGroupPost(String groupPost) {
         this.groupPost = groupPost;
+    }
+
+    public void modifyChatRoomStatus(ChatRoomStatus chatRoomStatus) {
+        this.chatRoomStatus = chatRoomStatus;
     }
 }

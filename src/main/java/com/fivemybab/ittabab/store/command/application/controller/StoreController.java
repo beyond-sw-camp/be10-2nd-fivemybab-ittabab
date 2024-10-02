@@ -55,8 +55,9 @@ public class StoreController {
     }
 
 
-    /* 가게 삭제하기 */
-    /* 해당 URL은 제공되지 않을 예정 */
+
+    /* 가게 삭제하기 (관리자만) */
+
     @Operation(summary = "가게 삭제")
     @DeleteMapping("/{storeId}")
     public ResponseEntity<String> deleteStore(@RequestParam Long storeId,  @AuthenticationPrincipal CustomUserDetails loginUser) {

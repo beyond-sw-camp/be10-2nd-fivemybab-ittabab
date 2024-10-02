@@ -24,7 +24,7 @@ public class InquiryCommandController {
 
     /* 문의 등록 (사용자) */
     @Operation(summary = "문의 등록(사용자)")
-    @PostMapping
+    @PostMapping("/user")
     public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryQuestionResponse inquiryQuestionResponse, @AuthenticationPrincipal CustomUserDetails loginUser) {
         inquiryQuestionResponse.setInquiryUserId(loginUser.getUserId());
         inquiryQuestionResponse.setCreateDate(LocalDateTime.now());
@@ -34,7 +34,7 @@ public class InquiryCommandController {
 
     /* 문의 답변 (관리자) */
     @Operation(summary = "문의 답변(관리자)")
-    @PostMapping("/{inquiryId}")
+    @PostMapping("/admin/{inquiryId}")
     public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
                                                        @RequestBody InquiryAnswerResponse inquiryAnswerResponse
     ,@AuthenticationPrincipal CustomUserDetails loginUser) {
