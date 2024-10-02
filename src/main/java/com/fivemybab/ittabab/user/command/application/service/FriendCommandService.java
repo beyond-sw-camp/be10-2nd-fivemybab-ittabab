@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.user.command.application.dto.FriendRequestDTO;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateFriendRequest;
 import com.fivemybab.ittabab.user.command.domain.aggregate.Friend;
@@ -68,7 +69,7 @@ public class FriendCommandService {
     /* 해당 친구 요청 존재여부 확인 및 조회 메서드 */
     private Friend findFriendRequestOrThrow(Long fromUserId, Long toUserId) {
         return friendRepository.findByFromUserIdAndToUserId(fromUserId, toUserId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 친구 요청을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException("해당 친구 요청을 찾을 수 없습니다."));
     }
 
     /* 상태 컬럼 검증 (대기(PENDING) 상태인지 아닌지) */
@@ -85,7 +86,7 @@ public class FriendCommandService {
         * (누가 누구에게 보냈는지에 대한 사전정보는 없으므로 양방향 모두 조회 후 찾는다.) */
         Friend friend = friendRepository.findByFromUserIdAndToUserIdAndFriendStatus(userId, friendUserId, FriendStatus.ACCEPTED)
                 .or(() -> friendRepository.findByFromUserIdAndToUserIdAndFriendStatus(friendUserId, userId, FriendStatus.ACCEPTED))
-                .orElseThrow(() -> new IllegalArgumentException("해당 친구 관계를 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException("해당 친구 관계를 찾을 수 없습니다."));
 
         friendRepository.delete(friend);
     }
