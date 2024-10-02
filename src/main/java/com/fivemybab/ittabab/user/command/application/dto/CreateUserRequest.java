@@ -16,5 +16,6 @@ public class CreateUserRequest {
     private String phone;
     private LocalDate birth;
     private Long courseId;
+    private String authCode;
 
 }
