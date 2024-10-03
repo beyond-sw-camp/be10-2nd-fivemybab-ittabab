@@ -19,20 +19,20 @@ public class FriendCommandService {
     private final FriendRepository friendRepository;
 
     @Transactional
-    public void sendFriendRequest(FriendRequestDTO friendRequest) {
+    public void sendFriendRequest(Long userId, FriendRequestDTO friendRequest) {
 
         /* 이미 상대방에게 친구 요청을 보낸 적이 있는데, 또 친구 요청을 보내려는 상황
         * -> 오류 메세지 보냄. */
-        boolean alreadySent = friendRepository.existsByFromUserIdAndToUserId(friendRequest.getFromUserId(), friendRequest.getToUserId());
+        boolean alreadySent = friendRepository.existsByFromUserIdAndToUserId(userId, friendRequest.getToUserId());
         if (alreadySent) {
             throw new IllegalArgumentException("이미 친구 요청을 보냈습니다.");
         }
 
         /* 상대방이 보낸 요청이 이미 있고, 나 또한 상대방에게 친구 요청을 보내려는 상황
         * -> 수락한다. */
-        boolean reverseRequestExists = friendRepository.existsByFromUserIdAndToUserId(friendRequest.getToUserId(), friendRequest.getFromUserId());
+        boolean reverseRequestExists = friendRepository.existsByFromUserIdAndToUserId(friendRequest.getToUserId(),userId);
         if (reverseRequestExists) {
-            acceptFriendRequest(friendRequest.getToUserId(), new UpdateFriendRequest(friendRequest.getFromUserId()));
+            acceptFriendRequest(friendRequest.getToUserId(), new UpdateFriendRequest(userId));
             return;
         }
 

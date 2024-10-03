@@ -24,19 +24,18 @@ class FriendCommandServiceTest {
     private static Stream<Arguments> getFriendInfo() {
 
         FriendRequestDTO friendRequest = new FriendRequestDTO();
-        friendRequest.setFromUserId(2L);
         friendRequest.setToUserId(5L);
 
-        return Stream.of(Arguments.arguments(friendRequest));
+        return Stream.of(Arguments.arguments(2L, friendRequest));
     }
 
     @DisplayName("친구 요청 테스트")
     @ParameterizedTest
     @MethodSource("getFriendInfo")
-    void testSendFriend(FriendRequestDTO friendRequest) {
+    void testSendFriend(Long userId, FriendRequestDTO friendRequest) {
 
         Assertions.assertDoesNotThrow(
-                () -> friendCommandService.sendFriendRequest(friendRequest)
+                () -> friendCommandService.sendFriendRequest(userId, friendRequest)
         );
     }
 
