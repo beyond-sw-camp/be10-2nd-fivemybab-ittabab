@@ -23,6 +23,14 @@ public class StoreMenuCategoryService {
     /* 메뉴 카테고리 추가 */
     @Transactional
     public void createStoreMenuCategory(CreateStoreMenuCategoryDto newMenuCategory) {
+
+        String menuCategoryName = newMenuCategory.getMenuCategoryName();
+
+        // 중복된 메뉴 카테고리 이름이 존재하는지 확인
+        if (repository.existsByMenuCategoryName(menuCategoryName)) {
+            throw new IllegalArgumentException("이미 존재하는 메뉴 카테고리 이름입니다.");
+        }
+
         StoreMenuCategory storeMenuCategory = modelMapper.map(newMenuCategory, StoreMenuCategory.class);
         repository.save(storeMenuCategory);
     }

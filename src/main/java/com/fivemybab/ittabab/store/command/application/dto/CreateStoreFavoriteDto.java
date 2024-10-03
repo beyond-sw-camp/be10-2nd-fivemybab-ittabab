@@ -9,7 +9,6 @@ import lombok.ToString;
 @ToString
 public class CreateStoreFavoriteDto {
 
-    private Long userId;
     private Long storeId;
 
 }

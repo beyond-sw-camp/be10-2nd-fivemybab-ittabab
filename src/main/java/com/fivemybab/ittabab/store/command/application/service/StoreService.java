@@ -23,8 +23,6 @@ public class StoreService {
     @Transactional
     public void createStore(CreateStoreDto newStore, Long userId) {
 
-
-
         Store store = modelMapper.map(newStore, Store.class);
         store.setUserId(userId);
         storeRepository.save(store);

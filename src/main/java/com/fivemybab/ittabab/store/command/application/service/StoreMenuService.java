@@ -19,6 +19,7 @@ public class StoreMenuService {
     /* 가게 메뉴 추가 */
     @Transactional
     public void createStoreMenu(CreateStoreMenuDto newStoreMenu) {
+
         StoreMenu storeMenu = modelMapper.map(newStoreMenu, StoreMenu.class);
         repository.save(storeMenu);
     }
@@ -26,6 +27,7 @@ public class StoreMenuService {
     /* 가게 메뉴 수정 */
     @Transactional
     public void updateStoreMenu(Long menuId ,UpdateStoreMenuDto updateStoreMenuDto) {
+
         StoreMenu storeMenu = repository.findById(menuId)
                 .orElseThrow(()-> new IllegalArgumentException("메뉴를 찾지 못했습니다."));
 

@@ -55,7 +55,6 @@ public class StoreController {
     }
 
 
-
     /* 가게 삭제하기 (관리자만) */
 
     @Operation(summary = "가게 삭제")
@@ -72,5 +71,6 @@ public class StoreController {
 
         return new ResponseEntity<>("가게 삭제 완료", HttpStatus.NO_CONTENT);
     }
+
 
 }
