@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.group.command.application.service;
 
+import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +34,8 @@ class GroupInfoCommandServiceTest {
                         LocalDateTime.now(),
                         LocalDateTime.now().plusHours(1),
                         "새로운 모임 내용",
-                        false
+                        false,
+                        ChatRoomStatus.NOT_CREATED
                 )
         );
     }
@@ -43,7 +45,7 @@ class GroupInfoCommandServiceTest {
     @MethodSource("registerGroupInfoDtoSource")
     public void registerGroupInfo(GroupInfoDto newGroupInfo) {
         Assertions.assertDoesNotThrow(() -> {
-            service.registGroup(newGroupInfo);
+            service.registGroup(7L, newGroupInfo);
         });
     }
 

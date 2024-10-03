@@ -8,7 +8,7 @@
             resultType="long">
         SELECT course_id
         FROM user_info
-        WHERE login_id = #{loginId}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="findGroupByGroupStatus"
@@ -45,4 +45,19 @@
         FROM user_info
         WHERE login_id = #{loginUserLoginId}
     </select>
+
+    <select id="findCurrentGroup"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT *
+        FROM group_info
+        ORDER BY create_date DESC
+        LIMIT 1;
+    </select>
+
+    <select id="findAllGroup"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT *
+        FROM group_info
+    </select>
+
 </mapper>

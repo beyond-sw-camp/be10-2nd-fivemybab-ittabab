@@ -18,8 +18,8 @@ class GroupInfoQueryServiceTest {
 
     @DisplayName("전체 목록 조회 테스트")
     @ParameterizedTest
-    @ValueSource(strings = {"test01", "test02"})
-    public void findGroupByGroupStatus(String userId) {
+    @ValueSource(strings = {"1L", "2L"})
+    public void findGroupByGroupStatus(Long userId) {
         Assertions.assertDoesNotThrow(
                 () -> {
                     List<GroupInfoDto> list = queryService.findGroupByGroupStatus(userId);

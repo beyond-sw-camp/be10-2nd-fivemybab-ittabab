@@ -13,7 +13,7 @@ import java.util.List;
 public interface GroupInfoMapper {
 
     /* 전체 모임 조회*/
-    List<GroupInfoDto> findGroupByGroupStatus(String loginId, Long courseId);
+    List<GroupInfoDto> findGroupByGroupStatus(Long courseId);
 
     /* 특정 모임 조회 */
     GroupInfoDto findGroupByGroupId(Long groupId);
@@ -22,5 +22,9 @@ public interface GroupInfoMapper {
     Long findUserIdByLoginId(String loginUserLoginId);
 
     /* 로그인 아이디를 통한 교육과정 Id */
-    Long findCourseIdByLoginId(@Param("loginId") String loginId);
+    Long findCourseIdByLoginId(@Param("userId") Long userId);
+
+    GroupInfoDto findCurrentGroup();
+
+    List<GroupInfoDto> findAllGroup();
 }

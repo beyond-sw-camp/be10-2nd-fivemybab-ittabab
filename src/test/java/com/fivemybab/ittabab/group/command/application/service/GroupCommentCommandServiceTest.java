@@ -66,7 +66,7 @@ class GroupCommentCommandServiceTest {
     private static Stream<GroupCommentDto> modifyRegisterGroupCommentDtoSource() {
         return Stream.of(
                 new GroupCommentDto(
-                        10L,
+                        17L,
                         null,
                         null,
                         7L,
