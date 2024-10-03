@@ -115,7 +115,13 @@
 
 ![Context Mapping 정의](/readmepic/Context-Mapping.jpg)
 
+<hr>
 
+## 💻 MSA 아키텍처 구조도
+
+![MSA 아키텍처 구조도](/readmepic/MSA.png)
+
+<hr>
 ## 📌 주요 기능
 
 <details>
