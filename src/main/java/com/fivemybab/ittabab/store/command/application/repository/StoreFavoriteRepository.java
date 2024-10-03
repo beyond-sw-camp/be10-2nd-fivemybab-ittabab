@@ -13,5 +13,5 @@ public interface StoreFavoriteRepository extends JpaRepository<StoreFavorite, Lo
 
     boolean existsByStoreId(Long storeId);
 
-
+    void deleteByStoreId(Long storeId);
 }

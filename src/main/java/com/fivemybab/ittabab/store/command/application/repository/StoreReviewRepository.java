@@ -13,5 +13,6 @@ public interface StoreReviewRepository extends JpaRepository<StoreReview, Long> 
     // reviewId와 userId를 통해 본인이 작성한 리뷰를 삭제
     Optional<StoreReview> deleteByReviewIdAndUserId(Long reviewId, Long userId);
 
-
+    // 해당 가게 리뷰 삭제
+    void deleteByStoreId(Long storeId);
 }

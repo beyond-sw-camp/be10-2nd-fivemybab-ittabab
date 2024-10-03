@@ -80,7 +80,7 @@ class StoreServiceTest {
     @ValueSource(longs = {8L})
     void testDeleteStore(Long storeId, Long userId) {
         Assertions.assertDoesNotThrow(
-                () -> storeService.deleteStore(storeId, userId)
+                () -> storeService.deleteStore(storeId)
         );
     }
 

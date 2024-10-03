@@ -53,19 +53,14 @@ public class StoreMenuController {
     }
 
 
-    /* 가게 메뉴 삭제하기 */
-    /* 해당 기능은 유저에게 제공되지 않습니다. */
-//    @Operation(summary = "메뉴 삭제")
-//    @DeleteMapping("/{menuId}")
-//    public ResponseEntity<Void> DeleteStoreMenu(@PathVariable Long menuId, @AuthenticationPrincipal CustomUserDetails loginUser) {
-//
-//        // 로그인되지 않았거나, userId가 null인 경우 예외 처리
-//        if (loginUser == null || loginUser.getUserId() == null) {
-//            throw new NotFoundException("로그인이 필요합니다.");
-//        }
-//
-//        storeMenuService.deleteStoreMenu(menuId);
-//        return ResponseEntity.noContent().build();
-//    }
+    /* 가게 메뉴 삭제하기 (관리자만) */
+
+    @Operation(summary = "메뉴 삭제 (관리자)")
+    @DeleteMapping("/admin/{menuId}")
+    public ResponseEntity<Void> DeleteStoreMenu(@PathVariable Long menuId) {
+
+        storeMenuService.deleteStoreMenu(menuId);
+        return ResponseEntity.noContent().build();
+    }
 
 }

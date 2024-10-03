@@ -57,17 +57,11 @@ public class StoreController {
 
     /* 가게 삭제하기 (관리자만) */
 
-    @Operation(summary = "가게 삭제")
-    @DeleteMapping("/{storeId}")
-    public ResponseEntity<String> deleteStore(@RequestParam Long storeId,  @AuthenticationPrincipal CustomUserDetails loginUser) {
+    @Operation(summary = "가게 삭제(관리자)")
+    @DeleteMapping("/admin/{storeId}")
+    public ResponseEntity<String> deleteStore(@PathVariable("storeId") Long storeId) {
 
-        // 로그인되지 않았거나, userId가 null인 경우 예외 처리
-        if (loginUser == null || loginUser.getUserId() == null) {
-            throw new NotFoundException("로그인이 필요합니다.");
-        }
-
-        Long userId = loginUser.getUserId();
-        storeService.deleteStore(storeId, userId);
+        storeService.deleteStore(storeId);
 
         return new ResponseEntity<>("가게 삭제 완료", HttpStatus.NO_CONTENT);
     }

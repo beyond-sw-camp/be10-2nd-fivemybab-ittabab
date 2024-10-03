@@ -52,14 +52,14 @@ public class StoreMenuCategoryController {
         return new ResponseEntity<>(updateStoreMenuCategoryDto, HttpStatus.OK);
     }
 
-    /* 메뉴 카테고리 삭제하기 */
-    /* 해당 기능은 유저에게 제공되지 않습니다. */
-//    @Operation(summary = "카테고리 삭제")
-//    @DeleteMapping("/{categoryId}")
-//    public ResponseEntity<Void> DeleteStoreMenuCategory(@PathVariable Long categoryId) {
-//        storeMenuCategoryService.deleteStoreMenuCategory(categoryId);
-//        return ResponseEntity.noContent().build();
-//    }
+    /* 메뉴 카테고리 삭제하기 (관리자만) */
+
+    @Operation(summary = "카테고리 삭제(관리자)")
+    @DeleteMapping("/admin/{categoryId}")
+    public ResponseEntity<Void> DeleteStoreMenuCategory(@PathVariable Long categoryId) {
+        storeMenuCategoryService.deleteStoreMenuCategory(categoryId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
