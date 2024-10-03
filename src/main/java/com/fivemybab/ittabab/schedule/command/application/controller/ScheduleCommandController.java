@@ -38,7 +38,7 @@ public class ScheduleCommandController {
     @PutMapping
     public ResponseEntity<String> modifySchedule(@RequestBody ScheduleModifyRequest scheduleModifyRequest, @AuthenticationPrincipal CustomUserDetails loginUser){
         Long userId = loginUser.getUserId();
-        Long scheduleDtoUserId = scheduleCommandService.getScheduleById(scheduleModifyRequest.getScheduleId());
+        Long scheduleDtoUserId = scheduleCommandService.getScheduleByUserId(scheduleModifyRequest.getScheduleId());
         if(!userId.equals(scheduleDtoUserId)){
             return new ResponseEntity<>("작성자가 아닙니다.", HttpStatus.OK);
         }
@@ -50,9 +50,9 @@ public class ScheduleCommandController {
     /* 일정 삭제 */
     @Operation(summary = "일정 삭제")
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<String> deleteSchedule(@PathVariable Long scheduleId, @AuthenticationPrincipal CustomUserDetails loginUser) {
+    public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @AuthenticationPrincipal CustomUserDetails loginUser) {
         Long userId = loginUser.getUserId();
-        Long scheduleUserId = scheduleCommandService.getScheduleById(scheduleId);
+        Long scheduleUserId = scheduleCommandService.getScheduleByUserId(scheduleId);
         if(!userId.equals(scheduleUserId)){
             return new ResponseEntity<>("작성자만 삭제가능합니다.", HttpStatus.OK);
         }

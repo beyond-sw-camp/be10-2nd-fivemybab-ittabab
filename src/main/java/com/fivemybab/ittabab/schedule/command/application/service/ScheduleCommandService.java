@@ -60,4 +60,15 @@ public class ScheduleCommandService {
                 .orElseThrow(() -> new NotFoundException("일정을 찾을 수 없습니다."));
         return schedule.getScheduleId();
     }
+
+    public Long getScheduleByUserId(Long scheduleId) {
+
+        ScheduleInfo schedule = scheduleRepository.findByScheduleId(scheduleId);
+
+        if (schedule == null) {
+            throw new IllegalArgumentException("찾는 일정이 없습니다 : " + scheduleId);
+        }
+
+        return schedule.getUserId();
+    }
 }
