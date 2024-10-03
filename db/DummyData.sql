@@ -95,13 +95,13 @@ VALUES (1, 1, 'Great pizza!', 5, '2024-08-10 14:00:00', FALSE),
        (6, 6, 'Pasta was delicious!', 4, '2024-08-15 19:00:00', FALSE);
 
 -- Order Menu
-INSERT INTO order_menu (review_id, menu_id)
-VALUES (1, 1),
-       (2, 2),
-       (3, 3),
-       (4, 4),
-       (5, 5),
-       (6, 6);
+INSERT INTO order_menu (review_id, menu_id, user_id)
+VALUES
+    (1, 1, 1),
+    (2, 2, 2),
+    (3, 3, 3),
+    (4, 4, 4),
+    (5, 5, 5);
 
 # Creating a complete script starting from the "Post" section, ensuring it's consolidated into a single insert block.
 post_and_beyond_script = """
