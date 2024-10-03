@@ -7,6 +7,4 @@ import java.util.Optional;
 
 public interface StoreOrderMenuRepository extends JpaRepository<StoreOrderMenu, Long> {
 
-    Optional<StoreOrderMenu> findByOrderIdAndUserId(Long orderId, Long userId);
-
 }

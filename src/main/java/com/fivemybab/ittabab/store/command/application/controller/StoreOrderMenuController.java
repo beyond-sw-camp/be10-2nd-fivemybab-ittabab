@@ -42,18 +42,12 @@ public class StoreOrderMenuController {
 
 
 
-    /* 주문 메뉴 삭제하기 */
-    @Operation(summary = "주문 메뉴 삭제")
+    /* 주문 메뉴 삭제하기 (관리자만 가능) */
+    @Operation(summary = "주문 메뉴 삭제 (관리자) ")
     @DeleteMapping
-    public ResponseEntity<Void> DeleteStoreOrderMenu(@RequestParam Long orderId,
-    @AuthenticationPrincipal CustomUserDetails loginUser) {
+    public ResponseEntity<Void> DeleteStoreOrderMenu(@RequestParam Long orderId) {
 
-        if (loginUser == null || loginUser.getUserId() == null) {
-            throw new NotFoundException("로그인이 필요합니다.");
-        }
-
-        Long userId = loginUser.getUserId();
-        storeOrderMenuService.deleteStoreOrderMenu(orderId, userId);
+        storeOrderMenuService.deleteStoreOrderMenu(orderId);
         return ResponseEntity.noContent().build();
 
     }

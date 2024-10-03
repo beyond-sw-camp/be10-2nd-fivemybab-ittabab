@@ -3,7 +3,10 @@ package com.fivemybab.ittabab.store.command.application.service;
 import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreDto;
+import com.fivemybab.ittabab.store.command.application.repository.StoreFavoriteRepository;
+import com.fivemybab.ittabab.store.command.application.repository.StoreMenuRepository;
 import com.fivemybab.ittabab.store.command.application.repository.StoreRepository;
+import com.fivemybab.ittabab.store.command.application.repository.StoreReviewRepository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.Store;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,9 @@ public class StoreService {
 
 
     private final StoreRepository storeRepository;
+    private final StoreReviewRepository storeReviewRepository;
+    private final StoreFavoriteRepository storeFavoriteRepository;
+    private final StoreMenuRepository storeMenuRepository;
     private final ModelMapper modelMapper;
 
 
@@ -38,8 +44,9 @@ public class StoreService {
         }
 
         Store store =
-                storeRepository.findByStoreIdAndUserId(storeId, userId)
-                        .orElseThrow(()-> new IllegalArgumentException("타인이 등록한 가게는 수정할 수 없습니다."));
+                storeRepository.findByStoreId(storeId);
+
+
 
         if (updateStoreDto.getStoreName() != null) {
             store.modifyStoreName(updateStoreDto.getStoreName());
@@ -77,22 +84,24 @@ public class StoreService {
 
     /* 가게 삭제 */
     @Transactional
-    public void deleteStore(Long storeId, Long userId) {
+    public void deleteStore(Long storeId) {
 
         if (!storeRepository.existsByStoreId(storeId)) {
             throw new NotFoundException("해당 가게가 존재하지 않습니다.");
         }
 
+        /* 가게 리뷰 삭제 */
+        storeReviewRepository.deleteByStoreId(storeId);
 
-        // 사용자 ID로 가게를 찾고, 가게가 존재하지 않거나 사용자가 등록한 가게가 아닐 경우 예외 발생
-        Store store = storeRepository.findByStoreIdAndUserId(storeId, userId)
-                .orElseThrow(() -> new IllegalArgumentException("타인이 등록한 가게는 삭제할 수 없습니다."));
+        /* 즐겨찾기 삭제 */
+        storeFavoriteRepository.deleteByStoreId(storeId);
+
+        /* 가게 메뉴 삭제 */
+        storeMenuRepository.deleteByStoreId(storeId);
 
         // 가게 삭제
-        storeRepository.delete(store);
+        storeRepository.deleteById(storeId);
     }
-
-
 
 
 }

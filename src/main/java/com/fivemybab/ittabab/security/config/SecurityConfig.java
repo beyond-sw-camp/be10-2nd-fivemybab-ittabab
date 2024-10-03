@@ -54,7 +54,8 @@ public class SecurityConfig {
                         ,"/user/**").hasRole("USER")
 
                         // HttpMethod(All) - ADMIN
-                        .requestMatchers("/inquiry/admin/**","/report/admin/**","/bootcamp/**","/course/**","/user/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/inquiry/admin/**","/report/admin/**","/bootcamp/**","/course/**","/user/admin/**","/store/admin/**",
+                                "/store/menu/category/admin/**","/store/menu/admin/**","/store/menu/order/admin/**").hasRole("ADMIN")
 
                         // 모든 요청에 대해 인증 필요
                         .anyRequest().authenticated()

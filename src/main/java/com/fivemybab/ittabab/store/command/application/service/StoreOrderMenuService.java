@@ -43,11 +43,8 @@ public class StoreOrderMenuService {
 
     /* 가게 주문메뉴 삭제 */
     @Transactional
-    public void deleteStoreOrderMenu(Long orderId, Long userId) {
-
-        repository.findByOrderIdAndUserId(orderId, userId)
-                .orElseThrow(()-> new IllegalArgumentException("타인의 주문 메뉴는 삭제할 수 없습니다."));
-
+    public void deleteStoreOrderMenu(Long orderId) {
+        repository.deleteById(orderId);
     }
 
 
