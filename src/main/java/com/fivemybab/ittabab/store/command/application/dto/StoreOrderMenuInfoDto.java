@@ -14,5 +14,6 @@ public class StoreOrderMenuInfoDto {
     private Long orderId;
     private Long reviewId;
     private Long menuId;
+    private Long userId;
 
 }

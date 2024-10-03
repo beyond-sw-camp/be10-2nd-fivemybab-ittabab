@@ -27,6 +27,8 @@ public class StoreReview {
 
     public void setUserId(Long userId) { this.userId = userId; }
 
+    public void modifyReviewRating(Integer rating) {this.rating = rating;}
+
     public void modifyStoreReviewContent(String newReviewContent) {
         this.reviewContent = newReviewContent;
     }

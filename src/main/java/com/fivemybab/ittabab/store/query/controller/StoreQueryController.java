@@ -48,7 +48,7 @@ public class StoreQueryController {
     @Operation(summary = "가게 상세 조회")
     @GetMapping("/detail/{storeId}")
     public ResponseEntity<StoreInfoDto> storeDetail(@PathVariable Long storeId) {
-        StoreInfoDto store = storeQueryService. findStoreByStoreId(storeId);
+        StoreInfoDto store = storeQueryService.findStoreByStoreId(storeId);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 

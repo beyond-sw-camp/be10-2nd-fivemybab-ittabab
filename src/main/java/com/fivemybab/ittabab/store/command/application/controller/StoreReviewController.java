@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreReviewService;
+import com.fivemybab.ittabab.store.query.service.StoreQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +57,16 @@ public class StoreReviewController {
     /* 가게 리뷰 삭제하기 */
     @Operation(summary = "리뷰 삭제")
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteStoreReview(@RequestParam Long reviewId) {
-        storeReviewService.deleteStoreReview(reviewId);
+    public ResponseEntity<Void> deleteStoreReview(@RequestParam Long reviewId,
+    @AuthenticationPrincipal CustomUserDetails loginUser) {
+
+        if (loginUser == null || loginUser.getUserId() == null) {
+            throw new NotFoundException("로그인이 필요합니다.");
+        }
+
+        Long userId = loginUser.getUserId();
+
+        storeReviewService.deleteStoreReview(reviewId, userId);
         return ResponseEntity.noContent().build();
     }
 

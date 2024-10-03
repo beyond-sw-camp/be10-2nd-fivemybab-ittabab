@@ -2,7 +2,9 @@ package com.fivemybab.ittabab.store.command.application.service;
 
 import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
+import com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
+import com.fivemybab.ittabab.store.command.application.repository.StoreRepository;
 import com.fivemybab.ittabab.store.command.application.repository.StoreReviewRepository;
 import com.fivemybab.ittabab.store.command.domain.aggregate.StoreReview;
 import jakarta.transaction.Transactional;
@@ -10,26 +12,37 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StoreReviewService {
 
-    private final StoreReviewRepository repository;
+
+    private final StoreReviewRepository storeReviewRepository;
+    private final StoreRepository storeRepository;
     private final ModelMapper modelMapper;
 
     /* 가게 리뷰 추가 */
     @Transactional
     public void registStoreReview(CreateStoreReviewDto newStoreReview, Long userId) {
 
+
+
         // 존재하지 않는 가게 ID 입력시
-        if(!repository.existsById(newStoreReview.getStoreId())) {
+        if(!storeRepository.existsById(newStoreReview.getStoreId())) {
             throw new NotFoundException("해당 가게가 존재하지 않습니다.");
+        }
+
+        // 가게 리뷰는 5점이 최대
+        if (newStoreReview.getRating() > 5) {
+            newStoreReview.setRating(5);
         }
 
 
         StoreReview storeReview = modelMapper.map(newStoreReview, StoreReview.class);
         storeReview.setUserId(userId);
-        repository.save(storeReview);
+        storeReviewRepository.save(storeReview);
     }
 
     /* 가게 리뷰 수정*/
@@ -38,12 +51,12 @@ public class StoreReviewService {
 
         Long reviewId = updateStoreReviewDTO.getReviewId();
 
-        if(!repository.existsById(reviewId)) {
+        if(!storeReviewRepository.existsById(reviewId)) {
             throw new NotFoundException("해당 가게 리뷰가 존재하지 않습니다.");
         }
 
 
-        StoreReview storeReview = repository.findByReviewIdAndUserId(reviewId, userId)
+        StoreReview storeReview = storeReviewRepository.findByReviewIdAndUserId(reviewId, userId)
                 .orElseThrow(()-> new IllegalArgumentException("타인의 가게 리뷰는 수정할 수 없습니다."));
 
 
@@ -53,6 +66,11 @@ public class StoreReviewService {
 
         if (updateStoreReviewDTO.getRating() != null) {
             storeReview.modifyStoreReviewRating(updateStoreReviewDTO.getRating());
+
+            if (updateStoreReviewDTO.getRating() > 5) {
+                storeReview.modifyStoreReviewRating(5);
+            }
+
         }
 
 
@@ -60,8 +78,10 @@ public class StoreReviewService {
 
     /* 가게 리뷰 삭제 */
     @Transactional
-    public void deleteStoreReview(Long storeReviewId) {
-        repository.deleteById(storeReviewId);
+    public void deleteStoreReview(Long storeReviewId, Long userId) {
+
+        storeReviewRepository.deleteByReviewIdAndUserId(storeReviewId, userId)
+                .orElseThrow(()-> new IllegalArgumentException("타인의 가게 리뷰는 삭제할 수 없습니다."));
     }
 
 

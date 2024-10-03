@@ -9,4 +9,9 @@ public interface StoreReviewRepository extends JpaRepository<StoreReview, Long> 
 
     // reviewId와 userId를 통해 해당 유저의 리뷰인지 확인
     Optional<StoreReview> findByReviewIdAndUserId(Long reviewId, Long userId);
+
+    // reviewId와 userId를 통해 본인이 작성한 리뷰를 삭제
+    Optional<StoreReview> deleteByReviewIdAndUserId(Long reviewId, Long userId);
+
+
 }

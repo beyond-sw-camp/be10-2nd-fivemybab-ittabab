@@ -33,6 +33,8 @@
         review r ON om.review_id = r.review_id
         LEFT JOIN
         menu_category mc ON m.menu_category_id = mc.menu_category_id
+        WHERE
+        m.store_id = #{storeId}
         GROUP BY
         m.menu_id, m.menu_name, m.menu_price, mc.menu_category_name
         ORDER BY

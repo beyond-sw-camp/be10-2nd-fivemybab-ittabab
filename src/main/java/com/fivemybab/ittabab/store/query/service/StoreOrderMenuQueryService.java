@@ -15,16 +15,14 @@ public class StoreOrderMenuQueryService {
 
     private final StoreOrderMenuMapper storeOrderMenuMapper;
 
-    public List<StoreOrderMenuInfoDto> findStoreOrderMenuList() {
-        return storeOrderMenuMapper.findStoreOrderMenuList();
+    /* 전체 주문 리스트 */
+    public List<StoreOrderMenuInfoDto> findStoreOrderMenuList(Long userId) {
+        return storeOrderMenuMapper.findStoreOrderMenuList(userId);
     }
 
-    public StoreOrderMenuInfoDto findStoreOrderMenuByOrderId(Long orderId) {
-        return storeOrderMenuMapper.findStoreOrderMenuByOrderId(orderId);
-    }
-
-    public List<StoreUserOrderMenuInfoDto> findStoreUserOrderMenuByUserId(Long userId) {
-        return storeOrderMenuMapper.findStoreUserOrderMenuByUserId(userId);
+    /* 특정 가게 주문 리스트 */
+    public List<StoreUserOrderMenuInfoDto> findStoreUserOrderMenuByStoreId(Long storeId ,Long userId) {
+        return storeOrderMenuMapper.findStoreUserOrderMenuByStoreId(storeId, userId);
     }
 
 
