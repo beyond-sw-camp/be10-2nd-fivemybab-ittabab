@@ -82,8 +82,8 @@ class ReportServiceTest {
     @Test
     @DisplayName("신고 처리 - 성공")
     void resolveReport_Success() {
-        // 신고 ID
-        Long reportId = reportRepository.findAll().get(2).getUserId(); // 신고의 ID
+
+        Long reportId = reportRepository.findAll().get(1).getUserId(); // 신고의 ID
 
         ResolveReportRequest resolveRequest = new ResolveReportRequest();
         resolveRequest.setIsResolved(true);

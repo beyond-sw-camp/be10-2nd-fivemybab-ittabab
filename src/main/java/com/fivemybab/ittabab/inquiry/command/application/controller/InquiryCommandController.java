@@ -26,20 +26,22 @@ public class InquiryCommandController {
     @Operation(summary = "문의 등록(사용자)")
     @PostMapping("/user")
     public ResponseEntity<String> registInquiryQuestion(@RequestBody InquiryQuestionResponse inquiryQuestionResponse, @AuthenticationPrincipal CustomUserDetails loginUser) {
-        inquiryQuestionResponse.setInquiryUserId(loginUser.getUserId());
+        Long userId = loginUser.getUserId();
         inquiryQuestionResponse.setCreateDate(LocalDateTime.now());
-        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
+        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse, userId);
         return new ResponseEntity<>("문의 등록(사용자) 완료", HttpStatus.CREATED);
     }
 
     /* 문의 답변 (관리자) */
     @Operation(summary = "문의 답변(관리자)")
     @PostMapping("/admin/{inquiryId}")
-    public ResponseEntity<String> registInquiryAnswer( @PathVariable Long inquiryId,
+    public ResponseEntity<String> registInquiryAnswer( @PathVariable("inquiryId") Long inquiryId,
                                                        @RequestBody InquiryAnswerResponse inquiryAnswerResponse
     ,@AuthenticationPrincipal CustomUserDetails loginUser) {
-        inquiryAnswerResponse.setResponseUserId(loginUser.getUserId());
-        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse);
+
+        Long userId = loginUser.getUserId();
+        inquiryAnswerResponse.setInquiryReplyTime(LocalDateTime.now());
+        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse, userId);
 
         return new ResponseEntity<>("문의 답변 등록(관리자) 완료", HttpStatus.CREATED);
     }

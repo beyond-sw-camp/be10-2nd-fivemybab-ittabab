@@ -8,10 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class InquiryAnswerResponse {
-
-    private Long inquiryId;
     private String inquiryReply;
     private LocalDateTime inquiryReplyTime;
-    private Long responseUserId;
 
 }

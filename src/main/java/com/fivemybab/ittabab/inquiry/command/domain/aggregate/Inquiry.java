@@ -1,11 +1,9 @@
 package com.fivemybab.ittabab.inquiry.command.domain.aggregate;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,18 +17,38 @@ public class Inquiry {
     private Long inquiryId;
     private String inquiryContent;
     private LocalDateTime createDate;
-    @Setter
     private String inquiryReply;
-    @Setter
     private LocalDateTime inquiryReplyTime;
-    @Setter
     private Long responseUserId;
     private Long inquiryUserId;
+
+    public void modifyInquiryReply(String inquiryReply) {
+        this.inquiryReply = inquiryReply;
+    }
+
+    public void modifyInquiryReplyTime(LocalDateTime inquiryReplyTime) {
+        this.inquiryReplyTime = inquiryReplyTime;
+    }
+
+    public void modifyResponseUserId(Long responseUserId) {
+        this.responseUserId = responseUserId;
+    }
 
     @PrePersist
     protected void onCreate() {
         this.createDate = LocalDateTime.now();
     }
+
+
+
+    @Builder
+    public Inquiry(String inquiryContent, LocalDateTime createDate, String inquiryReply, Long inquiryUserId) {
+        this.inquiryContent = inquiryContent;
+        this.createDate = createDate;
+        this.inquiryReply = inquiryReply;
+        this.inquiryUserId = inquiryUserId;
+    }
+
 
 }
 

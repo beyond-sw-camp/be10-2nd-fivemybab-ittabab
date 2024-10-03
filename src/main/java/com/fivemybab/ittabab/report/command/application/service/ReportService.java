@@ -72,6 +72,7 @@ public class ReportService {
 
         // 신고 처리
         report.resolve(LocalDateTime.now());
+
         reportRepository.save(report);  // 변경 사항 저장
 
         return modelMapper.map(report, ResolveReportResponse.class);

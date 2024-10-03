@@ -31,19 +31,19 @@ class InquiryCommandServiceTest {
         // 문의 등록용 데이터 생성
         inquiryQuestionResponse = new InquiryQuestionResponse();
         inquiryQuestionResponse.setInquiryContent("문의 드립니다");
-        inquiryQuestionResponse.setInquiryUserId(1L);
+
 
         // 답변 등록용 데이터 생성
         inquiryAnswerResponse = new InquiryAnswerResponse();
         inquiryAnswerResponse.setInquiryReply("문의 답변입니다.");
-        inquiryAnswerResponse.setResponseUserId(2L); // 관리자 ID 가정
+
     }
 
     @Test
     @DisplayName("문의 등록 테스트")
     void registInquiryQuestionTest() {
         // 문의 등록
-        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
+        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse,1L);
 
         // 문의가 제대로 저장되었는지 확인
         Inquiry savedInquiry = inquiryRepository.findAll().get(0); // 등록한 문의가 저장된 번호
@@ -55,23 +55,20 @@ class InquiryCommandServiceTest {
     @Test
     @DisplayName("문의 답변 등록 테스트")
     void registInquiryAnswerTest() {
-        // 먼저 문의를 등록
-        inquiryCommandService.registInquiryQuestion(inquiryQuestionResponse);
-        Inquiry savedInquiry = inquiryRepository.findAll().get(0);
-        Long inquiryId = savedInquiry.getInquiryId();
+
 
         // 문의에 대한 답변 등록
-        inquiryCommandService.registInquiryAnswer(inquiryId, inquiryAnswerResponse);
+        inquiryCommandService.registInquiryAnswer(9L, inquiryAnswerResponse, 3L);
 
         // 답변이 제대로 저장되었는지 확인
-        Optional<Inquiry> inquiryOpt = inquiryRepository.findById(inquiryId);
+        Optional<Inquiry> inquiryOpt = inquiryRepository.findById(9L);
         assertTrue(inquiryOpt.isPresent());
 
         Inquiry inquiryWithAnswer = inquiryOpt.get();
         assertNotNull(inquiryWithAnswer.getInquiryReply());
         assertEquals("문의 답변입니다.", inquiryWithAnswer.getInquiryReply());
         assertNotNull(inquiryWithAnswer.getInquiryReplyTime());
-        assertEquals(2L, inquiryWithAnswer.getResponseUserId());
+        assertEquals(3L, inquiryWithAnswer.getResponseUserId());
     }
 
     @Test
@@ -80,7 +77,7 @@ class InquiryCommandServiceTest {
         Long nonExistentInquiryId = 999L; // 존재하지 않는 ID
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            inquiryCommandService.registInquiryAnswer(nonExistentInquiryId, inquiryAnswerResponse);
+            inquiryCommandService.registInquiryAnswer(nonExistentInquiryId, inquiryAnswerResponse,1L);
         });
 
         assertEquals("없는 문의: " + nonExistentInquiryId, exception.getMessage());
