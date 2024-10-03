@@ -16,5 +16,8 @@ public class StoreOrderMenu {
     private Long orderId;
     private Long reviewId;
     private Long menuId;
+    private Long userId;
+
+    public void setUserId(Long userId) {this.userId = userId;}
 
 }

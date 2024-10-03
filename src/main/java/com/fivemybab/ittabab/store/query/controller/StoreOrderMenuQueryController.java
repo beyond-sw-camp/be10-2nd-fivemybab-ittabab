@@ -1,5 +1,7 @@
 package com.fivemybab.ittabab.store.query.controller;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.store.command.application.dto.StoreOrderMenuInfoDto;
 import com.fivemybab.ittabab.store.command.application.dto.StoreUserOrderMenuInfoDto;
 import com.fivemybab.ittabab.store.query.service.StoreMenuCategoryQueryService;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,29 +30,35 @@ public class StoreOrderMenuQueryController {
     /* 전체 주문 메뉴 조회 */
     @Operation(summary = "전체 주문 메뉴 조회")
     @GetMapping("/list")
-    public ResponseEntity<List<StoreOrderMenuInfoDto>> StoreOrderMenuList() {
-        List<StoreOrderMenuInfoDto> storeOrderMenuList = storeOrderMenuQueryService.findStoreOrderMenuList();
+    public ResponseEntity<List<StoreOrderMenuInfoDto>> StoreOrderMenuList(@AuthenticationPrincipal CustomUserDetails loginUser) {
+
+        // 로그인되지 않았거나, userId가 null인 경우 예외 처리
+        if (loginUser == null || loginUser.getUserId() == null) {
+            throw new NotFoundException("로그인이 필요합니다.");
+        }
+
+        Long userId = loginUser.getUserId();
+        List<StoreOrderMenuInfoDto> storeOrderMenuList = storeOrderMenuQueryService.findStoreOrderMenuList(userId);
 
         return new ResponseEntity<>(storeOrderMenuList, HttpStatus.OK);
     }
 
-    /* 특정 유저 주문 메뉴 전체 조회 */
-    @Operation(summary = "특정 유저 주문 메뉴 전체 조회")
-    @GetMapping("/list/{userId}")
-    public ResponseEntity<List<StoreUserOrderMenuInfoDto>> storeUserOrderMenuList(@PathVariable Long userId) {
+    /* 특정 가게 주문 메뉴 조회 */
+    @Operation(summary = "특정 가게 주문 메뉴 조회")
+    @GetMapping("/list/{storeId}")
+    public ResponseEntity<List<StoreUserOrderMenuInfoDto>> storeUserOrderMenuList(@PathVariable Long storeId,
+    @AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        List<StoreUserOrderMenuInfoDto> storeUserOrderMenuList = storeOrderMenuQueryService.findStoreUserOrderMenuByUserId(userId);
+
+        if (loginUser == null || loginUser.getUserId() == null) {
+            throw new NotFoundException("로그인이 필요합니다.");
+        }
+
+        Long userId = loginUser.getUserId();
+        List<StoreUserOrderMenuInfoDto> storeUserOrderMenuList = storeOrderMenuQueryService.findStoreUserOrderMenuByStoreId(storeId, userId);
+
         return new ResponseEntity<>(storeUserOrderMenuList, HttpStatus.OK);
 
-    }
-
-    /* 특정 리뷰 주문 메뉴 조회 */
-    @Operation(summary = "주문메뉴 상세 조회")
-    @GetMapping("/detail/{orderId}")
-    public ResponseEntity<StoreOrderMenuInfoDto> StoreOrderMenuDetail(@PathVariable Long orderId) {
-
-        StoreOrderMenuInfoDto storeOrderMenu = storeOrderMenuQueryService.findStoreOrderMenuByOrderId(orderId);
-        return new ResponseEntity<>(storeOrderMenu, HttpStatus.OK);
     }
 
 

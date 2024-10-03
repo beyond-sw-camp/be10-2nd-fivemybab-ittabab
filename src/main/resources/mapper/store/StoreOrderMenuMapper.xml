@@ -16,7 +16,7 @@
 
     <!-- 특정 유저의 주문 메뉴 전체 조회 -->
     <select
-            id="findStoreUserOrderMenuByUserId"
+            id="findStoreUserOrderMenuByStoreId"
             resultMap="StoreUserOrderMenuMap">
         SELECT
         o.order_id,
@@ -26,15 +26,18 @@
         mc.menu_category_name,
         s.store_name,
         r.review_content,
-        r.rating
+        r.rating,
+        r.create_date,
+        r.update_date,
+        r.is_blinded
         FROM order_menu o
-        JOIN review r ON o.review_id = r.review_id
         JOIN menu m ON o.menu_id = m.menu_id
         JOIN store s ON m.store_id = s.store_id
         JOIN menu_category mc ON m.menu_category_id = mc.menu_category_id
-        JOIN user_info u ON r.user_id = u.user_id
-        WHERE u.user_id = #{userId}
+        LEFT JOIN review r ON o.review_id = r.review_id
+        WHERE o.user_id = #{userId} AND r.store_id = #{storeId}
         ORDER BY o.order_id;
+
     </select>
 
 
@@ -44,14 +47,7 @@
             resultType="com.fivemybab.ittabab.store.command.application.dto.StoreOrderMenuInfoDto">
         SELECT *
         FROM order_menu
+        WHERE user_id = #{userId}
     </select>
 
-    <!-- 특정 주문 내역 상세 조회 -->
-    <select
-            id="findStoreOrderMenuByOrderId"
-            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreOrderMenuInfoDto">
-        SELECT *
-        FROM order_menu
-        WHERE order_id = #{orderId}
-    </select>
 </mapper>

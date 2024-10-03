@@ -27,6 +27,7 @@ public class StoreReviewQueryController {
     @Operation(summary = "리뷰 전체 조회")
     @GetMapping("/review/list")
     public ResponseEntity<List<StoreReviewInfoDto>> storeReviewList() {
+
         List<StoreReviewInfoDto> storeReviewList = storeReviewQueryService.findStoreReviewList();
 
         return new ResponseEntity<>(storeReviewList, HttpStatus.OK);

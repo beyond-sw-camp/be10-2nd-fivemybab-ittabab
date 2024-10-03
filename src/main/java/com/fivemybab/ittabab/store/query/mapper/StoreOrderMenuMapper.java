@@ -10,11 +10,8 @@ import java.util.List;
 public interface StoreOrderMenuMapper {
 
     /* 전체 주문 메뉴 조회 */
-    List<StoreOrderMenuInfoDto> findStoreOrderMenuList();
+    List<StoreOrderMenuInfoDto> findStoreOrderMenuList(Long id);
 
-    /* 특정 리뷰 주문 메뉴 조회 */
-    StoreOrderMenuInfoDto findStoreOrderMenuByOrderId(Long id);
-
-    /* 특정 유저 주문 메뉴 전체 조회 */
-    List<StoreUserOrderMenuInfoDto> findStoreUserOrderMenuByUserId(Long id);
+    /* 특정 가게 주문 메뉴 전체 조회 */
+    List<StoreUserOrderMenuInfoDto> findStoreUserOrderMenuByStoreId(Long storeId, Long userId);
 }
