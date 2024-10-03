@@ -52,6 +52,7 @@ public class GroupInfoQueryController {
             Model model,
             @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
+        System.out.println("loginUser.getUserId = " + loginUser.getUserId());
         // 인증된 사용자가 아닌 경우 에러 페이지로 이동 -> 에러 페이지 구현해야 함.
         if (loginUser == null || loginUser.getAuthorities().isEmpty()) {
             // 적절한 오류 메시지를 모델에 추가하고 에러 페이지로 리다이렉트
