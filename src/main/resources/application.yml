@@ -69,4 +69,8 @@ redis:
 google:
   api-key: ${google.api.key}
   map-api-url: ${google.map}
-  geocoding-url: ${google.geocoding}
+
+naver:
+  client-id: ${naver.id}
+  secret-key: ${naver.secret}
+  geocoding-url: ${naver.geocoding}

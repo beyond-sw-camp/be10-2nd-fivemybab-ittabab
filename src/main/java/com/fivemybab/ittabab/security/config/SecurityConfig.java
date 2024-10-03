@@ -21,11 +21,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +46,6 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**","/user/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/bootcamp/**").permitAll()
 
                         // HttpMethod(All) - USER
                         .requestMatchers("/post/**", "/postComment/**","/good/**","/groupComment/**","/group/**"

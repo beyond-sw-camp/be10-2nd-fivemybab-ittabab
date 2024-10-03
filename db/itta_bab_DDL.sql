@@ -26,8 +26,6 @@ CREATE TABLE IF NOT EXISTS bootcamp (
     boot_id BIGINT AUTO_INCREMENT NOT NULL COMMENT '부트캠프 번호',
     boot_name VARCHAR(100) NOT NULL COMMENT '부트캠프 이름',
     address VARCHAR(300) NOT NULL COMMENT '주소',
-    latitude DOUBLE NOT NULL COMMENT '위도',
-    longitude DOUBLE NOT NULL COMMENT '경도',
     PRIMARY KEY (boot_id)
 ) ENGINE=INNODB COMMENT='훈련 기관';
 

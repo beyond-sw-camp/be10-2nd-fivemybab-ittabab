@@ -15,8 +15,6 @@ public class BootCamp {
     private Long bootId;
     private String bootName;
     private String address;
-    private double latitude;
-    private double longitude;
 
     public void modifyName(String bootName) {
         this.bootName = bootName;

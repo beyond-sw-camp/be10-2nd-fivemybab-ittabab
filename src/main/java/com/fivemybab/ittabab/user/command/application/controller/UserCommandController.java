@@ -1,23 +1,16 @@
 package com.fivemybab.ittabab.user.command.application.controller;
 
-import com.fivemybab.ittabab.security.dto.ExceptionResponse;
-import com.fivemybab.ittabab.security.util.JwtUtil;
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.MailRequestDto;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
 import com.fivemybab.ittabab.user.command.application.service.UserCommandService;
-import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "User", description = "회원 관련 API")
 @RestController
@@ -66,11 +59,5 @@ public class UserCommandController {
         return ResponseEntity.ok().body("회원 삭제 완료");
     }
 
-    @GetMapping("/location")
-    public ResponseEntity<String> locationUser() {
 
-        userCommandService.getCurrentLocation();
-
-        return ResponseEntity.ok().build();
-    }
 }
