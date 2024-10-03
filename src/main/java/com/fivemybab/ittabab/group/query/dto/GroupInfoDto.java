@@ -1,5 +1,6 @@
 package com.fivemybab.ittabab.group.query.dto;
 
+import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,4 +24,5 @@ public class GroupInfoDto {
     private LocalDateTime endDate;
     private String groupPost;
     private boolean isBlinded;
+    private ChatRoomStatus chatRoomStatus;
 }

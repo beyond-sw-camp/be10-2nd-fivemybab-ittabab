@@ -6,44 +6,45 @@ import com.fivemybab.ittabab.inquiry.command.application.dto.InquiryQuestionResp
 import com.fivemybab.ittabab.inquiry.command.domain.aggregate.Inquiry;
 import com.fivemybab.ittabab.inquiry.command.domain.repository.InquiryRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class InquiryCommandService {
 
     private final InquiryRepository inquiryRepository;
-    private final ModelMapper modelMapper;
 
-    public InquiryCommandService(InquiryRepository inquiryRepository, ModelMapper modelMapper) {
-        this.inquiryRepository = inquiryRepository;
-        this.modelMapper = modelMapper;
-    }
 
     /* 문의 등록 (사용자) */
     @Transactional
-    public void registInquiryQuestion(InquiryQuestionResponse inquiryQuestionResponse) {
-        Inquiry inquiryInfo = modelMapper.map(inquiryQuestionResponse, Inquiry.class);
+    public void registInquiryQuestion(InquiryQuestionResponse inquiryQuestionResponse, Long userId) {
+        Inquiry inquiryInfo = Inquiry.builder()
+                .inquiryContent(inquiryQuestionResponse.getInquiryContent())
+                .createDate(LocalDateTime.now())
+                .inquiryUserId(userId)
+                .build();
 
         inquiryRepository.save(inquiryInfo);
     }
 
     /* 문의 답변 등록 (관리자) */
     @Transactional
-    public void registInquiryAnswer(Long inquiryId, InquiryAnswerResponse inquiryAnswerResponse) {
-        Inquiry inquiryInfo = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new NotFoundException("없는 문의: " + inquiryId));
+    public void registInquiryAnswer(Long inquiryId, InquiryAnswerResponse inquiryAnswerResponse, Long userId) {
 
-        // 답변 등록
-        inquiryInfo.setInquiryReply(inquiryAnswerResponse.getInquiryReply());
-        inquiryInfo.setInquiryReplyTime(LocalDateTime.now());
+        Inquiry inquiry = inquiryRepository.findById(inquiryId)
+                .orElseThrow(() -> new NotFoundException("없는 문의입니다."));
 
-        // 응답 유저 ID 설정
-        inquiryInfo.setResponseUserId(inquiryAnswerResponse.getResponseUserId());
+        // 답변 내용과 응답자 정보를 업데이트
+        inquiry.modifyInquiryReply(inquiryAnswerResponse.getInquiryReply());
+        inquiry.modifyInquiryReplyTime(LocalDateTime.now());
+        inquiry.modifyResponseUserId(userId);
 
-        inquiryRepository.save(inquiryInfo);
+
+        inquiryRepository.save(inquiry);
     }
 
 }

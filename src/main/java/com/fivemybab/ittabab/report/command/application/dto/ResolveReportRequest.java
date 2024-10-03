@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResolveReportRequest {
-    private Long userId;
     private Boolean isResolved;
 }
 
