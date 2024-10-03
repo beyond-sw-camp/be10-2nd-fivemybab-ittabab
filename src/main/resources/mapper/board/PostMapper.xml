@@ -8,7 +8,7 @@
         <result property="postId" column="post_id"/>
         <result property="title" column="post_title"/>
         <result property="content" column="post_content"/>
-        <result property="createdAt" column="create_date"/>
+        <result property="createdAt" column="create_date" jdbcType="TIMESTAMP"/>
         <result property="memberName" column="username"/>
         <result property="likeCount" column="like_count"/>
         <result property="commentCount" column="comment_count"/>
@@ -19,6 +19,7 @@
         SELECT p.post_id, p.post_title, p.post_content, p.create_date, u.username
         FROM post p
                  JOIN user_info u ON p.user_id = u.user_id
+        WHERE u.course_id = #{courseId}
         ORDER BY p.create_date DESC
     </select>
 
@@ -28,6 +29,7 @@
         FROM post p
                  JOIN user_info u ON p.user_id = u.user_id
                  LEFT JOIN good g ON g.target_id = p.post_id AND g.target = 'POST'
+        WHERE u.course_id = #{courseId}
         GROUP BY p.post_id, p.post_title, p.post_content, p.create_date, u.username
         ORDER BY like_count DESC
     </select>
@@ -38,6 +40,7 @@
         FROM post p
                  JOIN user_info u ON p.user_id = u.user_id
                  LEFT JOIN good g ON g.target_id = p.post_id AND g.target = 'POST'
+        WHERE u.course_id = #{courseId}
         GROUP BY p.post_id, p.post_title, p.post_content, p.create_date, u.username
         ORDER BY like_count ASC
     </select>
@@ -48,6 +51,7 @@
         FROM post p
                  JOIN user_info u ON p.user_id = u.user_id
                  LEFT JOIN post_comment pc ON pc.post_id = p.post_id
+        WHERE u.course_id = #{courseId}
         GROUP BY p.post_id, p.post_title, p.post_content, p.create_date, u.username
         ORDER BY comment_count DESC
     </select>
