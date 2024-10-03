@@ -25,7 +25,7 @@ class BootCampCommandServiceTest {
 
         CreateBootCampRequest BC = new CreateBootCampRequest();
         BC.setBootName("아몬드 기관");
-        BC.setBootLocation("서초구 견과류동");
+//        BC.setBootLocation("서초구 견과류동");
 
         return Stream.of(Arguments.arguments(BC));
     }
@@ -44,7 +44,7 @@ class BootCampCommandServiceTest {
 
         UpdateBootCampRequest BC = new UpdateBootCampRequest();
         BC.setBootName("피스타치오 기관");
-        BC.setBootLocation("동작구 과자돟");
+//        BC.setBootLocation("동작구 과자돟");
 
         return Stream.of(Arguments.arguments(1L, BC));
     }

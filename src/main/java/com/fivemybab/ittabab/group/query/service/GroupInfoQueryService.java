@@ -16,9 +16,10 @@ public class GroupInfoQueryService {
     private final GroupInfoMapper groupInfoMapper;
     private final GroupUserMapper groupUserMapper;
 
-    public List<GroupInfoDto> findGroupByGroupStatus(String loginId) {
-        Long courseId = findCourseIdByLoginId(loginId);
-        return groupInfoMapper.findGroupByGroupStatus(loginId, courseId);
+    public List<GroupInfoDto> findGroupByGroupStatus(Long loginUserId) {
+        Long courseId = findCourseIdByLoginId(loginUserId);
+        System.out.println("courseId = " + courseId);
+        return groupInfoMapper.findGroupByGroupStatus(courseId);
     }
 
     public GroupInfoDto findGroupByGroupId(Long groupId) {
@@ -37,7 +38,15 @@ public class GroupInfoQueryService {
     }
 
     /* 로그인 Id("test01")를 사용하여 유저 courseId 알아오는 메소드 */
-    public Long findCourseIdByLoginId(String loginId) {
-        return groupInfoMapper.findCourseIdByLoginId(loginId);
+    public Long findCourseIdByLoginId(Long userId) {
+        return groupInfoMapper.findCourseIdByLoginId(userId);
+    }
+
+    public GroupInfoDto findCurrentGroup() {
+        return groupInfoMapper.findCurrentGroup();
+    }
+
+    public List<GroupInfoDto> findAllGroup() {
+        return groupInfoMapper.findAllGroup();
     }
 }

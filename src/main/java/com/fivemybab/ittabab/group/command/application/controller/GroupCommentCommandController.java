@@ -5,6 +5,7 @@ import com.fivemybab.ittabab.group.command.application.service.GroupCommentComma
 import com.fivemybab.ittabab.group.query.dto.GroupCommentDto;
 import com.fivemybab.ittabab.group.query.dto.UpdateGroupCommentDto;
 import com.fivemybab.ittabab.group.query.service.GroupCommentQueryService;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserRole;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
@@ -16,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -39,10 +41,10 @@ public class GroupCommentCommandController {
     @PostMapping
     public ResponseEntity<Void> registerComment(
             @RequestBody GroupCommentDto newComment,
-            Authentication loginId
+            @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
         newComment.setGroupCommentId(null);
-        newComment.setUserId(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId());
+        newComment.setUserId(loginUser.getUserId());
         newComment.setParentCommentId(null);
         newComment.setCreateDate(LocalDateTime.now());
         newComment.setUpdateDate(LocalDateTime.now());
@@ -61,7 +63,7 @@ public class GroupCommentCommandController {
     @DeleteMapping("/{groupCommentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long groupCommentId,
-            Authentication loginId
+            @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
         // 1. 해당 글이 있는가?
         GroupCommentDto foundGroupComment = queryService.findByGroupCommentId(groupCommentId);
@@ -73,19 +75,20 @@ public class GroupCommentCommandController {
 
         log.info("founGroupComment {}", foundGroupComment);
 
-        Long userUserId = userQueryService.findUserIdByLoginId(loginId).orElseThrow(() -> new NotFoundException("해당 유저는 없습니다.")).getUserId();
+        Long userUserId = loginUser.getUserId();
         UserRole role = UserRole.valueOf(userQueryService.findById(userUserId).getUserRole());
 
-        System.out.println("접근자: " + modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId());
+
+        System.out.println("접근자: " + userUserId);
 
         System.out.println("작성자 = " + foundGroupComment.getUserId());
 
-        System.out.println("res = " + (modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() == foundGroupComment.getUserId()));
+        System.out.println("res = " + (userUserId == foundGroupComment.getUserId()));
 
         // 2. 해당 글의 작성자 또는 관리자 여부
 
         // 작성자 입니까?
-        if (!(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() == foundGroupComment.getUserId())) {
+        if (!(loginUser.getUserId() == foundGroupComment.getUserId())) {
 
             // 관리자 입니까?
             if (!(role.equals(UserRole.ADMIN))) {
@@ -106,8 +109,8 @@ public class GroupCommentCommandController {
     public ResponseEntity<String> modifyGroupComment(
             @PathVariable Long groupCommentId,
             @RequestBody UpdateGroupCommentDto modifyComment,
-            Authentication loginId
-    ) {
+            @AuthenticationPrincipal CustomUserDetails loginUser
+            ) {
         // 존재여부
         GroupCommentDto foundGroupComment = queryService.findByGroupCommentId(groupCommentId);
 
@@ -115,10 +118,10 @@ public class GroupCommentCommandController {
             System.out.println("존재 x");
             return ResponseEntity.notFound().build();
         }
-        System.out.println("존재 o");
+        System.out.println("x존재 o");
 
         // 작성자 확인
-        if (modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId() != foundGroupComment.getUserId()) {
+        if (loginUser.getUserId() != foundGroupComment.getUserId()) {
             System.out.println("다른 사람 글임");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

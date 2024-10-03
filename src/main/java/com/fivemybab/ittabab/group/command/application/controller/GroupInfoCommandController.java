@@ -1,12 +1,12 @@
 package com.fivemybab.ittabab.group.command.application.controller;
 
-import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.group.command.application.service.GroupInfoCommandService;
 import com.fivemybab.ittabab.group.command.domain.aggregate.ChatRoomStatus;
 import com.fivemybab.ittabab.group.query.dto.ChatMessageDto;
 import com.fivemybab.ittabab.group.query.dto.GroupInfoDto;
 import com.fivemybab.ittabab.group.query.dto.RequestChatDto;
 import com.fivemybab.ittabab.group.query.service.GroupInfoQueryService;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.user.command.application.dto.UserDto;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserRole;
 import com.fivemybab.ittabab.user.query.service.UserQueryService;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,16 +42,18 @@ public class GroupInfoCommandController {
             description = "새로운 모임을 등록합니다."
     )
     @PostMapping
-    public ResponseEntity<String> registGroup(@RequestBody GroupInfoDto newGroupInfo, Authentication loginId) {
+    public ResponseEntity<String> registGroup(
+            @RequestBody GroupInfoDto newGroupInfo,
+            @AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        Long userId = modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId();
+        Long userId = loginUser.getUserId();
 
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } else {
             newGroupInfo.setUserId(userId);
             newGroupInfo.setCreateDate(LocalDateTime.now());
-            groupService.registGroup(newGroupInfo);
+            groupService.registGroup(loginUser.getUserId(), newGroupInfo);
 
             return new ResponseEntity<>("등록 완료", HttpStatus.OK);
         }
@@ -65,7 +67,7 @@ public class GroupInfoCommandController {
     @GetMapping("/detail/{groupId}")
     public ResponseEntity<String> registGroupUser(
             @PathVariable Long groupId,
-            Authentication loginId
+            @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
         /* 처리과정
          * 1. 모임이 존재하는 확인
@@ -75,6 +77,8 @@ public class GroupInfoCommandController {
         // 1
         GroupInfoDto foundGroupInfo = groupService.findGroupByGroupId(groupId);
 
+        System.out.println("foundGroupInfo = " + foundGroupInfo);
+        
         if (foundGroupInfo == null) {
             // 모임이 존재하지 않는 경우
             return new ResponseEntity<>("그런 모임은 없습니다.", HttpStatus.OK);
@@ -83,10 +87,11 @@ public class GroupInfoCommandController {
 
             // 모임에 가입한 인원들
             List<Long> groupUserList = groupService.findGroupUserByGroupId(groupId);
-
+            System.out.println("groupUserList = " + groupUserList);
             // 2
             for (Long userId : groupUserList) {
-                if (userId == modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId()) {
+                System.out.println("userId = " + userId);
+                if (userId == loginUser.getUserId()) {
                     return new ResponseEntity<>("이미 가입하셨습니다.", HttpStatus.OK);
                 }
             }
@@ -94,7 +99,7 @@ public class GroupInfoCommandController {
             // 3
             if (groupUserList.size() + 1 <= foundGroupInfo.getUserCounting()) {
                 // insert
-                groupService.registGroupUser(modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId(), foundGroupInfo.getGroupId());
+                groupService.registGroupUser(modelMapper.map(loginUser.getUserId(), UserDto.class).getUserId(), foundGroupInfo.getGroupId());
             } else {
                 return null;
             }
@@ -110,7 +115,7 @@ public class GroupInfoCommandController {
     @PostMapping("/chat")
     public ResponseEntity<String> createChat(
             @RequestBody RequestChatDto requestChatDto,
-            Authentication loginId,
+            @AuthenticationPrincipal CustomUserDetails loginUser,
             Model model
     ) {
 
@@ -122,7 +127,7 @@ public class GroupInfoCommandController {
             chatMessageDto.setMessageType(ChatMessageDto.MessageType.ENTER);
             chatMessageDto.setChatRoomId(requestChatDto.getGroupId());
             chatMessageDto.setMessage(chatMessageDto.getMessage());
-            groupService.createChat(chatMessageDto, loginId);
+            groupService.createChat(chatMessageDto, loginUser);
             return new ResponseEntity<>("채팅 생성 성공", HttpStatus.OK);
         } else if (chatRoomStatus.equals(ChatRoomStatus.CREATED)) {
             return new ResponseEntity<>("이미 생성되어 있습니다.", HttpStatus.OK);
@@ -140,7 +145,7 @@ public class GroupInfoCommandController {
     public ResponseEntity<String> joinChat(
             @PathVariable Long groupId,
             @RequestBody ChatMessageDto chatMessageDto,
-            Authentication loginId
+            @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
 
         ChatRoomStatus chatRoomStatus = groupInfoQueryService.findGroupByGroupId(groupId).getChatRoomStatus();
@@ -148,7 +153,7 @@ public class GroupInfoCommandController {
         if (chatRoomStatus.equals(ChatRoomStatus.CREATED)) {
             chatMessageDto.setMessageType(ChatMessageDto.MessageType.TALK);
             chatMessageDto.setChatRoomId(groupId);
-            groupService.sendChat(chatMessageDto, loginId);
+            groupService.sendChat(chatMessageDto, loginUser);
 
             return new ResponseEntity<>("채팅 전송 완료", HttpStatus.OK);
         } else {
@@ -164,13 +169,13 @@ public class GroupInfoCommandController {
     @DeleteMapping("/{groupId}")
     public ResponseEntity<String> deleteGroup(
             @PathVariable Long groupId,
-            Authentication loginUserLoginId
+            @AuthenticationPrincipal CustomUserDetails loginUser
     ) {
 
-        Long userUserId = userQueryService.findUserIdByLoginId(loginUserLoginId).orElseThrow(() -> new NotFoundException("해당 유저는 없습니다.")).getUserId();
+        Long userUserId = loginUser.getUserId();
         UserRole role = UserRole.valueOf(userQueryService.findById(userUserId).getUserRole());
 
-        if (checkCreator(loginUserLoginId, groupId) || role.equals(UserRole.ADMIN)) {
+        if (checkCreator(loginUser, groupId) || role.equals(UserRole.ADMIN)) {
             groupService.deleteGroupInfo(groupId);
 
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -181,11 +186,11 @@ public class GroupInfoCommandController {
 
     /* 모임 모집자 확인 */
     public boolean checkCreator(
-            Authentication loginId,
+            CustomUserDetails loginUser,
             Long groupId
     ) {
         Long creatorId = groupService.findGroupByGroupId(groupId).getUserId();
 
-        return creatorId == modelMapper.map(userQueryService.findUserIdByLoginId(loginId), UserDto.class).getUserId();
+        return creatorId == modelMapper.map(loginUser.getUserId(), UserDto.class).getUserId();
     }
 }
