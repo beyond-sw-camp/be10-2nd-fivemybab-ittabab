@@ -148,6 +148,11 @@
 <br>
 <details>
 <summary><strong>로그인 시 token 발급</strong></summary>
+
+![](/readmepic/primary/login-test.png)
+> 로그인시 아래와 같은 토큰이 발급 된다.
+
+![](/readmepic/primary/token-cmd.png)
 </details>
 <br>
 <details>
