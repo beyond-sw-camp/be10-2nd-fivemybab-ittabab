@@ -54,4 +54,16 @@ public class PostComment {
     public void updateCommentContent(String commentContent) {
         this.commentContent = commentContent;
     }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
+    }
+
+    public void setContent(String content) {
+        this.commentContent = content;
+    }
 }

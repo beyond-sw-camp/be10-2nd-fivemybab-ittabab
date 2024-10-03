@@ -9,11 +9,12 @@ import java.util.List;
 public interface PostQueryMapper {
   
     // 최신순으로 게시물 목록 조회
-    List<PostQueryDto> selectPostsByTime();
+    List<PostQueryDto> selectPostsByTime(Long courseId);
 
     // 좋아요가 가장 많은 게시물 목록 조회
-    List<PostQueryDto> selectPostsByLikesDesc();
+    List<PostQueryDto> selectPostsByLikesDesc(Long courseId);
 
     // 좋아요가 가장 적은 게시물 목록 조회
-    List<PostQueryDto> selectPostsByLikesAsc();
+    List<PostQueryDto> selectPostsByLikesAsc(Long courseId);
+
 }

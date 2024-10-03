@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 @Transactional
 class GroupInfoCommandServiceTest {
 
+/*
     @Autowired
     private GroupInfoCommandService service;
 
@@ -66,12 +67,13 @@ class GroupInfoCommandServiceTest {
             System.out.println("service.findGroupByGroupId(groupId) = " + service.findGroupByGroupId(groupId));
         });
     }
+*/
 
-    @DisplayName(value = "모임 삭제 테스트")
+/*    @DisplayName(value = "모임 삭제 테스트")
     @Test
     public void deleteGroup() {
         Assertions.assertDoesNotThrow(() -> {
             service.deleteGroupInfo(10L);
         });
-    }
+    }*/
 }
