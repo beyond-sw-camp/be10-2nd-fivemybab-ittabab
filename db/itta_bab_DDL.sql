@@ -148,10 +148,12 @@ CREATE TABLE IF NOT EXISTS order_menu (
     order_id BIGINT AUTO_INCREMENT NOT NULL COMMENT '주문 번호',
     review_id BIGINT NOT NULL COMMENT '리뷰 번호',
     menu_id BIGINT NOT NULL COMMENT '메뉴 번호',
+    user_id BIGINT NOT NULL COMMENT '주문자 번호',
     PRIMARY KEY (order_id),
     FOREIGN KEY (review_id) REFERENCES review(review_id),
-    FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
-) ENGINE=INNODB COMMENT='주문 메뉴';
+    FOREIGN KEY (menu_id) REFERENCES menu(menu_id),
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id)
+    ) ENGINE=INNODB COMMENT='주문 메뉴';
 
 -- 게시판 글(post)
 CREATE TABLE IF NOT EXISTS post (
