@@ -38,25 +38,25 @@
 ## 💡 프로젝트 배경 및 필요성
 - 부트캠프 교육생들의 특수한 환경
 
-  : 부트캠프는 집중적인 학습과 빡빡한 일정으로 인해, 다른 사람들과 소통하거나 도움을 주고받을 시간이 제한됩니다.
+   부트캠프는 집중적인 학습과 빡빡한 일정으로 인해, 다른 사람들과 소통하거나 도움을 주고받을 시간이 제한됩니다.
   이때 동료들과 정보를 공유하고 네트워킹할 수 있는 공간이 있으면 학습 효율이 크게 향상될 수 있습니다.
   하지만 부트캠프 자체에서는 충분한 소통 기회를 제공하지 못할 수 있기 때문에, 이를 보완할 수 있는 서비스가 필요합니다.
 
 - 시간 관리와 생활의 불편함
 
-  : 바쁜 교육 일정 속에서 식사 해결이나 동료와의 정보 공유는 귀찮게 느껴질 수 있습니다.
+   바쁜 교육 일정 속에서 식사 해결이나 동료와의 정보 공유는 귀찮게 느껴질 수 있습니다.
   이 서비스는 맛집 추천이나 배달 팟 모집 기능을 통해, 학습 외의 불편함을 최소화하면서 동료와 자연스럽게 교류하고,
   함께 배달을 시켜 시간과 비용을 절감할 수 있도록 도와줍니다.
 
 - 심리적 지원과 소통의 필요
 
-  : 부트캠프는 정신적으로나 육체적으로 매우 부담이 큰 과정입니다.
+   부트캠프는 정신적으로나 육체적으로 매우 부담이 큰 과정입니다.
   익명으로 고민을 나누고, 다른 교육생들과 쉽게 소통할 수 있는 안전한 공간이 없다면, 심리적 부담은 더욱 커질 수 있습니다.
   이를 해소할 수 있는 익명 게시판과 실시간을 제공해 소통을 활성화하고 심리적 지지를 받을 수 있도록 합니다.
 
 - 효율적인 정보 공유
 
-  : 부트캠프에서는 빠른 정보 공유가 학습의 질을 높일 수 있습니다.
+   부트캠프에서는 빠른 정보 공유가 학습의 질을 높일 수 있습니다.
   새로운 학습 자료, 유용한 사이트, 꿀팁 등이 있을 때, 동료들과 정보를 신속하게 공유하고 토론할 수 있는 공간이 필요합니다.
   이 서비스의 게시판과 기능을 통해 교육생들은 자신의 경험과 학습 방법을 쉽게 나누고, 최신 정보를 신속하게 공유할 수 있습니다.
 
@@ -65,19 +65,19 @@
 ## 💡 ITTA-BAB의 경쟁력
 
 - 동료 간의 자연스러운 네트워킹을 촉진
-  : 부트캠프의 중요한 자산은 같은 목표를 가진 동료들입니다. 하지만 동료들과의 자연스러운 소통 기회가 부족할 때
+   부트캠프의 중요한 자산은 같은 목표를 가진 동료들입니다. 하지만 동료들과의 자연스러운 소통 기회가 부족할 때
   , 이 서비스가 이를 보완하여 음식, 배달, 정보 공유 등의 활동을 통해 교육생 간의 협력과 네트워킹을 촉진하고자 했습니다.
 
 - 효율적인 시간 관리와 생활 편의성을 제공
-  : 식사 문제나 생활 속 소소한 고민을 해결하기 위해 시간을 쏟는 대신, 배달 팟 모집이나 맛집 추천 기능을 통해 시간을 절약하고 편리하게 생활할 수 있도록 돕습니다.
+   식사 문제나 생활 속 소소한 고민을 해결하기 위해 시간을 쏟는 대신, 배달 팟 모집이나 맛집 추천 기능을 통해 시간을 절약하고 편리하게 생활할 수 있도록 돕습니다.
   또한, 다양한 정보 공유 기능으로 서로 도움을 주고받으며 학습 시간을 최대한 확보할 수 있습니다
 
 - 심리적 스트레스 해소와 커뮤니티 형성
-  : 익명 게시판을 통해 교육생들이 마음속 고민을 털어놓고, 서로의 경험을 공유하며 심리적 지지를 받을 수 있는 커뮤니티를 제공합니다.
+   익명 게시판을 통해 교육생들이 마음속 고민을 털어놓고, 서로의 경험을 공유하며 심리적 지지를 받을 수 있는 커뮤니티를 제공합니다.
   이는 학습 과정에서 생기는 스트레스 해소에도 중요한 역할을 할 것입니다.
 
 - 정보 공유의 효율성
-  : 학습 중에 발견한 유용한 자료나 성공적인 학습 방법을 빠르게 동료들과 공유하는 것이 중요합니다.
+   학습 중에 발견한 유용한 자료나 성공적인 학습 방법을 빠르게 동료들과 공유하는 것이 중요합니다.
    게시판과 채팅 기능을 통해 교육생들이 서로 팁과 정보를 신속히 공유하고, 실시간으로 질문하고 답변을 주고받을 수 있습니다.
    이를 통해 협력적 학습 환경이 조성됩니다.
 
@@ -122,6 +122,7 @@
 ![MSA 아키텍처 구조도](/readmepic/MSA.png)
 
 <hr>
+
 ## 📌 주요 기능
 
 <details>
@@ -133,13 +134,16 @@
 
 ![](/readmepic/primary/email_swagger.png)
 > 사용자가 이메일 입력 후 인증 요청을 보낸다.
+
 ![](/readmepic/primary/redis_cmd.png)
-> > 서버는 인증 코드를 생성하여 Redis에 저장하고, 이때 TTL(Time-to-Live) 설정(5분)을 통해 인증 코드가 일정 시간이 지나면 자동으로 만료되도록 한다.
+> 서버는 인증 코드를 생성하여 Redis에 저장하고, 이때 TTL(Time-to-Live) 설정(5분)을 통해 인증 코드가 일정 시간이 지나면 자동으로 만료되도록 한다.
+
 ![](/readmepic/primary/email.png)
 > Redis에 저장된 인증 코드는 이메일로 전송되며, 사용자는 받은 코드를 입력해 인증을 진행한다.
+
 ![](/readmepic/primary/empty.png)
 > 인증을 한 후 인증 코드가 Redis에 삭제된 것을 확인할 수 있다.
-> 5분이 자도 자동으로 삭제 된 것을 확인 할 수 있다.
+>  5분이 지나도 자동으로 삭제 된 것을 확인 할 수 있다.
 </details>
 <br>
 <details>
@@ -149,7 +153,8 @@
 <details>
 <summary><strong>채팅 서비스</strong></summary>
 
-![](/readmepic/primary/chat.png)
+![](/readmepic/primary/chat-test.png)
+> 856(왼쪽) 유저가 보낸 값을 602(오른쪽)에서 확인 가능하다.
 </details>
 
 
@@ -163,7 +168,7 @@
 </details>
 
 <details>
-<summary><strong>좋아요 수</strong></summary>
+<summary><strong>좋아요 개수</strong></summary>
 
 ![](/readmepic/good/goodCount.png)
 </details>
@@ -182,12 +187,12 @@
 
 ### 📗 문의
 <details>
-<summary><strong>문의 등록(사용자)</strong></summary>
+<summary><strong>문의 등록</strong></summary>
 
 ![](/readmepic/inquiry/inquirySave.png)
 </details>
 <details>
-<summary><strong>문의 리스트(사용자)</strong></summary>
+<summary><strong>문의 리스트</strong></summary>
 
 ![](/readmepic/inquiry/inquiryUserList.png)
 </details>
@@ -204,7 +209,7 @@
 
 ### 📗 신고
 <details>
-<summary><strong>신고 등록(사용자)</strong></summary>
+<summary><strong>신고 등록</strong></summary>
 
 ![](/readmepic/report/reportUserSave.png)
 </details>
@@ -221,54 +226,54 @@
 
 ### 📗 일정
 <details>
-<summary><strong>일정 등록(사용자)</strong></summary>
+<summary><strong>일정 등록</strong></summary>
 
 ![](/readmepic/schedule/scheduleSave.png)
 </details>
 <details>
-<summary><strong>일정 수정(사용자)</strong></summary>
+<summary><strong>일정 수정</strong></summary>
 
 ![](/readmepic/schedule/scheduleModify.png)
 </details>
 <details>
-<summary><strong>일정 리스트(사용자)</strong></summary>
+<summary><strong>일정 리스트</strong></summary>
 
 ![](/readmepic/schedule/scheduleList.png)
 </details>
 <details>
-<summary><strong>일정 삭제(사용자)</strong></summary>
+<summary><strong>일정 삭제</strong></summary>
 
 ![](/readmepic/schedule/scheduleDelete.png)
 </details>
 
 ### 📕 그룹
 <details>
-<summary><strong>체팅 전송(사용자)</strong></summary>
+<summary><strong>체팅 전송</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004255920.png)
 </details>
 <details>
-<summary><strong>모임 댓글 조회(사용자)</strong></summary>
+<summary><strong>모임 댓글 조회</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004341510.png)
 </details>
 <details>
-<summary><strong>모임 상세 조회(사용자)</strong></summary>
+<summary><strong>모임 상세 조회</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004358652.png)
 </details>
 <details>
-<summary><strong>모임 삭제(사용자(작성자), 관리자)</strong></summary>
+<summary><strong>모임 삭제(작성자, 관리자)</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004411221.png)
 </details>
 <details>
-<summary><strong>전체 모임 조회(사용자)</strong></summary>
+<summary><strong>전체 모임 조회</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004428230.png)
 </details>
 <details>
-<summary><strong>모임 참여(사용자)</strong></summary>
+<summary><strong>모임 참여</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004444642.png)
 </details>
@@ -327,117 +332,163 @@
 
 ### 📙 가게
 <details>
-<summary><strong>메뉴 삭제(관리자)</strong></summary>
+<summary><strong>카테고리</strong></summary>
 
-![](/readmepic/store/AdminMenuDelete.png)
+<details>
+<summary><strong>카테고리 수정</strong></summary>
+
+![](/readmepic/store/storeCategoryModify.png)
 </details>
 <details>
-<summary><strong>주문 메뉴 삭제(관리자)</strong></summary>
+<summary><strong>카테고리 등록</strong></summary>
 
-![](/readmepic/store/AdminOrderMenuDelete.png)
+![](/readmepic/store/storeCategorySave.png)
 </details>
+<details>
+<summary><strong>카테고리 전체 조회</strong></summary>
+
+![](/readmepic/store/storeCategoryTotalList.png)
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>가게</strong></summary>
+
 <details>
 <summary><strong>가게 삭제(관리자)</strong></summary>
 
 ![](/readmepic/store/AdminStoreDelete.png)
 </details>
 <details>
-<summary><strong>리뷰 수정(사용자)</strong></summary>
-
-![](/readmepic/store/reviewModify.png)
-</details>
-<details>
-<summary><strong>리뷰 작성(사용자)</strong></summary>
-
-![](/readmepic/store/reviewSave.png)
-</details>
-<details>
-<summary><strong>리뷰 전체 리스트(사용자)</strong></summary>
-
-![](/readmepic/store/reviewStoreTotalList.png)
-</details>
-<details>
-<summary><strong>카테고리 수정(사용자)</strong></summary>
-
-![](/readmepic/store/storeCategoryModify.png)
-</details>
-<details>
-<summary><strong>카테고리 등록(사용자)</strong></summary>
-
-![](/readmepic/store/storeCategorySave.png)
-</details>
-<details>
-<summary><strong>카테고리 전체 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeCategoryTotalList.png)
-</details>
-<details>
-<summary><strong>즐겨찾기 상세 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeFavoritDetail.png)
-</details>
-<details>
-<summary><strong>즐겨찾기 삭제(사용자)</strong></summary>
-
-![](/readmepic/store/storeFavoriteDelete.png)
-</details>
-<details>
-<summary><strong>즐겨찾기 등록(사용자)</strong></summary>
-
-![](/readmepic/store/storeFavoritSave.png)
-</details>
-<details>
-<summary><strong>즐겨찾기 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeFavoritTotalList.png)
-</details>
-<details>
-<summary><strong>메뉴 수정(사용자)</strong></summary>
-
-![](/readmepic/store/storeMenuModify.png)
-</details>
-<details>
-<summary><strong>메뉴 인기순 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeMenuPopularList.png)
-</details>
-<details>
-<summary><strong>메뉴 등록(사용자)</strong></summary>
-
-![](/readmepic/store/storeMenuSave.png)
-</details>
-<details>
-<summary><strong>메뉴 전체 리스트(사용자)</strong></summary>
-
-![](/readmepic/store/storeMenuTotalList.png)
-</details>
-<details>
-<summary><strong>가게 수정(사용자)</strong></summary>
+<summary><strong>가게 수정</strong></summary>
 
 ![](/readmepic/store/storeModify.png)
 </details>
 <details>
-<summary><strong>주문 메뉴 전체 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeOrderList.png)
-</details>
-<details>
-<summary><strong>주문 메뉴 등록(사용자)</strong></summary>
-
-![](/readmepic/store/storeOrderSave.png)
-</details>
-<details>
-<summary><strong>특정 가게 주문 메뉴 조회(사용자)</strong></summary>
-
-![](/readmepic/store/storeOrderSomeList.png)
-</details>
-<details>
-<summary><strong>가게 인기 많은 순 조회(사용자)</strong></summary>
+<summary><strong>가게 인기 많은 순 조회</strong></summary>
 
 ![](/readmepic/store/storePopularList.png)
 </details>
 <details>
-<summary><strong>가게 등록(사용자)</strong></summary>
+<summary><strong>가게 등록</strong></summary>
 
 ![](/readmepic/store/storeSave.png)
 </details>
+</details>
+
+---
+
+<details>
+<summary><strong>메뉴</strong></summary>
+
+<details>
+<summary><strong>메뉴 삭제(관리자)</strong></summary>
+
+![](/readmepic/store/AdminMenuDelete.png)
+</details>
+<details>
+<summary><strong>메뉴 수정</strong></summary>
+
+![](/readmepic/store/storeMenuModify.png)
+</details>
+<details>
+<summary><strong>메뉴 인기순 조회</strong></summary>
+
+![](/readmepic/store/storeMenuPopularList.png)
+</details>
+<details>
+<summary><strong>메뉴 등록</strong></summary>
+
+![](/readmepic/store/storeMenuSave.png)
+</details>
+<details>
+<summary><strong>메뉴 전체 리스트</strong></summary>
+
+![](/readmepic/store/storeMenuTotalList.png)
+</details>
+
+</details>
+
+---
+
+<details>
+<summary><strong>주문 메뉴</strong></summary>
+
+<details>
+<summary><strong>주문 메뉴 삭제(관리자)</strong></summary>
+
+![](/readmepic/store/AdminOrderMenuDelete.png)
+</details>
+<details>
+<summary><strong>주문 메뉴 전체 조회</strong></summary>
+
+![](/readmepic/store/storeOrderList.png)
+</details>
+<details>
+<summary><strong>주문 메뉴 등록</strong></summary>
+
+![](/readmepic/store/storeOrderSave.png)
+</details>
+<details>
+<summary><strong>특정 가게 주문 메뉴 조회</strong></summary>
+
+![](/readmepic/store/storeOrderSomeList.png)
+</details>
+
+
+</details>
+
+---
+
+<details>
+<summary><strong>리뷰</strong></summary>
+
+
+<details>
+<summary><strong>리뷰 수정</strong></summary>
+
+![](/readmepic/store/reviewModify.png)
+</details>
+<details>
+<summary><strong>리뷰 작성</strong></summary>
+
+![](/readmepic/store/reviewSave.png)
+</details>
+<details>
+<summary><strong>리뷰 전체 리스트</strong></summary>
+
+![](/readmepic/store/reviewStoreTotalList.png)
+</details>
+
+</details>
+
+---
+<details>
+<summary><strong>즐겨찾기</strong></summary>
+
+<details>
+<summary><strong>즐겨찾기 상세 조회</strong></summary>
+
+![](/readmepic/store/storeFavoritDetail.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 삭제</strong></summary>
+
+![](/readmepic/store/storeFavoriteDelete.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 등록</strong></summary>
+
+![](/readmepic/store/storeFavoritSave.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 조회</strong></summary>
+
+![](/readmepic/store/storeFavoritTotalList.png)
+</details>
+
+</details>
+
+
