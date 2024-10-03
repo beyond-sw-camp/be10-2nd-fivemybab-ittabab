@@ -23,4 +23,6 @@ public class CustomUserDetails extends User {
     public Long getCourseId() {
         return courseId;
     }
+
+
 }

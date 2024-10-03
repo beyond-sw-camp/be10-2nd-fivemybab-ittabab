@@ -16,4 +16,5 @@ public interface PostQueryMapper {
 
     // 좋아요가 가장 적은 게시물 목록 조회
     List<PostQueryDto> selectPostsByLikesAsc(Long courseId);
+
 }

@@ -18,4 +18,5 @@ public class PostQueryDto {
     private boolean isBlinded; // 블라인드 여부
     private LocalDateTime createdAt;  // 생성일
     private String memberName; // 게시물 작성자 이름
+
 }
