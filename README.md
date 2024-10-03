@@ -124,10 +124,16 @@
 <br>
 <details>
 <summary><strong>Redis를 이용한 이메일 인증</strong></summary>
-</details>
-<br>
-<details>
-<summary><strong>채팅 서비스</strong></summary>
+
+![](/readmepic/primary/email_swagger.png)
+> 사용자가 이메일 입력 후 인증 요청을 보낸다.
+![](/readmepic/primary/redis_cmd.png)
+> > 서버는 인증 코드를 생성하여 Redis에 저장하고, 이때 TTL(Time-to-Live) 설정(5분)을 통해 인증 코드가 일정 시간이 지나면 자동으로 만료되도록 한다.
+![](/readmepic/primary/email.png)
+> Redis에 저장된 인증 코드는 이메일로 전송되며, 사용자는 받은 코드를 입력해 인증을 진행한다.
+![](/readmepic/primary/empty.png)
+> 인증을 한 후 인증 코드가 Redis에 삭제된 것을 확인할 수 있다.
+> 5분이 자도 자동으로 삭제 된 것을 확인 할 수 있다.
 </details>
 <br>
 <details>
@@ -136,12 +142,14 @@
 <br>
 <details>
 <summary><strong>채팅 서비스</strong></summary>
+
+![](/readmepic/primary/chat.png)
 </details>
 
 
-## ✨ 기능 테스트 및 시연
+## 📚 기능 테스트 및 시연
 
-### 좋아요
+### 📗 좋아요
 <details>
 <summary><strong>좋아요 등록</strong></summary>
 
@@ -159,14 +167,14 @@
 ![](/readmepic/good/goodDelete.png)
 </details>
 
-### 사진
+### 📗 사진
 <details>
 <summary><strong>사진 등록</strong></summary>
 
 ![](/readmepic/picture/pictureSave.png)
 </details>
 
-### 문의
+### 📗 문의
 <details>
 <summary><strong>문의 등록(사용자)</strong></summary>
 
@@ -188,7 +196,7 @@
 ![](/readmepic/inquiry/inquiryAdminList.png)
 </details>
 
-### 신고
+### 📗 신고
 <details>
 <summary><strong>신고 등록(사용자)</strong></summary>
 
@@ -205,7 +213,7 @@
 ![](/readmepic/report/reportAdminList.png)
 </details>
 
-### 일정
+### 📗 일정
 <details>
 <summary><strong>일정 등록(사용자)</strong></summary>
 
@@ -227,7 +235,7 @@
 ![](/readmepic/schedule/scheduleDelete.png)
 </details>
 
-### 그룹
+### 📕 그룹
 <details>
 <summary><strong>체팅 전송(사용자)</strong></summary>
 
@@ -244,12 +252,12 @@
 ![](/readmepic/group/KakaoTalk_20241004_004358652.png)
 </details>
 <details>
-<summary><strong>모임 삭제(사용자(작성자) 관리자)</strong></summary>
+<summary><strong>모임 삭제(사용자(작성자), 관리자)</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004411221.png)
 </details>
 <details>
-<summary><strong>전체 모임 조회(관리자)</strong></summary>
+<summary><strong>전체 모임 조회(사용자)</strong></summary>
 
 ![](/readmepic/group/KakaoTalk_20241004_004428230.png)
 </details>
@@ -259,7 +267,7 @@
 ![](/readmepic/group/KakaoTalk_20241004_004444642.png)
 </details>
 
-### 게시판
+### 📘 게시판
 <details>
 <summary><strong>게시판 댓글 삭제</strong></summary>
 
@@ -309,4 +317,121 @@
 <summary><strong>게시판 등록</strong></summary>
 
 ![](/readmepic/post/postSave.png)
+</details>
+
+### 📙 가게
+<details>
+<summary><strong>메뉴 삭제(관리자)</strong></summary>
+
+![](/readmepic/store/AdminMenuDelete.png)
+</details>
+<details>
+<summary><strong>주문 메뉴 삭제(관리자)</strong></summary>
+
+![](/readmepic/store/AdminOrderMenuDelete.png)
+</details>
+<details>
+<summary><strong>가게 삭제(관리자)</strong></summary>
+
+![](/readmepic/store/AdminStoreDelete.png)
+</details>
+<details>
+<summary><strong>리뷰 수정(사용자)</strong></summary>
+
+![](/readmepic/store/reviewModify.png)
+</details>
+<details>
+<summary><strong>리뷰 작성(사용자)</strong></summary>
+
+![](/readmepic/store/reviewSave.png)
+</details>
+<details>
+<summary><strong>리뷰 전체 리스트(사용자)</strong></summary>
+
+![](/readmepic/store/reviewStoreTotalList.png)
+</details>
+<details>
+<summary><strong>카테고리 수정(사용자)</strong></summary>
+
+![](/readmepic/store/storeCategoryModify.png)
+</details>
+<details>
+<summary><strong>카테고리 등록(사용자)</strong></summary>
+
+![](/readmepic/store/storeCategorySave.png)
+</details>
+<details>
+<summary><strong>카테고리 전체 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeCategoryTotalList.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 상세 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeFavoritDetail.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 삭제(사용자)</strong></summary>
+
+![](/readmepic/store/storeFavoriteDelete.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 등록(사용자)</strong></summary>
+
+![](/readmepic/store/storeFavoritSave.png)
+</details>
+<details>
+<summary><strong>즐겨찾기 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeFavoritTotalList.png)
+</details>
+<details>
+<summary><strong>메뉴 수정(사용자)</strong></summary>
+
+![](/readmepic/store/storeMenuModify.png)
+</details>
+<details>
+<summary><strong>메뉴 인기순 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeMenuPopularList.png)
+</details>
+<details>
+<summary><strong>메뉴 등록(사용자)</strong></summary>
+
+![](/readmepic/store/storeMenuSave.png)
+</details>
+<details>
+<summary><strong>메뉴 전체 리스트(사용자)</strong></summary>
+
+![](/readmepic/store/storeMenuTotalList.png)
+</details>
+<details>
+<summary><strong>가게 수정(사용자)</strong></summary>
+
+![](/readmepic/store/storeModify.png)
+</details>
+<details>
+<summary><strong>주문 메뉴 전체 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeOrderList.png)
+</details>
+<details>
+<summary><strong>주문 메뉴 등록(사용자)</strong></summary>
+
+![](/readmepic/store/storeOrderSave.png)
+</details>
+<details>
+<summary><strong>특정 가게 주문 메뉴 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storeOrderSomeList.png)
+</details>
+<details>
+<summary><strong>가게 인기 많은 순 조회(사용자)</strong></summary>
+
+![](/readmepic/store/storePopularList.png)
+</details>
+<details>
+<summary><strong>가게 등록(사용자)</strong></summary>
+
+![](/readmepic/store/storeSave.png)
 </details>
