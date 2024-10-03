@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/group")
@@ -44,13 +45,15 @@ public class GroupInfoCommandController {
     @PostMapping
     public ResponseEntity<String> registGroup(
             @RequestBody GroupInfoDto newGroupInfo,
-            @AuthenticationPrincipal CustomUserDetails loginUser) {
-
+            @AuthenticationPrincipal CustomUserDetails loginUser
+    ) {
+        System.out.println("123");
         Long userId = loginUser.getUserId();
-
+        System.out.println("userId = " + userId);
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } else {
+            System.out.println("userId = " + userId);
             newGroupInfo.setUserId(userId);
             newGroupInfo.setCreateDate(LocalDateTime.now());
             groupService.registGroup(loginUser.getUserId(), newGroupInfo);
@@ -78,7 +81,7 @@ public class GroupInfoCommandController {
         GroupInfoDto foundGroupInfo = groupService.findGroupByGroupId(groupId);
 
         System.out.println("foundGroupInfo = " + foundGroupInfo);
-        
+
         if (foundGroupInfo == null) {
             // 모임이 존재하지 않는 경우
             return new ResponseEntity<>("그런 모임은 없습니다.", HttpStatus.OK);
@@ -190,7 +193,8 @@ public class GroupInfoCommandController {
             Long groupId
     ) {
         Long creatorId = groupService.findGroupByGroupId(groupId).getUserId();
+        System.out.println("creatorId = " + creatorId);
 
-        return creatorId == modelMapper.map(loginUser.getUserId(), UserDto.class).getUserId();
+        return creatorId == loginUser.getUserId();
     }
 }
