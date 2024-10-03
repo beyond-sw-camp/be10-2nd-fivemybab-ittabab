@@ -22,6 +22,7 @@ public class UserCommandController {
     private final UserCommandService userCommandService;
 
     /* 이메일 인증 */
+    @Operation(summary = "이메일 인증")
     @PostMapping("/signup-request")
     public ResponseEntity<String> signupRequest(@RequestBody MailRequestDto mailRequestDto) {
 

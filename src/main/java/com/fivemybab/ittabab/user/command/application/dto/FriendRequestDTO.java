@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class FriendRequestDTO {
 
-    private Long fromUserId;
     private Long toUserId;
 }
