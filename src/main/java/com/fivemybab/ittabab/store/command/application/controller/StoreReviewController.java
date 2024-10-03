@@ -1,5 +1,7 @@
 package com.fivemybab.ittabab.store.command.application.controller;
 
+import com.fivemybab.ittabab.exception.NotFoundException;
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import com.fivemybab.ittabab.store.command.application.dto.CreateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.dto.UpdateStoreReviewDto;
 import com.fivemybab.ittabab.store.command.application.service.StoreReviewService;
@@ -8,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,18 +25,32 @@ public class StoreReviewController {
     /* 가게 리뷰 등록하기 */
     @Operation(summary = "리뷰 등록")
     @PostMapping
-    public ResponseEntity<CreateStoreReviewDto> registStoreReview(@RequestBody CreateStoreReviewDto createStoreReviewDto) {
-        storeReviewService.registStoreReview(createStoreReviewDto);
-        return new ResponseEntity<>(createStoreReviewDto, HttpStatus.CREATED);
+    public ResponseEntity<String> registStoreReview(@RequestBody CreateStoreReviewDto createStoreReviewDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
+
+
+        // 로그인되지 않았거나, userId가 null인 경우 예외 처리
+        if (loginUser == null || loginUser.getUserId() == null) {
+            throw new NotFoundException("로그인이 필요합니다.");
+        }
+
+        Long userId = loginUser.getUserId();
+        storeReviewService.registStoreReview(createStoreReviewDto, userId);
+        return new ResponseEntity<>("리뷰 등록 완료", HttpStatus.CREATED);
     }
 
     /* 가게 리뷰 수정하기 */
     @Operation(summary = "리뷰 수정")
-    @PutMapping("/{reviewId}")
-    public ResponseEntity<Void> updateStoreReview(@PathVariable Long reviewId, @RequestBody UpdateStoreReviewDto updateStoreReviewDTO) {
+    @PutMapping
+    public ResponseEntity<String> updateStoreReview(@RequestBody UpdateStoreReviewDto updateStoreReviewDTO, @AuthenticationPrincipal CustomUserDetails loginUser) {
 
-        storeReviewService.updateStoreReview(reviewId, updateStoreReviewDTO);
-        return ResponseEntity.noContent().build();
+        // 로그인되지 않았거나, userId가 null인 경우 예외 처리
+        if (loginUser == null || loginUser.getUserId() == null) {
+            throw new NotFoundException("로그인이 필요합니다.");
+        }
+
+        Long userId = loginUser.getUserId();
+        storeReviewService.updateStoreReview(userId ,updateStoreReviewDTO);
+        return new ResponseEntity<>("리뷰 수정 완료", HttpStatus.OK);
     }
 
     /* 가게 리뷰 삭제하기 */

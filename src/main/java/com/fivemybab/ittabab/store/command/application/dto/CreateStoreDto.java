@@ -19,7 +19,6 @@ public class CreateStoreDto {
     private String storeWeek;
     private String storeInfo;
     private StoreStatus storeStatus;
-    private Long userId;
 
 }
 

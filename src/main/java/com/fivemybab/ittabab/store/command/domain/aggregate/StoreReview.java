@@ -25,6 +25,8 @@ public class StoreReview {
     private LocalDateTime updateDate;
     private boolean isBlinded;
 
+    public void setUserId(Long userId) { this.userId = userId; }
+
     public void modifyStoreReviewContent(String newReviewContent) {
         this.reviewContent = newReviewContent;
     }
