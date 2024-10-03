@@ -7,7 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreatePostCommentDto {
-    private Long postId;       // 댓글이 달릴 게시글 ID
-    private Long userId;       // 댓글 작성자 ID
+    private Long postId;          // 댓글이 달릴 게시글 ID
     private String commentContent; // 댓글 내용
+
+    public String getContent() {
+        return commentContent;
+    }
 }

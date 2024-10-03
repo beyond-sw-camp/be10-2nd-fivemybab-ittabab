@@ -16,20 +16,15 @@ public class PostCommentCommandService {
 
     // 댓글 생성 (C)
     @Transactional
-    public PostComment createComment(CreatePostCommentDto createPostCommentDto) {
-        // 필수 필드 검증
-        if (createPostCommentDto.getPostId() == null || createPostCommentDto.getUserId() == null ||
-                createPostCommentDto.getCommentContent() == null || createPostCommentDto.getCommentContent().isEmpty()) {
-            throw new IllegalArgumentException("댓글 내용과 게시글 ID, 사용자 ID는 필수입니다.");
-        }
-
+    public void createPostComment(CreatePostCommentDto createPostCommentDto, Long userId) {
         PostComment postComment = PostComment.builder()
                 .postId(createPostCommentDto.getPostId())
-                .userId(createPostCommentDto.getUserId())
+                .userId(userId)
                 .commentContent(createPostCommentDto.getCommentContent())
-                .isBlinded(false) // 기본 값 설정
+                .isBlinded(false)
                 .build();
-        return postCommentRepository.save(postComment);
+
+        postCommentRepository.save(postComment);
     }
 
     // 댓글 수정 (U)

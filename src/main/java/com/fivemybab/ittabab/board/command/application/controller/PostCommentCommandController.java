@@ -6,10 +6,13 @@ import com.fivemybab.ittabab.board.command.application.dto.UpdatePostCommentDto;
 import com.fivemybab.ittabab.board.command.application.service.PostCommentCommandService;
 import com.fivemybab.ittabab.board.command.domain.aggregate.PostComment;
 
+import com.fivemybab.ittabab.security.util.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,11 +24,11 @@ public class PostCommentCommandController {
     private final PostCommentCommandService postCommentCommandService;
 
     // 댓글 생성
+    @Operation(summary = "댓글 등록")
     @PostMapping
-    @Operation(summary = "댓글 등록", description = "댓글을 등록합니다.")
-    public ResponseEntity<PostComment> createComment(@RequestBody CreatePostCommentDto createPostCommentDto) {
-        PostComment createdComment = postCommentCommandService.createComment(createPostCommentDto);
-        return ResponseEntity.ok(createdComment);
+    public ResponseEntity<Void> createPostComment(@RequestBody CreatePostCommentDto createPostCommentDto, @AuthenticationPrincipal CustomUserDetails loginUser) {
+        postCommentCommandService.createPostComment(createPostCommentDto, loginUser.getUserId());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // 댓글 수정
