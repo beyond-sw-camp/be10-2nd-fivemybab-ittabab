@@ -35,17 +35,17 @@ public class StoreFavoriteService {
 
     /* 가게 즐겨찾기 삭제 */
     @Transactional
-    public void deleteStoreFavorite(Long favoriteId, Long storeId, Long userId) {
+    public void deleteStoreFavorite(Long storeId, Long userId) {
 
         // 즐겨찾기와 가게 번호가 일치하는지 확인
-        if (!repository.existsByFavoriteIdAndStoreId(favoriteId ,storeId)) {
+        if (!repository.existsByStoreId(storeId)) {
             throw new NotFoundException("해당 가게의 즐겨찾기가 존재하지 않습니다.");
         }
 
 
         // 본인의 가게 즐겨찾기가 아닐 경우 예외 발생
-        StoreFavorite storeFavorite = repository.deleteByFavoriteIdAndUserId(favoriteId, userId)
-                .orElseThrow(() -> new IllegalArgumentException("타인의 가게 즐겨찾기는 삭제할 수 없습니다."));
+        StoreFavorite storeFavorite = repository.findByStoreIdAndUserId(storeId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게의 즐겨찾기가 존재하지 않습니다."));
 
         // 즐겨찾기 삭제
         repository.delete(storeFavorite);

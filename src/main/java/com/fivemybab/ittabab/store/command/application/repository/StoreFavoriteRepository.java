@@ -9,8 +9,9 @@ public interface StoreFavoriteRepository extends JpaRepository<StoreFavorite, Lo
 
     boolean existsByUserIdAndStoreId(Long userId, Long storeId);
 
-    Optional<StoreFavorite> deleteByFavoriteIdAndUserId(Long favoriteId, Long userId);
+    Optional<StoreFavorite> findByStoreIdAndUserId(Long storeId, Long userId);
 
-    boolean existsByFavoriteIdAndStoreId(Long favoriteId, Long storeId);
+    boolean existsByStoreId(Long storeId);
+
 
 }

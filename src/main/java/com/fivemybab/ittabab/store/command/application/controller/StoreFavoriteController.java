@@ -38,7 +38,7 @@ public class StoreFavoriteController {
     /* 가게 즐겨찾기 삭제하기 */
     @Operation(summary = "즐겨찾기 삭제")
     @DeleteMapping("/{storeId}")
-    public ResponseEntity<String> DeleteStoreFavorite(@RequestParam Long favoriteId, @PathVariable Long storeId,
+    public ResponseEntity<String> DeleteStoreFavorite(@PathVariable Long storeId,
     @AuthenticationPrincipal CustomUserDetails loginUser)
     {
 
@@ -47,7 +47,7 @@ public class StoreFavoriteController {
         }
 
         Long userId = loginUser.getUserId();
-        storeFavoriteService.deleteStoreFavorite(favoriteId, storeId, userId);
+        storeFavoriteService.deleteStoreFavorite(storeId, userId);
 
         return new ResponseEntity<>("가게 즐겨찾기 삭제 완료", HttpStatus.NO_CONTENT);
     }
