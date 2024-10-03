@@ -10,5 +10,5 @@ import lombok.ToString;
 public class CreateBootCampRequest {
 
     private String bootName;
-    private String bootLocation;
+    private String address;
 }

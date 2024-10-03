@@ -11,7 +11,6 @@ public class BootCampDto {
 
     private Long bootId;
     private String bootName;
-    private String bootLocation;
+    private String address;
+
 }
-
-

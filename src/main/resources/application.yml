@@ -65,3 +65,12 @@ token:
 redis:
   host: localhost
   port: ${redis.port}
+
+google:
+  api-key: ${google.api.key}
+  map-api-url: ${google.map}
+
+naver:
+  client-id: ${naver.id}
+  secret-key: ${naver.secret}
+  geocoding-url: ${naver.geocoding}

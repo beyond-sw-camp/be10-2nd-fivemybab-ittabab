@@ -1,22 +1,37 @@
 package com.fivemybab.ittabab.user.command.application.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fivemybab.ittabab.config.redis.MailService;
 import com.fivemybab.ittabab.config.redis.RedisService;
+import com.fivemybab.ittabab.exception.NotFoundException;
 import com.fivemybab.ittabab.exception.ServerInternalException;
 import com.fivemybab.ittabab.user.command.application.dto.CreateUserRequest;
 import com.fivemybab.ittabab.user.command.application.dto.MailRequestDto;
 import com.fivemybab.ittabab.user.command.application.dto.UpdateUserRequest;
+import com.fivemybab.ittabab.user.command.domain.aggregate.BootCamp;
+import com.fivemybab.ittabab.user.command.domain.aggregate.Course;
 import com.fivemybab.ittabab.user.command.domain.aggregate.UserInfo;
+import com.fivemybab.ittabab.user.command.domain.repository.BootCampRepository;
+import com.fivemybab.ittabab.user.command.domain.repository.CourseRepository;
 import com.fivemybab.ittabab.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Duration;
@@ -30,12 +45,29 @@ public class UserCommandService {
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
+    private final BootCampRepository bootCampRepository;
     private final MailService mailService;
     private final RedisService redisService;
+    private final ObjectMapper objectMapper;
 
     private String AUTH_CODE_PREFIX = "AuthCode_";
     @Value("${spring.mail.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;
+
+    @Value("${google.api.key}")
+    private String googleApiKey;
+    @Value("${google.map-api-url}")
+    private String geolocationUrl;
+
+    @Value("${naver.client-id}")
+    private String clientId;
+    @Value("${naver.secret-key}")
+    private String clientSecret;
+    @Value("${naver.geocoding-url}")
+    private String geocodingUrl;
+
+    private final double allowedDistance = 0.5; // 허용 가능한 거리 (킬로미터 단위)
 
     @Transactional
     public void createUser(CreateUserRequest newUser) {
@@ -47,6 +79,22 @@ public class UserCommandService {
         EmailVerification(newUser.getEmail(), newUser.getAuthCode());
 
         // 위치 인증
+        Long courseId = user.getCourseId();
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new NotFoundException("훈련 과정을 찾을 수 없습니다. ID: " + courseId));
+
+        Long bootId = course.getBootId();
+        BootCamp bootCamp = bootCampRepository.findById(bootId)
+                .orElseThrow(() -> new NotFoundException("훈련 기관(bootcamp)을 찾을 수 없습니다. ID: " + bootId));
+
+        // 부캠 주소를 좌표로 변환
+        double[] location = getCoordinates(bootCamp.getAddress());
+
+        double targetLatitude = location[0];
+        double targetLongitude = location[1];
+
+        // 현재 위치가 해당 부캠에서 0.5km 안에 있는지 검증
+        currentLocationVerification(targetLatitude, targetLongitude);
 
         user.encryptPwd(passwordEncoder.encode(newUser.getPwd()));
         userRepository.save(user);
@@ -119,4 +167,117 @@ public class UserCommandService {
         }
     }
 
+    /* 현재 위치 구하기 */
+    public double[] getCurrentLocation(RestTemplate restTemplate) {
+
+        try {
+
+            // API 호출
+            JsonNode response = restTemplate.postForObject(geolocationUrl + googleApiKey, null, JsonNode.class);
+
+            double latitude = 0L;
+            double longitude = 0L;
+
+            if (response != null) {
+
+                // 좌표 추출
+                JsonNode location = response.path("location");
+                latitude = location.path("lat").asDouble();
+                longitude = location.path("lng").asDouble();
+            }
+
+            return new double[]{latitude, longitude};
+        } catch (Exception e) {
+            throw new ServerInternalException("현재 위치 구하던 중 에러 발생");
+        }
+    }
+
+    // Haversine 공식을 사용하여 두 좌표 간의 거리 계산
+    public static double haversine(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // 지구의 반지름 (킬로미터 단위)
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c; // 거리를 킬로미터로 변환
+
+        return distance; // 거리 반환
+    }
+
+    /* 현재 위치 검증 (등록한 훈련기관(bootcamp)의 위치와 0.5km 안에 있는 지 검증 */
+    public void currentLocationVerification(double targetLatitude, double targetLongitude) {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        double[] curLocations = getCurrentLocation(restTemplate);
+
+        double currentLatitude = curLocations[0];
+        double currentLongitude = curLocations[1];
+
+        System.out.println("현재 위치: 위도 " + currentLatitude + ", 경도 " + currentLongitude);
+        System.out.println("타겟 위치: 위도 " + targetLatitude + ", 경도 " + targetLongitude);
+
+        // 두 위치 간의 거리 계산
+        double distance = haversine(targetLatitude, targetLongitude, currentLatitude, currentLongitude);
+        System.out.println("현재 위치와 지정된 위치 간의 거리: " + distance + " km");
+
+        // 거리 검증
+        if (distance <= allowedDistance) {
+            System.out.println("현재 위치가 허용 범위 내에 있습니다.");
+        } else {
+            System.out.println("현재 위치가 허용 범위를 초과합니다.");
+            throw new IllegalArgumentException("현재 위치가 허용 범위를 초과합니다. 회원 가입이 불가합니다. ");
+        }
+
+    }
+
+    /* 주소를 받아 좌표를 반환 */
+    public double[] getCoordinates(String address) {
+
+        try {
+            String addr = URLEncoder.encode(address, StandardCharsets.UTF_8);
+            String apiUrl = geocodingUrl + addr;
+            URL url = new URL(apiUrl);
+
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("x-ncp-apigw-api-key-id", clientId);
+            con.setRequestProperty("x-ncp-apigw-api-key", clientSecret);
+
+            int responseCode = con.getResponseCode();
+
+            if (responseCode == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String inputLine;
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // JSON 파싱
+                JSONObject jsonObj = new JSONObject(response.toString());
+                JSONArray addresses = jsonObj.getJSONArray("addresses");
+
+                if (addresses.length() > 0) {
+                    JSONObject location = addresses.getJSONObject(0);
+                    double latitude = location.getDouble("y"); // 위도
+                    double longitude = location.getDouble("x"); // 경도
+                    return new double[]{latitude, longitude};
+                } else {
+                    throw new Exception("좌표 정보를 찾을 수 없습니다.");
+                }
+
+            } else {
+                throw new Exception("네이버 API 응답 오류: " + responseCode);
+            }
+
+        } catch (Exception e) {
+            throw new ServerInternalException("geocoding 중 에러 발생");
+        }
+    }
 }

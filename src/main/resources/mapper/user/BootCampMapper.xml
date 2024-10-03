@@ -7,7 +7,7 @@
     <resultMap id="BootCampDtoResultMap" type="com.fivemybab.ittabab.user.query.dto.BootCampDto">
         <result property="bootId" column="boot_id"/>
         <result property="bootName" column="boot_name"/>
-        <result property="bootLocation" column="boot_location"/>
+        <result property="address" column="address"/>
     </resultMap>
 
     <select id="findBootCampList" resultMap="BootCampDtoResultMap">

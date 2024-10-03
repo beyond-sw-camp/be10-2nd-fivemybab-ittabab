@@ -10,5 +10,5 @@ import lombok.ToString;
 public class UpdateBootCampRequest {
 
     private String bootName;
-    private String bootLocation;
+    private String address;
 }
