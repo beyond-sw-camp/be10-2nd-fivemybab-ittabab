@@ -16,13 +16,13 @@
 <br>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
   <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> 
-  <img src="https://img.shields.io/badge/redis-02303A?style=for-the-badge&logo=redis&logoColor=white">
+  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
 </p>
 
 <p><strong>⚙ DB <br></strong>
 <br>
   <img src="https://img.shields.io/badge/mariadb-4479A1?style=for-the-badge&logo=mariadb&logoColor=white">
+  <img src="https://img.shields.io/badge/redis-02303A?style=for-the-badge&logo=redis&logoColor=white">
 </p>
 
 <hr>
@@ -261,7 +261,52 @@
 
 ### 게시판
 <details>
-<summary><strong>체팅 전송(사용자)</strong></summary>
+<summary><strong>게시판 댓글 삭제</strong></summary>
 
-![](/readmepic/group/KakaoTalk_20241004_004255920.png)
+![](/readmepic/post/postCommentDelete.png)
+</details>
+<details>
+<summary><strong>게시판 댓글 수정</strong></summary>
+
+![](/readmepic/post/postCommentModify.png)
+</details>
+<details>
+<summary><strong>게시판 댓글 등록</strong></summary>
+
+![](/readmepic/post/postCommentSave.png)
+</details>
+<details>
+<summary><strong>게시판 삭제</strong></summary>
+
+![](/readmepic/post/postDelete.png)
+</details>
+<details>
+<summary><strong>게시판 리스트(댓글 많은 순)</strong></summary>
+
+![](/readmepic/post/postListCommandMany.png)
+</details>
+<details>
+<summary><strong>게시판 리스트(좋아요 오름차순)</strong></summary>
+
+![](/readmepic/post/postListLikeAsc.png)
+</details>
+<details>
+<summary><strong>게시판 리스트(좋아요 내림차순)</strong></summary>
+
+![](/readmepic/post/postListLikeDesc.png)
+</details>
+<details>
+<summary><strong>게시판 리스트(최신순)</strong></summary>
+
+![](/readmepic/post/postListRecent.png)
+</details>
+<details>
+<summary><strong>게시판 수정</strong></summary>
+
+![](/readmepic/post/postModify.png)
+</details>
+<details>
+<summary><strong>게시판 등록</strong></summary>
+
+![](/readmepic/post/postSave.png)
 </details>
