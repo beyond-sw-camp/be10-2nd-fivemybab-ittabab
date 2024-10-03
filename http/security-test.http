@@ -1,10 +1,10 @@
 ### 로그인
-POST localhost:8080/login
+POST localhost:8001/login
 Content-Type: application/json
 
 {
-  "loginId" : "test01",
-  "pwd" : "pass01"
+  "loginId" : "qaqa",
+  "pwd" : "qaqa"
 }
 
 ### 모임 목록 확인

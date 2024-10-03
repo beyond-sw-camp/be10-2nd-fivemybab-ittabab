@@ -11,21 +11,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PostQueryService {
 
     private final PostQueryMapper postQueryMapper;
-    private final UserMapper userMapper;
 
     /* 게시물 목록 조회 (최신순) */
     @Transactional(readOnly = true)
     public List<PostQueryDto> findPostsByTime(CustomUserDetails loginUser) throws NotFoundException {
-        Long courseId = userMapper.findByLoginId(loginUser.getUsername())
-                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."))
-                .getCourseId();
+        Long courseId = loginUser.getCourseId(); // CustomUserDetails에서 courseId 가져오기
 
         List<PostQueryDto> posts = postQueryMapper.selectPostsByTime(courseId);
 
@@ -39,9 +35,7 @@ public class PostQueryService {
     /* 게시물 목록 조회 (좋아요 내림차순) */
     @Transactional(readOnly = true)
     public List<PostQueryDto> findPostsByLikesDesc(CustomUserDetails loginUser) throws NotFoundException {
-        Long courseId = userMapper.findByLoginId(loginUser.getUsername())
-                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."))
-                .getCourseId();
+        Long courseId = loginUser.getCourseId(); // CustomUserDetails에서 courseId 가져오기
 
         List<PostQueryDto> posts = postQueryMapper.selectPostsByLikesDesc(courseId);
 
@@ -55,9 +49,7 @@ public class PostQueryService {
     /* 게시물 목록 조회 (좋아요 오름차순) */
     @Transactional(readOnly = true)
     public List<PostQueryDto> findPostsByLikesAsc(CustomUserDetails loginUser) throws NotFoundException {
-        Long courseId = userMapper.findByLoginId(loginUser.getUsername())
-                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."))
-                .getCourseId();
+        Long courseId = loginUser.getCourseId(); // CustomUserDetails에서 courseId 가져오기
 
         List<PostQueryDto> posts = postQueryMapper.selectPostsByLikesAsc(courseId);
 
@@ -67,6 +59,4 @@ public class PostQueryService {
 
         return posts;
     }
-
-
 }
