@@ -39,6 +39,7 @@ public class FriendCommandService {
         /* 위의 두 가지 모두의 경우가 아닐 경우
         * -> 상태 컬럼이 PENDING인 상태로 새로운 행을 저장한다. */
         Friend friend = modelMapper.map(friendRequest, Friend.class);
+        friend.modifyUserId(userId);
         friendRepository.save(friend);
     }
 
