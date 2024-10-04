@@ -22,4 +22,8 @@ public class Friend {
     public void modifyStatus(FriendStatus status) {
         this.friendStatus = status;
     }
+
+    public void modifyUserId(Long userId) {
+        this.fromUserId = userId;
+    }
 }

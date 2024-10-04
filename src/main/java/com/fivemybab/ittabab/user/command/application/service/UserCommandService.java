@@ -67,16 +67,13 @@ public class UserCommandService {
     @Value("${naver.geocoding-url}")
     private String geocodingUrl;
 
-    private final double allowedDistance = 0.5; // 허용 가능한 거리 (킬로미터 단위)
+    private final double allowedDistance = 1; // 허용 가능한 거리 (킬로미터 단위)
 
     @Transactional
     public void createUser(CreateUserRequest newUser) {
 
         // 넘어온 객체를 UserEntity로 변환
         UserInfo user = modelMapper.map(newUser, UserInfo.class);
-
-        // 이메일 인증 검증
-        EmailVerification(newUser.getEmail(), newUser.getAuthCode());
 
         // 위치 인증
         Long courseId = user.getCourseId();
@@ -95,6 +92,9 @@ public class UserCommandService {
 
         // 현재 위치가 해당 부캠에서 0.5km 안에 있는지 검증
         currentLocationVerification(targetLatitude, targetLongitude);
+
+        // 이메일 인증 검증
+        EmailVerification(newUser.getEmail(), newUser.getAuthCode());
 
         user.encryptPwd(passwordEncoder.encode(newUser.getPwd()));
         userRepository.save(user);
