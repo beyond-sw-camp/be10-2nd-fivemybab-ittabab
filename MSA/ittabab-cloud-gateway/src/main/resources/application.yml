@@ -1,0 +1,88 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway-server
+  config:
+    import: "classpath:bootstrap.yml"
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: store-service
+          uri: lb://STORE-SERVICE
+          predicates:
+            - Path=/store-service/**
+          filters:
+            - RewritePath=/store-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+        - id: group-service
+          uri: lb://GROUP-SERVICE
+          predicates:
+            - Path=/group-service/**
+          filters:
+            - RewritePath=/group-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+        - id: board-service
+          uri: lb://BOARD-SERVICE
+          predicates:
+            - Path=/board-service/**
+          filters:
+            - RewritePath=/board-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+        # Swagger UI ???
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+security:
+  ignored: /v3/api-docs/**, /swagger-ui/**, /swagger-ui.html
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - url: /v3/api-docs/user-service
+        name: User Service
+      - url: /v3/api-docs/store-service
+        name: Store Service
+      - url: /v3/api-docs/group-service
+        name: Group Service
+      - url: /v3/api-docs/board-service
+        name: Board Service
+    use-root-path: true
+    disable-swagger-default-url: true
+  api-docs:
+    enabled: true

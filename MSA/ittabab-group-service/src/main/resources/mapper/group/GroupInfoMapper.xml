@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.group.query.mapper.GroupInfoMapper">
+
+    <select id="findCourseIdByLoginId"
+            resultType="long">
+        SELECT course_id
+        FROM user_info
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findGroupByGroupStatus"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT
+        grp.group_id,
+        grp.group_category_id,
+        grp.user_id,
+        grp.group_title,
+        grp.user_counting,
+        grp.group_status,
+        grp.create_date,
+        grp.end_date,
+        grp.group_post,
+        grp.is_blinded,
+        grp.chat_room_status
+        FROM group_info AS grp
+        JOIN user_info AS usr ON usr.user_id = grp.user_id
+        WHERE grp.group_status = 1
+        AND usr.course_id = #{courseId}
+        ORDER BY grp.group_id DESC
+    </select>
+
+    <select id="findGroupByGroupId"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT *
+        FROM group_info
+        WHERE group_id = #{groupId}
+    </select>
+
+    <select id="findUserIdByLoginId"
+            resultType="long">
+        SELECT user_id
+        FROM user_info
+        WHERE login_id = #{loginUserLoginId}
+    </select>
+
+    <select id="findCurrentGroup"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT *
+        FROM group_info
+        ORDER BY create_date DESC
+        LIMIT 1;
+    </select>
+
+    <select id="findAllGroup"
+            resultType="com.fivemybab.ittabab.group.query.dto.GroupInfoDto">
+        SELECT *
+        FROM group_info
+    </select>
+
+</mapper>
