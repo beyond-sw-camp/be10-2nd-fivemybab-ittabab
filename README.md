@@ -197,7 +197,7 @@
 
 </details>
 
----
+
 
 <details>
 <summary><strong>훈련과정</strong></summary>
@@ -229,7 +229,7 @@
 </details>
 </details>
 
----
+
 
 <details>
 <summary><strong>회원</strong></summary>
@@ -256,7 +256,7 @@
 </details>
 </details>
 
----
+
 
 <details>
 <summary><strong>알림</strong></summary>
@@ -278,7 +278,7 @@
 </details>
 </details>
 
----
+
 
 <details>
 <summary><strong>친구</strong></summary>
@@ -507,7 +507,7 @@
 </details>
 </details>
 
----
+
 
 <details>
 <summary><strong>가게</strong></summary>
@@ -544,7 +544,7 @@
 </details>
 </details>
 
----
+
 
 <details>
 <summary><strong>메뉴</strong></summary>
@@ -582,7 +582,7 @@
 
 </details>
 
----
+
 
 <details>
 <summary><strong>주문 메뉴</strong></summary>
@@ -611,7 +611,7 @@
 
 </details>
 
----
+
 
 <details>
 <summary><strong>리뷰</strong></summary>
@@ -635,7 +635,7 @@
 
 </details>
 
----
+
 <details>
 <summary><strong>즐겨찾기</strong></summary>
 
