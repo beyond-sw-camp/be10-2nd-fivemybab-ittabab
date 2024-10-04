@@ -127,6 +127,11 @@
 
 <details>
 <summary><strong> 회원 가입 시 위치 기반 인증</strong></summary>
+
+![](/readmepic/primary/location-swagger.png)
+> 위치 기반으로 위도와, 경도를 받아와 오차 범위 내에 있으면 넘어간다.
+
+![](/readmepic/primary/location-log.png)
 </details>
 <br>
 <details>
@@ -148,6 +153,11 @@
 <br>
 <details>
 <summary><strong>로그인 시 token 발급</strong></summary>
+
+![](/readmepic/primary/login-test.png)
+> 로그인시 아래와 같은 토큰이 발급 된다.
+
+![](/readmepic/primary/token-cmd.png)
 </details>
 <br>
 <details>
@@ -159,6 +169,152 @@
 
 
 ## 📚 기능 테스트 및 시연
+
+### 📗 회원
+<details>
+<summary><strong>부트캠프(관리자)</strong></summary>
+
+<details>
+<summary><strong>부트캠프 등록</strong></summary>
+
+![](/readmepic/user/bootcampSave.png)
+</details>
+<details>
+<summary><strong>부트캠프 수정</strong></summary>
+
+![](/readmepic/user/bootcampSave.png)
+</details>
+<details>
+<summary><strong>부트캠프 삭제</strong></summary>
+
+![](/readmepic/user/bootcampDelete.png)
+</details>
+<details>
+<summary><strong>부트캠프 조회</strong></summary>
+
+![](/readmepic/user/bootcampTotalList.png)
+</details>
+
+</details>
+
+---
+
+<details>
+<summary><strong>훈련과정</strong></summary>
+
+<details>
+<summary><strong>훈련과정 등록</strong></summary>
+
+![](/readmepic/user/courseSave.png)
+</details>
+<details>
+<summary><strong>훈련과정 수정</strong></summary>
+
+![](/readmepic/user/courseModify.png)
+</details>
+<details>
+<summary><strong>훈련과정 삭제</strong></summary>
+
+![](/readmepic/user/courseDelete.png)
+</details>
+<details>
+<summary><strong>특정 훈련기관에 속한 훈련과정</strong></summary>
+
+![](/readmepic/user/courseSomeBootCampList.png)
+</details>
+<details>
+<summary><strong>훈련과정 전체 리스트</strong></summary>
+
+![](/readmepic/user/courseTotalList.png)
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>회원</strong></summary>
+
+<details>
+<summary><strong>회원 가입</strong></summary>
+
+![](/readmepic/user/userInfoSave.png)
+</details>
+<details>
+<summary><strong>회원 수정</strong></summary>
+
+![](/readmepic/user/userInfoModify.png)
+</details>
+<details>
+<summary><strong>회원 탈퇴</strong></summary>
+
+![](/readmepic/user/userInfoDelete.png)
+</details>
+<details>
+<summary><strong>회원 특정 조회(관리자)</strong></summary>
+
+![](/readmepic/user/AdminUserInfoSomeList.png)
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>알림</strong></summary>
+
+<details>
+<summary><strong>알림 등록</strong></summary>
+
+![](/readmepic/user/notiSave.png)
+</details>
+<details>
+<summary><strong>알림 조회</strong></summary>
+
+![](/readmepic/user/notiList.png)
+</details>
+<details>
+<summary><strong>알림 읽음 처리</strong></summary>
+
+![](/readmepic/user/notiRead.png)
+</details>
+</details>
+
+---
+
+<details>
+<summary><strong>친구</strong></summary>
+
+<details>
+<summary><strong>친구 신청</strong></summary>
+
+![](/readmepic/user/friendsRequest.png)
+</details>
+<details>
+<summary><strong>친구 거절</strong></summary>
+
+![](/readmepic/user/friendsDeny.png)
+</details>
+<details>
+<summary><strong>친구 요청 조회</strong></summary>
+
+![](/readmepic/user/friendsRequestList.png)
+</details>
+<details>
+<summary><strong>친구 목록 조회</strong></summary>
+
+![](/readmepic/user/friendsList.png)
+</details>
+<details>
+<summary><strong>친구 삭제</strong></summary>
+
+![](/readmepic/user/friendsDelete.png)
+</details>
+<details>
+<summary><strong>친구 요청 승인</strong></summary>
+
+![](/readmepic/user/friendsAccept.png)
+</details>
+</details>
+
 
 ### 📗 좋아요
 <details>
@@ -367,9 +523,19 @@
 ![](/readmepic/store/storeModify.png)
 </details>
 <details>
+<summary><strong>가게 전체 조회</strong></summary>
+
+![](/readmepic/store/storeTotalList.png)
+</details>
+<details>
 <summary><strong>가게 인기 많은 순 조회</strong></summary>
 
 ![](/readmepic/store/storePopularList.png)
+</details>
+<details>
+<summary><strong>가게 상세 조회</strong></summary>
+
+![](/readmepic/store/storeDetailList.png)
 </details>
 <details>
 <summary><strong>가게 등록</strong></summary>
@@ -402,6 +568,11 @@
 <summary><strong>메뉴 등록</strong></summary>
 
 ![](/readmepic/store/storeMenuSave.png)
+</details>
+<details>
+<summary><strong>메뉴 상세 조회</strong></summary>
+
+![](/readmepic/store/menuDetailTotalList.png)
 </details>
 <details>
 <summary><strong>메뉴 전체 리스트</strong></summary>
