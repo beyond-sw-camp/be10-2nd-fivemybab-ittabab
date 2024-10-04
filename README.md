@@ -250,9 +250,9 @@
 ![](/readmepic/user/userInfoDelete.png)
 </details>
 <details>
-<summary><strong>회원 특정 조회(관리자)</strong></summary>
+<summary><strong>특정 회원 조회(관리자)</strong></summary>
 
-![](/readmepic/user/AdminUserInfoSomeList.png)
+![](/readmepic/user/AdminUserinfoSomeList.png)
 </details>
 </details>
 
