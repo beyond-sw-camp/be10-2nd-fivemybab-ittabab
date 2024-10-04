@@ -1,0 +1,96 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: board-service
+
+  mail:
+    host: smtp.gmail.com
+    port: ${mail.port}
+    username: ${mail.address}
+    password: ${mail.pwd}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    auth-code-expiration-millis: 300000 # 5 * 60 * 1000 == 5?
+
+  config:
+    import: "classpath:bootstrap.yml"
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      ddl-auto: update
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:${db.port}/${db.dbname}
+    username: ${db.username}
+    password: ${db.password}
+
+  servlet:
+    multipart:
+      location: ${spring.servlet.multipart.location}
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+upload:
+  path: ${upload.path}
+
+springdoc:
+  packages-to-scan: com.fivemybab.ittabab
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.instance.instance-id:${random.value}}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+
+redis:
+  host: localhost
+  port: ${redis.port}
+
+google:
+  api-key: ${google.api.key}
+  map-api-url: ${google.map}
+
+naver:
+  client-id: ${naver.id}
+  secret-key: ${naver.secret}
+  geocoding-url: ${naver.geocoding}
+
+###
+management:
+  endpoint:
+    web:
+      exposure:
+        include: health, metrics, loggers, env, threaddump, beans, httpexcheanges
+
+openapi:
+  service:
+    url: http://localhost:8000/board-service

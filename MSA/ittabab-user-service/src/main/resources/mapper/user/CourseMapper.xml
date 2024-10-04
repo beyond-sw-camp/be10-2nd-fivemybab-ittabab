@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.user.query.mapper.CourseMapper">
+
+    <resultMap id="CourseDtoResultMap" type="com.fivemybab.ittabab.user.query.dto.CourseDto">
+        <result property="courseId" column="course_id"/>
+        <result property="bootId" column="boot_id"/>
+        <result property="startDate" column="stare_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="className" column="class_name"/>
+        <result property="seasonNum" column="season_num"/>
+    </resultMap>
+
+    <select id="findCourseByBootCamp" resultMap="CourseDtoResultMap">
+        SELECT *
+        FROM course
+        WHERE boot_id = #{bootId}
+    </select>
+
+    <select id="findAll" resultMap="CourseDtoResultMap">
+        SELECT *
+        FROM course
+    </select>
+
+</mapper>

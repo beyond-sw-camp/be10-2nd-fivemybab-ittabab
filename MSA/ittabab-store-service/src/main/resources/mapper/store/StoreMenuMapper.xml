@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fivemybab.ittabab.store.query.mapper.StoreMenuMapper">
+
+    <!-- 메뉴 리뷰가 많은순대로 조회하되, 후순위로 별점이 높은 순으로 조회 -->
+    <resultMap id="StorePopularMenuMap" type="com.fivemybab.ittabab.store.command.application.dto.StorePopularMenuInfoDto">
+        <result property="menuId" column="menu_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="menu_price"/>
+        <result property="reviewCount" column="review_count"/>
+        <result property="averageRating" column="average_rating"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+
+    <!-- 메뉴 인기순으로 조회(리뷰, 별점 내림차순) -->
+    <select
+            id="findStorePopularMenuByStoreId"
+            resultMap="StorePopularMenuMap">
+        SELECT
+        m.menu_id,
+        m.menu_name,
+        m.menu_price,
+        COUNT(r.review_id) AS review_count,
+        IFNULL(AVG(r.rating), 0) AS average_rating,
+        mc.menu_category_name AS category_name
+        FROM
+        menu m
+        LEFT JOIN
+        order_menu om ON m.menu_id = om.menu_id
+        LEFT JOIN
+        review r ON om.review_id = r.review_id
+        LEFT JOIN
+        menu_category mc ON m.menu_category_id = mc.menu_category_id
+        WHERE
+        m.store_id = #{storeId}
+        GROUP BY
+        m.menu_id, m.menu_name, m.menu_price, mc.menu_category_name
+        ORDER BY
+        review_count DESC, average_rating DESC;
+    </select>
+
+    <select
+            id="findStoreMenuByStoreId"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto">
+        SELECT *
+        FROM menu
+        WHERE store_id = #{storeId}
+    </select>
+
+
+
+    <select
+            id="findStoreMenuByMenuId"
+            resultType="com.fivemybab.ittabab.store.command.application.dto.StoreMenuInfoDto">
+        SELECT *
+        FROM menu
+        WHERE store_id = #{storeId}
+        AND menu_id = #{menuId}
+    </select>
+</mapper>
